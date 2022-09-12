@@ -63,6 +63,7 @@ public class Conection {
             if (con != null) {
                 con.close();
                 con = null;
+                System.out.println("fechou a conexao");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
