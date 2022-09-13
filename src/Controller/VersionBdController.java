@@ -5,7 +5,8 @@
  */
 package Controller;
 
-import static Model.Services.Implementations.ScriptImp.updateBankVersionImp;
+import Model.Services.Implementations.VersionBdImp;
+
 
 /**
  *
@@ -13,12 +14,14 @@ import static Model.Services.Implementations.ScriptImp.updateBankVersionImp;
  */
 public class VersionBdController {
     
+    
     public static int checkLatestBankVersion(){
         return 0;
     }
     
-    public static void updateBankVersion(){
-        updateBankVersionImp();
+    public void updateBankVersion(){
+        VersionBdImp imp = new VersionBdImp();
+        imp.updateBankVersionImp();
     }
     
 }

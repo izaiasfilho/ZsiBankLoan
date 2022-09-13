@@ -5,10 +5,28 @@
  */
 package Model.Services.Implementations;
 
+import Model.Persistence.VersionBdPersistence;
+import Model.Services.Interfaces.VersionBdInterface;
+import static Resources.BD.QuerySequency.listQueryVersion;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 /**
  *
  * @author Izaias
  */
-public class VersionBdImp {
-    // tratar aqui o retorno do result set
+
+public class VersionBdImp implements VersionBdInterface{
+    
+    @Override
+    public void updateBankVersionImp(){
+         try {   
+            VersionBdPersistence.updateBankVersionPersistence(listQueryVersion());
+        } catch (SQLException ex) {
+            Logger.getLogger(VersionBdImp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+        
 }

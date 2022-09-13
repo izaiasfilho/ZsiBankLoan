@@ -1,5 +1,7 @@
 
-import static Controller.VersionBdController.updateBankVersion;
+import Controller.VersionBdController;
+
+
 
 
 
@@ -15,6 +17,7 @@ import static Controller.VersionBdController.updateBankVersion;
  */
 public class ZsiBankLoanApiApplication {
     public static void main(String[] args) {
-        updateBankVersion();
+        VersionBdController cont = new VersionBdController();
+        cont.updateBankVersion();
     }
 }
