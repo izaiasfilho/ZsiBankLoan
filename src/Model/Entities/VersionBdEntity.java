@@ -5,7 +5,7 @@
  */
 package Model.Entities;
 
-import Model.TypeDml;
+import Model.Enuns.TypeDml;
 
 /**
  *

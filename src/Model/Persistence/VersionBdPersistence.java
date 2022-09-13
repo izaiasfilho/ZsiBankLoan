@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Persistence;
+package Model.Persistence;
 
 import static Resources.BD.Conection.Checks;
 import static Resources.BD.Conection.closeConect;
@@ -36,5 +36,7 @@ public class VersionBdPersistence {
             }
         });
     }
+    // criar estrurura retornando o result set
+    //capturar o resultado no implemetations
 
 }

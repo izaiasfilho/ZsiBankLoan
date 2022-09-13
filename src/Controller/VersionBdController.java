@@ -5,13 +5,17 @@
  */
 package Controller;
 
-import static Model.Implementations.ScriptImp.updateBankVersionImp;
+import static Model.Services.Implementations.ScriptImp.updateBankVersionImp;
 
 /**
  *
  * @author Izaias
  */
 public class VersionBdController {
+    
+    public static int checkLatestBankVersion(){
+        return 0;
+    }
     
     public static void updateBankVersion(){
         updateBankVersionImp();

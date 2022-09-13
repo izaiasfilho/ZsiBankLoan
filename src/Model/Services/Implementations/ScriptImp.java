@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Implementations;
+package Model.Services.Implementations;
 
-import Persistence.VersionBdPersistence;
+import Model.Persistence.VersionBdPersistence;
 import static Resources.BD.QuerySequency.listQueryVersion;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
