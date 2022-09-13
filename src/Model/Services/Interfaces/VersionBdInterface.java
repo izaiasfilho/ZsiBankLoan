@@ -5,6 +5,9 @@
  */
 package Model.Services.Interfaces;
 
+import Model.Entities.VersionBdEntity;
+import java.util.ArrayList;
+
 /**
  *
  * @author Izaias
@@ -12,4 +15,11 @@ package Model.Services.Interfaces;
 public interface VersionBdInterface {
     
     public void updateBankVersionImp();
+    
+    public ArrayList<VersionBdEntity> getListVersionBdImp();
+    
+    public boolean checkExistTbVersionImp();
+        
+    
+    
 }

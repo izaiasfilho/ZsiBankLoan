@@ -34,6 +34,7 @@ public class QuerySequency {
         
         array.add("ALTER TABLE tb_version ADD CONSTRAINT `id_typedml` FOREIGN KEY (`id_typedml`) REFERENCES tb_en_typedml(id)");
         
+        array.add("INSERT INTO tb_version (version, id_typedml, description) VALUES (0100, 3, 'Instalação Inicial');");
      
         return array;
     }

@@ -12,34 +12,10 @@ import Model.Enuns.TypeDml;
  * @author Izaias
  */
 public class VersionBdEntity {
-    private Long id;
-    private Long version;
+    private int id;
+    private int version;
     private TypeDml typeDml;
-
-    public TypeDml getTypeDml() {
-        return typeDml;
-    }
-
-    public void setTypeDml(TypeDml typeDml) {
-        this.typeDml = typeDml;
-    }
     private String description;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
 
     public String getDescription() {
         return description;
@@ -50,4 +26,29 @@ public class VersionBdEntity {
     }
     
     
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public TypeDml getTypeDml() {
+        return typeDml;
+    }
+
+    public void setTypeDml(TypeDml typeDml) {
+        this.typeDml = typeDml;
+    }
+
 }

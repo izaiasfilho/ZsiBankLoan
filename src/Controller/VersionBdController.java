@@ -5,23 +5,32 @@
  */
 package Controller;
 
+import Model.Entities.VersionBdEntity;
 import Model.Services.Implementations.VersionBdImp;
-
+import java.util.ArrayList;
 
 /**
  *
  * @author Izaias
  */
 public class VersionBdController {
-    
-    
-    public static int checkLatestBankVersion(){
-        return 0;
-    }
-    
-    public void updateBankVersion(){
+
+    public boolean checkLatestBankVersionController() {
         VersionBdImp imp = new VersionBdImp();
-        imp.updateBankVersionImp();
+        return imp.checkExistTbVersionImp();
     }
+
+    public void updateBankVersion() {
+        if (!checkLatestBankVersionController()){
+            VersionBdImp imp = new VersionBdImp();
+            imp.updateBankVersionImp();
+        }
+    }
+    
+    public ArrayList<VersionBdEntity> listVersionsBd(){
+        VersionBdImp imp = new VersionBdImp();
+        return imp.getListVersionBdImp();
+    }
+    
     
 }
