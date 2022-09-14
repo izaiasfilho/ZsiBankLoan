@@ -11,22 +11,25 @@ import java.util.Arrays;
  *
  * @author Izaias
  */
-public enum TypeDml {
+public enum TypetransactionsSql {
     DELETE(1),
     UPDATE(2),
-    INSERT(3);
+    INSERT(3),
+    ALTER(4),
+    CREATER(5),
+    DROP(6);
     
     private int id;
     
-    private TypeDml(int id){
+    private TypetransactionsSql(int id){
         this.id = id;
     }
     public int getId(){
         return id;
     }
     
-    public static TypeDml getById(Long id){
-        return Arrays.asList(TypeDml.values()).stream().filter(st -> 
+    public static TypetransactionsSql getById(Long id){
+        return Arrays.asList(TypetransactionsSql.values()).stream().filter(st -> 
                 st.getId()==(id)).findFirst().orElse(null);
     }
 }

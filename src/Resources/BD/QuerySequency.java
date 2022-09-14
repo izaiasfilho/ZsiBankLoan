@@ -5,6 +5,8 @@
  */
 package Resources.BD;
 
+import Controller.VersionBdController;
+import Model.Enuns.TypetransactionsSql;
 import java.util.ArrayList;
 
 /**
@@ -17,37 +19,38 @@ public class QuerySequency {
     public static ArrayList<String> listQueryVersion(){
         ArrayList<String> array = new ArrayList<>();
         
-        array.add("CREATE TABLE IF NOT EXISTS tb_en_typedml( \n" +
+        array.add("CREATE TABLE IF NOT EXISTS tb_en_typetransactionssql( \n" +
 "	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\n" +
 "	description VARCHAR(100) NOT NULL);");
         
-        array.add("INSERT INTO tb_en_typedml (id, description) VALUES (1, 'DELETE');");
-        array.add("INSERT INTO tb_en_typedml (id, description) VALUES (2, 'UPDATE');");
-        array.add("INSERT INTO tb_en_typedml (id, description) VALUES (3, 'INSERT');");
-
+        array.add("INSERT INTO tb_en_typetransactionssql (id, description) VALUES (1, 'DELETE');");
+        array.add("INSERT INTO tb_en_typetransactionssql (id, description) VALUES (2, 'UPDATE');");
+        array.add("INSERT INTO tb_en_typetransactionssql (id, description) VALUES (3, 'INSERT');");
+        array.add("INSERT INTO tb_en_typetransactionssql (id, description) VALUES (4, 'ALTER');");
+        array.add("INSERT INTO tb_en_typetransactionssql (id, description) VALUES (5, 'CREATER');");
+        array.add("INSERT INTO tb_en_typetransactionssql (id, description) VALUES (6, 'DROP');");
         
         array.add("CREATE TABLE IF NOT EXISTS tb_version( \n" +
 "	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\n" +
 "	version INT,\n" +
-    "	id_typedml INT NOT NULL,\n" +
+    "	id_typetransactionssql INT NOT NULL,\n" +
 "	description VARCHAR(100) NOT NULL);");
         
-        array.add("ALTER TABLE tb_version ADD CONSTRAINT `id_typedml` FOREIGN KEY (`id_typedml`) REFERENCES tb_en_typedml(id)");
+        array.add("ALTER TABLE tb_version ADD CONSTRAINT `id_typetransactionssql` FOREIGN KEY (`id_typetransactionssql`) REFERENCES tb_en_typetransactionssql(id)");
+       
+        array.add("INSERT INTO tb_version (version, id_typetransactionssql, description) "
+                + "VALUES ("+1+","+TypetransactionsSql.CREATER.getId()+",'Instalação inicial');");
         
-        array.add("INSERT INTO tb_version (version, id_typedml, description) VALUES (0100, 3, 'Instalação Inicial');");
-     
         return array;
     }
     
-    public static String registerVersionBd(){
-        // verifica a versao atual --> SELECT max(version) FROM u323187073_zsibl.tb_version;
-            //se nao existir = 1
-            //se existir = recebe atual +1
-        return "INSERT INTO `tb_version` (`version`, `description`) VALUES ('1', 'teste');";
-    }
-    
-    public static void getVersionBd(){
-        
+    public static String registerVersionBd( TypetransactionsSql type, String descryption){
+        VersionBdController controller = new VersionBdController();
+        int versionBd = 1;
+        if(controller.listVersionsBd().size()>0){
+           versionBd = controller.listVersionsBd().size() +1; 
+        }
+        return "INSERT INTO tb_version (version, id_typetransactionssql, description) VALUES ("+versionBd+1 +","+type.getId()+","+descryption+");";
     }
    
 }

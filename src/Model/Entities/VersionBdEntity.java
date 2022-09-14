@@ -5,7 +5,7 @@
  */
 package Model.Entities;
 
-import Model.Enuns.TypeDml;
+import Model.Enuns.TypetransactionsSql;
 
 /**
  *
@@ -14,7 +14,7 @@ import Model.Enuns.TypeDml;
 public class VersionBdEntity {
     private int id;
     private int version;
-    private TypeDml typeDml;
+    private TypetransactionsSql typeDml;
     private String description;
 
     public String getDescription() {
@@ -43,11 +43,11 @@ public class VersionBdEntity {
         this.version = version;
     }
 
-    public TypeDml getTypeDml() {
+    public TypetransactionsSql getTypeDml() {
         return typeDml;
     }
 
-    public void setTypeDml(TypeDml typeDml) {
+    public void setTypeDml(TypetransactionsSql typeDml) {
         this.typeDml = typeDml;
     }
 
