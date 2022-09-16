@@ -20,6 +20,8 @@ public interface VersionBdInterface {
     
     public boolean checkExistTbVersionImp();
         
+    public int lastVersionBd();
     
+    public void versionControl();
     
 }

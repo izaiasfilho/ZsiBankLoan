@@ -21,10 +21,8 @@ public class VersionBdController {
     }
 
     public void updateBankVersion() {
-        if (!checkLatestBankVersionController()){
             VersionBdImp imp = new VersionBdImp();
             imp.updateBankVersionImp();
-        }
     }
     
     public ArrayList<VersionBdEntity> listVersionsBd(){

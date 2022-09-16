@@ -11,7 +11,6 @@ import static Resources.BD.Conection.conect;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,22 +20,20 @@ import java.util.logging.Logger;
  */
 public class VersionBdPersistence {
 
-    public static void updateBankVersionPersistence(ArrayList<String> array) throws SQLException {
-        array.stream().forEach(scrypt -> {
-            PreparedStatement preparedStatement = null;
-            if (Checks()) {
-                closeConect();
-            }
-            try {
-                preparedStatement = conect().prepareStatement(scrypt);
-                preparedStatement.executeUpdate();
-                preparedStatement.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(VersionBdPersistence.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                closeConect();
-            }
-        });
+    public static void updateBankVersionPersistence(String query) throws SQLException {
+        PreparedStatement preparedStatement = null;
+        if (Checks()) {
+            closeConect();
+        }
+        try {
+            preparedStatement = conect().prepareStatement(query);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(VersionBdPersistence.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConect();
+        }
     }
 
     public static ResultSet getVersionsPersistence(String query) {
@@ -61,10 +58,10 @@ public class VersionBdPersistence {
         }
         try {
             preparedStatement = conect().prepareStatement(query);
-            
+
             preparedStatement.executeQuery();
             preparedStatement.close();
-            
+
             return true;
         } catch (SQLException ex) {
             return false;

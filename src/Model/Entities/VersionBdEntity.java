@@ -14,9 +14,17 @@ import Model.Enuns.TypetransactionsSql;
 public class VersionBdEntity {
     private int id;
     private int version;
-    private TypetransactionsSql typeDml;
+    private String typetransactionssql;
     private String description;
 
+    public String getTypetransactionssql() {
+        return typetransactionssql;
+    }
+
+    public void setTypetransactionssql(String typetransactionssql) {
+        this.typetransactionssql = typetransactionssql;
+    }
+    
     public String getDescription() {
         return description;
     }
@@ -25,8 +33,6 @@ public class VersionBdEntity {
         this.description = description;
     }
     
-    
-
     public int getId() {
         return id;
     }
@@ -41,14 +47,6 @@ public class VersionBdEntity {
 
     public void setVersion(int version) {
         this.version = version;
-    }
-
-    public TypetransactionsSql getTypeDml() {
-        return typeDml;
-    }
-
-    public void setTypeDml(TypetransactionsSql typeDml) {
-        this.typeDml = typeDml;
     }
 
 }

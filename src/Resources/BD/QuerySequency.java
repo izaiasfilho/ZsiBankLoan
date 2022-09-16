@@ -5,8 +5,6 @@
  */
 package Resources.BD;
 
-import Controller.VersionBdController;
-import Model.Enuns.TypetransactionsSql;
 import java.util.ArrayList;
 
 /**
@@ -33,24 +31,16 @@ public class QuerySequency {
         array.add("CREATE TABLE IF NOT EXISTS tb_version( \n" +
 "	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\n" +
 "	version INT,\n" +
-    "	id_typetransactionssql INT NOT NULL,\n" +
-"	description VARCHAR(100) NOT NULL);");
+    "	typetransactionssql VARCHAR(100) NOT NULL,\n" +
+"	description VARCHAR(500) NOT NULL);");
         
-        array.add("ALTER TABLE tb_version ADD CONSTRAINT `id_typetransactionssql` FOREIGN KEY (`id_typetransactionssql`) REFERENCES tb_en_typetransactionssql(id)");
-       
-        array.add("INSERT INTO tb_version (version, id_typetransactionssql, description) "
-                + "VALUES ("+1+","+TypetransactionsSql.CREATER.getId()+",'Instalação inicial');");
+        
         
         return array;
     }
     
-    public static String registerVersionBd( TypetransactionsSql type, String descryption){
-        VersionBdController controller = new VersionBdController();
-        int versionBd = 1;
-        if(controller.listVersionsBd().size()>0){
-           versionBd = controller.listVersionsBd().size() +1; 
-        }
-        return "INSERT INTO tb_version (version, id_typetransactionssql, description) VALUES ("+versionBd+1 +","+type.getId()+","+descryption+");";
+    public static String registerVersionBd(int ver, String descryption ){
+         return "INSERT INTO tb_version (version, typetransactionssql, description) VALUES ("+ver+","+"'"+descryption.substring(0, 7)+"'"+","+"'"+descryption.substring(0, 50)+"');";
     }
    
 }

@@ -6,10 +6,8 @@
 package Model.Services.Implementations.ResultsetConvert;
 
 import Model.Entities.VersionBdEntity;
-import Model.Enuns.TypetransactionsSql;
 import Model.Persistence.VersionBdPersistence;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -31,7 +29,7 @@ public class VersionBdResultsetConvert {
 
                     versionBdEntity.setId(rs.getInt("id"));
                     versionBdEntity.setVersion(rs.getInt("version"));
-                    versionBdEntity.setTypeDml(TypetransactionsSql.getById(rs.getLong("id_typedml")));
+                    versionBdEntity.setTypetransactionssql(rs.getString("typetransactionssql"));
                     versionBdEntity.setDescription(rs.getString("description"));
 
                     listVersionBd.add(versionBdEntity);
