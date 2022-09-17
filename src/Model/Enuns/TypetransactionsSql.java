@@ -16,7 +16,7 @@ public enum TypetransactionsSql {
     UPDATE(2),
     INSERT(3),
     ALTER(4),
-    CREATER(5),
+    CREATE(5),
     DROP(6);
     
     private int id;

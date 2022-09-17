@@ -25,12 +25,12 @@ public class Conection {
             if (con == null) {
                 String driver = "jdbc:mysql";
                 String port = "://:3306/";
-                String banck = "u323187073_zsibl";
+                String database = "u323187073_zsibl";
                 String ssl = "?autoReconnect=true&useSSL=false";
                 String user = "root";
                 String passwd = "mnd0266";
                 
-               String caminho = driver+port+banck+ssl;
+               String caminho = driver+port+database+ssl;
                 
                 DriverManager.setLoginTimeout(10);
                 

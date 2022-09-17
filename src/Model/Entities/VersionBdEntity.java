@@ -14,16 +14,17 @@ import Model.Enuns.TypetransactionsSql;
 public class VersionBdEntity {
     private int id;
     private int version;
-    private String typetransactionssql;
+    private TypetransactionsSql id_typetransactionssql;
     private String description;
 
-    public String getTypetransactionssql() {
-        return typetransactionssql;
+    public TypetransactionsSql getId_typetransactionssql() {
+        return id_typetransactionssql;
     }
 
-    public void setTypetransactionssql(String typetransactionssql) {
-        this.typetransactionssql = typetransactionssql;
+    public void setId_typetransactionssql(TypetransactionsSql id_typetransactionssql) {
+        this.id_typetransactionssql = id_typetransactionssql;
     }
+
     
     public String getDescription() {
         return description;

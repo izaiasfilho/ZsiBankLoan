@@ -6,6 +6,7 @@
 package Model.Services.Implementations;
 
 import Model.Entities.VersionBdEntity;
+import Model.Enuns.TypetransactionsSql;
 import Model.Persistence.VersionBdPersistence;
 import static Model.Services.Implementations.ResultsetConvert.VersionBdResultsetConvert.checkExistTbVersionResultsetConvert;
 import static Model.Services.Implementations.ResultsetConvert.VersionBdResultsetConvert.getListVersionBdResultsetConvert;
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
  *
  * @author Izaias
  */
-public class VersionBdImp implements VersionBdInterface {
+public class VersionBdImplemetatiion implements VersionBdInterface {
 
     @Override
     public void updateBankVersionImp() {
@@ -31,7 +32,7 @@ public class VersionBdImp implements VersionBdInterface {
                 try {
                     VersionBdPersistence.updateBankVersionPersistence(query);
                 } catch (SQLException ex) {
-                    Logger.getLogger(VersionBdImp.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(VersionBdImplemetatiion.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
 
@@ -63,21 +64,52 @@ public class VersionBdImp implements VersionBdInterface {
         for (int x = lastVersionBd(); x < listQueryVersion().size(); x++) {
             try {
                 VersionBdPersistence.updateBankVersionPersistence(listQueryVersion().get(x));
-                
+
                 updateVersion(x);
             } catch (SQLException ex) {
-                Logger.getLogger(VersionBdImp.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(VersionBdImplemetatiion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
+    @Override
     public void updateVersion(int i) {
         try {
             VersionBdPersistence.updateBankVersionPersistence(
-                    QuerySequency.registerVersionBd(i + 1, listQueryVersion().get(i)));
+                    QuerySequency.registerVersionBd(i + 1,
+                            convertStringToTypeTransactions(listQueryVersion().get(i).substring(0, 7)),
+                            listQueryVersion().get(i)));
         } catch (SQLException ex) {
-            Logger.getLogger(VersionBdImp.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VersionBdImplemetatiion.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public TypetransactionsSql convertStringToTypeTransactions(String type) {
+        if (type.contains("DELETE")) {
+            return TypetransactionsSql.DELETE;
+        } else {
+            if (type.contains("UPDATE")) {
+                return TypetransactionsSql.UPDATE;
+            } else {
+                if (type.contains("INSERT")) {
+                    return TypetransactionsSql.INSERT;
+                } else {
+                    if (type.contains("ALTER")) {
+                        return TypetransactionsSql.ALTER;
+                    } else {
+                        if (type.contains("CREATE")) {
+                            return TypetransactionsSql.CREATE;
+                        } else {
+                            if (type.contains("DROP")) {
+                                return TypetransactionsSql.DROP;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
 }

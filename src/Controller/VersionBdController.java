@@ -6,7 +6,7 @@
 package Controller;
 
 import Model.Entities.VersionBdEntity;
-import Model.Services.Implementations.VersionBdImp;
+import Model.Services.Implementations.VersionBdImplemetatiion;
 import java.util.ArrayList;
 
 /**
@@ -16,17 +16,17 @@ import java.util.ArrayList;
 public class VersionBdController {
 
     public boolean checkLatestBankVersionController() {
-        VersionBdImp imp = new VersionBdImp();
+        VersionBdImplemetatiion imp = new VersionBdImplemetatiion();
         return imp.checkExistTbVersionImp();
     }
 
     public void updateBankVersion() {
-            VersionBdImp imp = new VersionBdImp();
+            VersionBdImplemetatiion imp = new VersionBdImplemetatiion();
             imp.updateBankVersionImp();
     }
     
     public ArrayList<VersionBdEntity> listVersionsBd(){
-        VersionBdImp imp = new VersionBdImp();
+        VersionBdImplemetatiion imp = new VersionBdImplemetatiion();
         return imp.getListVersionBdImp();
     }
     
