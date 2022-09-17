@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Conection;
+package Resources.BD;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,12 +25,12 @@ public class Conection {
             if (con == null) {
                 String driver = "jdbc:mysql";
                 String port = "://:3306/";
-                String banck = "u323187073_zsibl";
+                String database = "u323187073_zsibl";
                 String ssl = "?autoReconnect=true&useSSL=false";
                 String user = "root";
                 String passwd = "mnd0266";
                 
-               String caminho = driver+port+banck+ssl;
+               String caminho = driver+port+database+ssl;
                 
                 DriverManager.setLoginTimeout(10);
                 
@@ -63,6 +63,7 @@ public class Conection {
             if (con != null) {
                 con.close();
                 con = null;
+                System.out.println("fechou a conexao");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
