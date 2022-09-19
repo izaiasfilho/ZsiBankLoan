@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class VersionBdPersistence {
 
-    public static void updateBankVersionPersistence(String query) throws SQLException {
+    public static boolean updateBankVersionPersistence(String query) throws SQLException {
         PreparedStatement preparedStatement = null;
         if (Checks()) {
             closeConect();
@@ -29,11 +29,13 @@ public class VersionBdPersistence {
             preparedStatement = conect().prepareStatement(query);
             preparedStatement.executeUpdate();
             preparedStatement.close();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(VersionBdPersistence.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeConect();
         }
+        return false;
     }
 
     public static ResultSet getVersionsPersistence(String query) {

@@ -63,9 +63,11 @@ public class VersionBdImplemetatiion implements VersionBdInterface {
     public void versionControl() {
         for (int x = lastVersionBd(); x < listQueryVersion().size(); x++) {
             try {
-                VersionBdPersistence.updateBankVersionPersistence(listQueryVersion().get(x));
-
-                updateVersion(x);
+                if (VersionBdPersistence.updateBankVersionPersistence(listQueryVersion().get(x))) {
+                    updateVersion(x);
+                }else{
+                    x = listQueryVersion().size();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(VersionBdImplemetatiion.class.getName()).log(Level.SEVERE, null, ex);
             }

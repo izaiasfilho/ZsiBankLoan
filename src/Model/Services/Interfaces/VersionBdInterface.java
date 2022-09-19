@@ -29,4 +29,5 @@ public interface VersionBdInterface {
     
     public TypetransactionsSql convertStringToTypeTransactions(String type);
     
+    
 }

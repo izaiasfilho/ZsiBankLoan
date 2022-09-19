@@ -27,7 +27,7 @@ public class QuerySequency {
         array.add("INSERT INTO tb_en_typetransactionssql (id, description) VALUES (4, 'ALTER');");
         array.add("INSERT INTO tb_en_typetransactionssql (id, description) VALUES (5, 'CREATE');");
         array.add("INSERT INTO tb_en_typetransactionssql (id, description) VALUES (6, 'DROP');");
-
+        
         array.add("CREATE TABLE IF NOT EXISTS tb_version( \n"
                 + "	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\n"
                 + "	version INT,\n"
