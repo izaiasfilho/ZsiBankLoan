@@ -6,7 +6,7 @@
 package Model.Services.Interfaces;
 
 import Model.Entities.VersionBdEntity;
-import Model.Enuns.TypetransactionsSql;
+import Model.Enuns.TypetransactionsSqlEnuns;
 import java.util.ArrayList;
 
 /**
@@ -27,7 +27,7 @@ public interface VersionBdInterface {
     
     public void updateVersion(int i);
     
-    public TypetransactionsSql convertStringToTypeTransactions(String type);
+    public TypetransactionsSqlEnuns convertStringToTypeTransactions(String type);
     
     
 }

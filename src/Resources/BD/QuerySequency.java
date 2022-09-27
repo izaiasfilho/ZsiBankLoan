@@ -5,7 +5,7 @@
  */
 package Resources.BD;
 
-import Model.Enuns.TypetransactionsSql;
+import Model.Enuns.TypetransactionsSqlEnuns;
 import java.util.ArrayList;
 
 /**
@@ -37,15 +37,24 @@ public class QuerySequency {
         array.add("ALTER TABLE tb_version ADD CONSTRAINT `id_typetransactionssql` FOREIGN KEY (`id_typetransactionssql`) REFERENCES tb_en_typetransactionssql(id)");
 
         
+        array.add("CREATE TABLE IF NOT EXISTS tb_role( \n"
+                + "	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\n"
+                + "	description VARCHAR(100) NOT NULL);");
+        
+        array.add("INSERT INTO tb_role (id, description) VALUES (1, 'ADMIN');");
+        array.add("INSERT INTO tb_role (id, description) VALUES (2, 'GR');");
+        array.add("INSERT INTO tb_role (id, description) VALUES (3, 'FUNCIONARIO');");
+        array.add("INSERT INTO tb_role (id, description) VALUES (4, 'CONSULTOR');");
+        array.add("INSERT INTO tb_role (id, description) VALUES (5, 'CLIENTE');");
         return array;
     }
 
-    public static String registerVersionBd(int version,TypetransactionsSql typetransactionsSql, String descryption) {
+    public static String registerVersionBd(int version,TypetransactionsSqlEnuns typetransactionsSql, String descryption) {
         return "INSERT INTO tb_version (version, id_typetransactionssql, description) "
                 + "VALUES "
                 + "(" + version + ","
                 + "" + "'" + typetransactionsSql.getId() + "'" + ","
-                + "" + "'" + descryption.substring(0, 50) + "');";
+                + "" + "'" + "  " + "');";
     }
 
 

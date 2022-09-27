@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Izaias/Documents/NetBeansProjects/ZsiBankLoan/src/Resources/BD/QuerySequency.java</file>
-            <file>file:/C:/Users/Izaias/Documents/NetBeansProjects/ZsiBankLoan/src/Model/Services/Interfaces/VersionBdInterface.java</file>
-            <file>file:/C:/Users/Izaias/Documents/NetBeansProjects/ZsiBankLoan/src/Model/Persistence/VersionBdPersistence.java</file>
-            <file>file:/C:/Users/Izaias/Documents/NetBeansProjects/ZsiBankLoan/src/Model/Services/Implementations/VersionBdImplemetatiion.java</file>
+            <file>file:/C:/Users/Izaias/Documents/NetBeansProjects/ZsiBankLoan/src/ZsiBankLoanApiApplication.java</file>
+            <file>file:/C:/Users/Izaias/Documents/NetBeansProjects/ZsiBankLoan/src/View/LoginView.java</file>
+            <file>file:/C:/Users/Izaias/Documents/NetBeansProjects/ZsiBankLoan/src/View/ProposalView.java</file>
+            <file>file:/C:/Users/Izaias/Documents/NetBeansProjects/ZsiBankLoan/src/View/MainScreenView.java</file>
         </group>
     </open-files>
 </project-private>
