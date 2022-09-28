@@ -5,7 +5,7 @@
  */
 package Model.Entities;
 
-import Model.Enuns.TypetransactionsSql;
+import Model.Enuns.TypetransactionsSqlEnuns;
 
 /**
  *
@@ -14,14 +14,14 @@ import Model.Enuns.TypetransactionsSql;
 public class VersionBdEntity {
     private int id;
     private int version;
-    private TypetransactionsSql id_typetransactionssql;
+    private TypetransactionsSqlEnuns id_typetransactionssql;
     private String description;
 
-    public TypetransactionsSql getId_typetransactionssql() {
+    public TypetransactionsSqlEnuns getId_typetransactionssql() {
         return id_typetransactionssql;
     }
 
-    public void setId_typetransactionssql(TypetransactionsSql id_typetransactionssql) {
+    public void setId_typetransactionssql(TypetransactionsSqlEnuns id_typetransactionssql) {
         this.id_typetransactionssql = id_typetransactionssql;
     }
 

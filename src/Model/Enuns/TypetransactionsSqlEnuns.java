@@ -11,7 +11,7 @@ import java.util.Arrays;
  *
  * @author Izaias
  */
-public enum TypetransactionsSql {
+public enum TypetransactionsSqlEnuns {
     DELETE(1),
     UPDATE(2),
     INSERT(3),
@@ -21,15 +21,15 @@ public enum TypetransactionsSql {
     
     private int id;
     
-    private TypetransactionsSql(int id){
+    private TypetransactionsSqlEnuns(int id){
         this.id = id;
     }
     public int getId(){
         return id;
     }
     
-    public static TypetransactionsSql getById(Long id){
-        return Arrays.asList(TypetransactionsSql.values()).stream().filter(st -> 
+    public static TypetransactionsSqlEnuns getById(Long id){
+        return Arrays.asList(TypetransactionsSqlEnuns.values()).stream().filter(st -> 
                 st.getId()==(id)).findFirst().orElse(null);
     }
 }

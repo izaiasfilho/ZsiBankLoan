@@ -1,5 +1,6 @@
 
 import Controller.VersionBdController;
+import View.LoginView;
 
 
 /*
@@ -16,5 +17,8 @@ public class ZsiBankLoanApiApplication {
     public static void main(String[] args) {
         VersionBdController controller = new VersionBdController();
          controller.updateBankVersion();
+         
+         LoginView login = new LoginView();
+        // login.setVisible(true);
     }
 }

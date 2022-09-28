@@ -6,7 +6,7 @@
 package Model.Services.Implementations;
 
 import Model.Entities.VersionBdEntity;
-import Model.Enuns.TypetransactionsSql;
+import Model.Enuns.TypetransactionsSqlEnuns;
 import Model.Persistence.VersionBdPersistence;
 import static Model.Services.Implementations.ResultsetConvert.VersionBdResultsetConvert.checkExistTbVersionResultsetConvert;
 import static Model.Services.Implementations.ResultsetConvert.VersionBdResultsetConvert.getListVersionBdResultsetConvert;
@@ -63,9 +63,11 @@ public class VersionBdImplemetatiion implements VersionBdInterface {
     public void versionControl() {
         for (int x = lastVersionBd(); x < listQueryVersion().size(); x++) {
             try {
-                VersionBdPersistence.updateBankVersionPersistence(listQueryVersion().get(x));
-
-                updateVersion(x);
+                if (VersionBdPersistence.updateBankVersionPersistence(listQueryVersion().get(x))) {
+                    updateVersion(x);
+                }else{
+                    x = listQueryVersion().size();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(VersionBdImplemetatiion.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -85,24 +87,24 @@ public class VersionBdImplemetatiion implements VersionBdInterface {
     }
 
     @Override
-    public TypetransactionsSql convertStringToTypeTransactions(String type) {
+    public TypetransactionsSqlEnuns convertStringToTypeTransactions(String type) {
         if (type.contains("DELETE")) {
-            return TypetransactionsSql.DELETE;
+            return TypetransactionsSqlEnuns.DELETE;
         } else {
             if (type.contains("UPDATE")) {
-                return TypetransactionsSql.UPDATE;
+                return TypetransactionsSqlEnuns.UPDATE;
             } else {
                 if (type.contains("INSERT")) {
-                    return TypetransactionsSql.INSERT;
+                    return TypetransactionsSqlEnuns.INSERT;
                 } else {
                     if (type.contains("ALTER")) {
-                        return TypetransactionsSql.ALTER;
+                        return TypetransactionsSqlEnuns.ALTER;
                     } else {
                         if (type.contains("CREATE")) {
-                            return TypetransactionsSql.CREATE;
+                            return TypetransactionsSqlEnuns.CREATE;
                         } else {
                             if (type.contains("DROP")) {
-                                return TypetransactionsSql.DROP;
+                                return TypetransactionsSqlEnuns.DROP;
                             }
                         }
                     }
