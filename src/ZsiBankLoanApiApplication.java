@@ -19,6 +19,6 @@ public class ZsiBankLoanApiApplication {
          controller.updateBankVersion();
          
          LoginView login = new LoginView();
-        // login.setVisible(true);
+         login.setVisible(true);
     }
 }
