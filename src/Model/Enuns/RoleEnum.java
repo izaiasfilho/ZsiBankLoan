@@ -11,24 +11,25 @@ import java.util.Arrays;
  *
  * @author Izaias
  */
-public enum RoleEnuns {
-    ADMIN(1),
-    GR(2),
-    FUNCIONARIO(3),
-    CONSULTOR(4),
-    CLIENTE(5);
+public enum RoleEnum {
+    ADMINISTRADOR(1),
+    GERENTE(2),
+    CLIENTE(3),
+    FUNCIONARIO(4),
+    CORRETOR(5);
     
+   
     private int id;
     
-    private RoleEnuns(int id){
+    private RoleEnum(int id){
         this.id = id;
     }
     public int getId(){
         return id;
     }
     
-    public static RoleEnuns getById(Long id){
-        return Arrays.asList(RoleEnuns.values()).stream().filter(st -> 
+    public static RoleEnum getById(Long id){
+        return Arrays.asList(RoleEnum.values()).stream().filter(st -> 
                 st.getId()==(id)).findFirst().orElse(null);
     }
 }
