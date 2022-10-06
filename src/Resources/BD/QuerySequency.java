@@ -46,6 +46,15 @@ public class QuerySequency {
         array.add("INSERT INTO tb_role (id, description) VALUES (3, 'FUNCIONARIO');");
         array.add("INSERT INTO tb_role (id, description) VALUES (4, 'CONSULTOR');");
         array.add("INSERT INTO tb_role (id, description) VALUES (5, 'CLIENTE');");
+        
+        array.add("CREATE TABLE IF NOT EXISTS tb_Loan_status( \n"
+                + "	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\n"
+                + "	description VARCHAR(100) NOT NULL);");
+        
+        array.add("INSERT INTO tb_Loan_status (id, description) VALUES (1, 'FINALIZADO');");
+        array.add("INSERT INTO tb_Loan_status (id, description) VALUES (2, 'CANCELADO');");
+        array.add("INSERT INTO tb_Loan_status (id, description) VALUES (3, 'DIGITADO');");
+        
         return array;
     }
 
@@ -56,6 +65,10 @@ public class QuerySequency {
                 + "" + "'" + typetransactionsSql.getId() + "'" + ","
                 + "" + "'" + "  " + "');";
     }
+ 
+               
 
+    public QuerySequency() {
+    }
 
 }
