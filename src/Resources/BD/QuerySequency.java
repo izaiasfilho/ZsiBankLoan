@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Izaias
+ * @author FABIO COSTA
  */
 public class QuerySequency {
 
@@ -54,6 +54,12 @@ public class QuerySequency {
         array.add("INSERT INTO tb_Loan_status (id, description) VALUES (1, 'FINALIZADO');");
         array.add("INSERT INTO tb_Loan_status (id, description) VALUES (2, 'CANCELADO');");
         array.add("INSERT INTO tb_Loan_status (id, description) VALUES (3, 'DIGITADO');");
+        
+        array.add("CREATE TABLE IF NOT EXISTS tb_City( \n"
+                + "	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\n"
+                + "	description VARCHAR(100) NOT NULL);");
+        
+        
         
         return array;
     }
