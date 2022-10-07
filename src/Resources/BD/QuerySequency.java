@@ -55,43 +55,46 @@ public class QuerySequency {
         array.add("INSERT INTO tb_transaction (id, description) VALUES (3, 'MARGEM_LIVRE');");
         array.add("INSERT INTO tb_transaction (id, description) VALUES (4, 'CARTAO_RMC');");
         array.add("INSERT INTO tb_transaction (id, description) VALUES (5, 'EMPRESTIMO_CARTAO');");
-        array.add("INSERT INTO tb_transaction (id, description) VALUES (6, 'CARTAO BENEFICIARIO');");
         array.add("INSERT INTO tb_transaction (id, description) VALUES (7, 'FGTS');");
+        array.add("INSERT INTO tb_transaction (id, description) VALUES (6, 'CARTAO BENEFICIARIO');");
         
-        
-         array.add("CREATE TABLE IF NOT EXISTS tb_State( \n"
-                + "	ID INT NULL PRIMARY KEY AUTO_INCREMENT,\n"
-                + "	county VARCHAR(100) NOT NULL);");
-        
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('AC, Acre, Rio Branco');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('AL, Alagoas, Macieió');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('AP, Amapá, Macapá');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('AM, Amazonas, Manaus');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('BA, Bahia, Salvador');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('CE, Ceará, Fortaleza');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('DF, Distrito Federal, Brasília');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('ES, Espirito Santo, Vitória');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('GO, Goiás, Goiânia');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('MA, Maranhão, São Luiz');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('MT, Mato Grosso, Cuiabá');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('MS, Mato Grosso do Sul, Campo Grande');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('MG, Minas Gerais, Belo Horizonte');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('PA, Pará, Belém');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('PB, Paraíba, João Pessoa');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('PR, Paraná, Curitiba');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('PE, Pernambuco, Recife');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('PI, Piauí, Terezina');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('RJ, Rio de Janeiro, Rio de Janeiro');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('RN, Rio Grande do Norte, Natal');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('RS, Rio Grande do Sul, Porto Alegre');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('RO, Rondônia, Porto Velho');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('RR, Roraima, Boa Vista');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('SC, Santa Catarina, Florianópolis');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('SP, São Paulo, São Paulo');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('SE, Sergipe, Aracajú');");
-        array.add("INSERT INTO tb_State (UF, county) VALUES ('TO, Tocantins, Palma');");
-        
-        
+
+        array.add("CREATE TABLE `tb_state` (\n"
+                + "  `id` INT NOT NULL AUTO_INCREMENT,\n"
+                + "  `uf` VARCHAR(45) NOT NULL,\n"
+                + "  `descripition` VARCHAR(100) NOT NULL,\n"
+                + "  `county` VARCHAR(100) NOT NULL,\n"
+                + "  PRIMARY KEY (`id`));");
+
+       
+                
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (1,'AC', 'Acre', 'Rio Branco');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES  (2,'AL', 'Alagoas', 'Macieió');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (3,'AP', 'Amapá', 'Macapá');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (4,'AM', 'Amazonas', 'Manaus');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (5,'BA', 'Bahia', 'Salvador');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (6,'CE', 'Ceará', 'Fortaleza');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (7,'DF', 'Distrito Federal', 'Brasília');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (8,'ES', 'Espirito Santo', 'Vitória');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (9,'GO', 'Goiás', 'Goiânia');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (10,'MA', 'Maranhão', 'São Luiz');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (11,'MT', 'Mato Grosso', 'Cuiabá');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (12,'MS', 'Mato Grosso do Sul', 'Campo Grande');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (13,'MG', 'Minas Gerais', 'Belo Horizonte');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (14,'PA', 'Pará', Belém');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (15,'PB', 'Paraíba', 'João Pessoa');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (16,'PR', 'Paraná', 'Curitiba');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (17,'PE', 'Pernambuco', 'Recife');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (18,'PI', 'Piauí', 'Terezina');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (19,'RJ', 'Rio de Janeiro', 'Rio de Janeiro');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (20,'RN', 'Rio Grande do Norte', 'Natal');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (21,'RS', 'Rio Grande do Sul', 'Porto Alegre');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (22,'RO', 'Rondônia', 'Porto Velho');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (23,'RR', 'Roraima', 'Boa Vista');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (24,'SC', 'Santa Catarina', 'Florianópolis');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (25,'SP', 'São Paulo', 'São Paulo');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (26,'SE', 'Sergipe', 'Aracajú');");
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (27,'TO', 'Tocantins, 'Palma');");
         return array;
 
     }
