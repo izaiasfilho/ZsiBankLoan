@@ -157,7 +157,7 @@ public class CompanyImplemetation implements CompanyInterface {
         Host_Nuvem hostNuvem = new Host_Nuvem();
         Host_Nuvem novosHostInsrir = new Host_Nuvem();
         Calendario_Aux data = new Calendario_Aux();
-        // SelectDaoEmpresa_PainelControle select = new SelectDaoEmpresa_PainelControle();
+        PersistenceCloud select = new PersistenceCloud();
 
         //###########################################################################
         boolean hostValido = false;
@@ -169,23 +169,11 @@ public class CompanyImplemetation implements CompanyInterface {
 
         if (listaEndLocal != null) {
 
-            if (auto == true) {
-                empresaSolicitada.setCnpj(SingletonCompany.instancia.getCnpj());
-            } else {
-                String cnpjInfo = JOptionPane.showInputDialog("Informe o CNPJ ");
-
-                if (cnpjInfo.length() > 10) {
-                    empresaSolicitada.setCnpj(cnpjInfo);
-                } else {
-                    empresaSolicitada.setCnpj(SingletonCompany.instancia.getCnpj());
-                }
-            }
-
-            empresaRecebida = null; //--> select.selectEmpresasCNPJ(empresaSolicitada);//
+            empresaRecebida = select.selectEmpresasCNPJ(empresaSolicitada);//
 
             if (empresaRecebida != null) {//verifica se na nuvem esta cadastrado
                 String rede = empresaRecebida.getRede_social();
-                listaHoost = null;// -->select.selectHostEmpresasCNPJ(empresaRecebida);//lista todos os host da empresa  
+                listaHoost = select.selectHostEmpresasCNPJ(empresaRecebida);//lista todos os host da empresa  
                 //verifica se todos os endereços estao preenchidos, se nao tiver preenche
 
                 if (listaHoost == null || listaHoost.size() == 0) { //se nao tiver nenhum-------> insere todos 
@@ -303,16 +291,7 @@ public class CompanyImplemetation implements CompanyInterface {
                             empresaRecebida.setTipoConexao(empresaRecebida.getTipoConexao());
                             empresaRecebida.setUrl("HOST BLOQUEADO");
                             Propriedades.setEmpresaPropiedades(empresaRecebida);
-
-                            // ClassEmail Email = new ClassEmail();
-                            String senha = "mnd02666";
                         }
-                        //  Email.EmailAnexo("Ouve uma alteração de Host na empresa: " + empresaRecebida.getFantasia(), "smtp.gmail.com", "465", empresaRecebida.getFantasia(), "izs.af@hotmail.com", "BLOQUEIO DA EMPRESA : " + empresaRecebida.getFantasia(), "izs.motog@gmail.com", senha);
-//                        } else {//se nao, envia um email de alerta
-//                            ClassEmail Email = new ClassEmail();
-//                            String senha = "mnd02666";
-//                            Email.EmailAnexo("Ouve uma alteração de Host na empresa: " + empresaRecebida.getFantasia(), "smtp.gmail.com", "465", empresaRecebida.getFantasia(), "izs.af@hotmail.com", "alteracao de ip da empresa: " + empresaRecebida.getFantasia(), "izs.motog@gmail.com", senha);
-//                        }
                     }
                 }//lista de host da nuvem
             } else {// final do verifica se a empresa existe
@@ -363,123 +342,16 @@ public class CompanyImplemetation implements CompanyInterface {
 
         CompanyEntity empresa = new CompanyEntity();
         Calendario_Aux data = new Calendario_Aux();
-        // -->UpdateDaoEmpresa_PainelControle update = new UpdateDaoEmpresa_PainelControle();
+        PersistenceCloud update = new PersistenceCloud();
 
         try {
-            // open
             empresa.setUltimoAcesso(data.getdate());
             empresa.setId(SingletonCompany.instancia.getId());
 
-            // --> update.alterarEmpresa_InsereULTIMO_ACESSO(empresa);
-            //fecha
+             update.alterarEmpresa_InsereULTIMO_ACESSO(empresa);
         } catch (Exception ex) {
             LerTXT.log(identificacaoMetodo + "Erro: " + ex.getMessage());
         }
-    }
-
-    //-----###############--- SELECT ---###############-----
-    public ArrayList<CompanyEntity> EmpresasTodas() {
-        String identificacaoMetodo = "PROJETO: ZsiControlerMei%n"
-                + "PACOTE: Controller / CLASSE: ControllerEmpresa%n"
-                + "METODO: EmpresasTodas()%n"
-                + "DAO: arrayEm = selectDao.selectTodasEmpresas() %n";
-
-        // -->SelectDaoEmpresa_PainelControle selectDao = new SelectDaoEmpresa_PainelControle();
-        ArrayList<CompanyEntity> arrayEm = new ArrayList();
-
-        try {
-            arrayEm = null; // -->selectDao.selectTodasEmpresas();
-
-            if (arrayEm != null) {
-                return arrayEm;
-            }
-        } catch (Exception ex) {
-            LerTXT.log(identificacaoMetodo + "Erro: " + ex.getMessage());
-        }
-        return null;
-    }
-
-    //---------###---------- CNPJ ---------- ### ----------
-    public boolean validaCNPJ(CompanyEntity empresa) {
-        String identificacaoMetodo = "PROJETO: ZsiControlerMei%n"
-                + "PACOTE: Controller / CLASSE: ControllerEmpresa%n"
-                + "METODO: ValidaCNPJ(empresa)%n"
-                + "DAO: boolean valida = selectDao.selectValidaCNPJEmpresa(empresa) %n";
-
-        // --> SelectDaoEmpresa_PainelControle selectDao = new SelectDaoEmpresa_PainelControle();
-        try {
-            boolean valida = false; //  -->selectDao.selectValidaCNPJEmpresa(empresa);
-
-            if (valida == true) {
-                return true;//
-            }
-        } catch (Exception ex) {
-            LerTXT.log(identificacaoMetodo + "Erro: " + ex.getMessage());
-        }
-        return false;
-    }
-
-    //**********************SEM USO NO LOGIN
-    public static CompanyEntity EmpresaCNPJ(CompanyEntity empresa) {
-        String identificacaoMetodo = "PROJETO: ZsiControlerMei%n"
-                + "PACOTE: Controller / CLASSE: ControllerEmpresa%n"
-                + "METODO: EmpresaCNPJ(empresa)%n"
-                + "DAO: empr = selectDao.selectEmpresasCNPJ(empresa) %n";
-
-        // -->  SelectDaoEmpresa_PainelControle selectDao = new SelectDaoEmpresa_PainelControle();
-        CompanyEntity empr = new CompanyEntity();
-
-        try {
-            empr = null; //  -->selectDao.selectEmpresasCNPJ(empresa);
-
-            if (empr != null) {
-                SingletonCompany.instancia.setId(empr.getId());
-                SingletonCompany.instancia.setRazao(empr.getRazao());
-                SingletonCompany.instancia.setFantasia(empr.getFantasia());
-                SingletonCompany.instancia.setCnpj(empr.getCnpj());
-                SingletonCompany.instancia.setInscricao(empr.getInscricao());
-                SingletonCompany.instancia.setRua(empr.getRua());
-                SingletonCompany.instancia.setNumero(empr.getNumero());
-                SingletonCompany.instancia.setCep(empr.getCep());
-                SingletonCompany.instancia.setComplemento(empr.getComplemento());
-                SingletonCompany.instancia.setBairro(empr.getBairro());
-                SingletonCompany.instancia.setCidade(empr.getCidade());
-                SingletonCompany.instancia.setEstado(empr.getEstado());
-                SingletonCompany.instancia.setFone1(empr.getFone1());
-                SingletonCompany.instancia.setFone2(empr.getFone2());
-                SingletonCompany.instancia.setE_mail(empr.getE_mail());
-                SingletonCompany.instancia.setTipo_pacote(empr.getTipo_pacote());
-                SingletonCompany.instancia.setQtd_login(empr.getQtd_login());
-                SingletonCompany.instancia.setData_aviso(empr.getData_aviso());
-                SingletonCompany.instancia.setData_vencimento(empr.getData_vencimento());
-                SingletonCompany.instancia.setLicenca(empr.getLicenca());
-                return empr;
-            }
-        } catch (Exception ex) {
-            LerTXT.log(identificacaoMetodo + "Erro: " + ex.getMessage());
-        }
-        return null;
-    }
-
-    public ArrayList<CompanyEntity> LocalizaEmpresaCNPJ(CompanyEntity empresa) {
-        String identificacaoMetodo = "PROJETO: ZsiControlerMei%n"
-                + "PACOTE: Controller / CLASSE: ControllerEmpresa%n"
-                + "METODO: LocalizaEmpresaCNPJ(empresa)%n"
-                + "DAO: empr = selectDao.selectEmpresasLOCALIZA(empresa) %n";
-
-        //SelectDaoEmpresa_PainelControle selectDao = new SelectDaoEmpresa_PainelControle();
-        ArrayList<CompanyEntity> empr = new ArrayList();
-
-        try {
-            empr = null; //--> selectDao.selectEmpresasLOCALIZA(empresa);
-
-            if (empr != null) {
-                return empr;
-            }
-        } catch (Exception ex) {
-            LerTXT.log(identificacaoMetodo + "Erro: " + ex.getMessage());
-        }
-        return null;
     }
 
     public void alterarEmpresaiInsereIP(Host_Nuvem host) {
@@ -488,11 +360,9 @@ public class CompanyImplemetation implements CompanyInterface {
                 + "METODO: alterarEmpresaiInsereIP(host)%n"
                 + "DAO: update.alterarEmpresa_InsereIpNuvem(host); %n";
 
-        // --> InsertDaoEmpresa_PainelControle update = new InsertDaoEmpresa_PainelControle();
+        PersistenceCloud update = new PersistenceCloud();
         try {
-            // open
-            // --> update.alterarEmpresa_InsereIpNuvem(host);
-            //fecha
+             update.alterarEmpresa_InsereIpNuvem(host);
         } catch (Exception ex) {
             LerTXT.log(identificacaoMetodo + "Erro: " + ex.getMessage());
         }
@@ -504,11 +374,9 @@ public class CompanyImplemetation implements CompanyInterface {
                 + "METODO: atualizaTodosHost(host)%n"
                 + "DAO: update.alterarEmpresa_atuliza_todos_host(host) %n";
 
-        //--> UpdateDaoEmpresa_PainelControle update = new UpdateDaoEmpresa_PainelControle();
+        PersistenceCloud update = new PersistenceCloud();
         try {
-            // open
-            //-->  update.alterarEmpresa_atuliza_todos_host(host);
-            //fecha
+              update.alterarEmpresa_atuliza_todos_host(host);
         } catch (Exception ex) {
             LerTXT.log(identificacaoMetodo + "Erro: " + ex.getMessage());
         }
