@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Utilities;
+package Model.Security;
 
-import Model.Singletons.SingletonCompany;
-import static Model.Utilities.InfoSis.getOS;
+import static Model.Security.InfoSis.getOS;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

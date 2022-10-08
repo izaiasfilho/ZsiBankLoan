@@ -1,5 +1,6 @@
 
 import Controller.VersionBdController;
+import Model.Security.CompanyImplemetation;
 import View.LoginView;
 
 
@@ -15,6 +16,10 @@ import View.LoginView;
  */
 public class ZsiBankLoanApiApplication {
     public static void main(String[] args) {
+        CompanyImplemetation company = new CompanyImplemetation();
+        company.validateLicenseImplemetation();
+        
+        
         VersionBdController controller = new VersionBdController();
          controller.updateBankVersion();
          

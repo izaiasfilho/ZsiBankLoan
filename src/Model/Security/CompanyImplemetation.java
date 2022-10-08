@@ -3,17 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Services.Implementations;
+package Model.Security;
 
-import Model.Entities.CompanyEntity;
 import Model.Entities.Host_Nuvem;
-import Model.Services.Interfaces.CompanyInterface;
-import Model.Singletons.SingletonCompany;
-import Model.Utilities.Calendario_Aux;
-import static Model.Utilities.InfoSis.enderecoMAC;
-import Model.Utilities.LerTXT;
-import Model.Utilities.Propriedades;
-import static Model.Utilities.Propriedades.getEmpresaPropiedades;
+import static Model.Security.InfoSis.enderecoMAC;
+import static Model.Security.Propriedades.suesCompanySingleton;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -26,39 +20,46 @@ import javax.swing.JOptionPane;
  */
 public class CompanyImplemetation implements CompanyInterface {
 
-    @Override
-    public void validateLicense() {
-        suesCompanySingleton();// carrega o singleton
-    }
-
-    @Override
-    public void suesCompanySingleton() {
-        getEmpresaPropiedades();
-    }
-
-    //###################################    
     String licenca = "";//tipoLicenca=3  / chave nomepc
 
-    public void validaLicenca() {
+    @Override
+    public void validateLicenseImplemetation() {
+        suesCompanySingleton();// carrega o singleton
+
         Calendario_Aux data = new Calendario_Aux();
-        String licenca_gerada = gerarLicença(SingletonCompany.instancia.getCnpj(), data.desenverteDateData(SingletonCompany.instancia.getData_vencimento()), SingletonCompany.instancia.getStatus(), String.valueOf(SingletonCompany.instancia.getTipoLicenca()));
+        String licenca_gerada = generateLicense(SingletonCompany.instancia.getCnpj(),
+                data.desenverteDateData(SingletonCompany.instancia.getData_vencimento()),
+                SingletonCompany.instancia.getStatus(), String.valueOf(SingletonCompany.instancia.getTipoLicenca()));
 
         if (licenca_gerada.equals(SingletonCompany.instancia.getLicenca())) {
-            verificaVencimento();
+            checkExpiration();
         } else {
-            baixaLicenca(true, null);
+            lowLicense(true, null);
         }
     }
 
-    public void verificaVencimento() {
+    public void checkExpiration() {
         Calendario_Aux data = new Calendario_Aux();
-        getEmpresaPropiedades();
         if (SingletonCompany.instancia.getData_vencimento() != null) {
-            int diasVencimento = data.verificaDiasVencimento(SingletonCompany.instancia.getData_vencimento());
-
-            if (diasVencimento >= 0) {
+            if (diasVencimento()) {//nao esta vencido
                 vencimentoFalse();
+            } else {
+                revalidaLicenca();
             }
+        }
+    }
+
+    public boolean diasVencimento() {
+        Calendario_Aux data = new Calendario_Aux();
+        return data.verificaDiasVencimento(SingletonCompany.instancia.getData_vencimento()) >= 0;
+    }
+
+    public void revalidaLicenca() {
+        lowLicense(true, null); //vencido
+        if (diasVencimento()) {
+            vencimentoFalse();
+        } else {
+            JOptionPane.showMessageDialog(null, "QR code vencido!");
         }
     }
 
@@ -67,7 +68,7 @@ public class CompanyImplemetation implements CompanyInterface {
 
         if (diasAviso <= 10) {
             if (diasAviso > 2) {
-                baixaLicenca(true, null);
+                lowLicense(true, null);
             }
         }
         int diasVen = verificaProximidadeVencimento();
@@ -75,7 +76,7 @@ public class CompanyImplemetation implements CompanyInterface {
     }
 
 //---------###---------- LICENÇA ---------- ### ----------
-    public String gerarLicença(String cnpj, String data_vencimento, String status, String tipoLicenca) {
+    public String generateLicense(String cnpj, String data_vencimento, String status, String tipoLicenca) {
         String identificacaoMetodo = "PROJETO: ZsiControlerMei%n"
                 + "PACOTE: Controller / CLASSE: ControllerEmpresa %n"
                 + "METODO: gerarLicença(cnpj, data_vencimento, status, tipoLicenca)%n";
@@ -147,7 +148,7 @@ public class CompanyImplemetation implements CompanyInterface {
     }
 
     ///******************validacao da licença local
-    public boolean baixaLicenca(boolean auto, String url) {
+    public boolean lowLicense(boolean auto, String url) {
         boolean retorno = true;
 
         CompanyEntity empresaSolicitada = new CompanyEntity();
@@ -272,7 +273,7 @@ public class CompanyImplemetation implements CompanyInterface {
                         // tratar aqui ip local ou ip em rede
                         String vencimento = data.desenverteDateData(empresaRecebida.getData_vencimento());
 
-                        empresaRecebida.setLicenca(gerarLicença(cnpj, vencimento, status, tipoLicenca));
+                        empresaRecebida.setLicenca(generateLicense(cnpj, vencimento, status, tipoLicenca));
                         empresaRecebida.setIdent_database(empresaRecebida.getBanco());
                         empresaRecebida.setTipoConexao(SingletonCompany.instancia.getTipoConexao());
                         empresaRecebida.setUrl(url != null ? url : SingletonCompany.instancia.getUrl());
@@ -297,7 +298,7 @@ public class CompanyImplemetation implements CompanyInterface {
                             } //baixa e bloqueia.... host nao abilitado
 
                             String vencimento = data.desenverteDateData(empresaRecebida.getData_vencimento());
-                            empresaRecebida.setLicenca(gerarLicença(cnpj, vencimento, "INATIVO", "1"));
+                            empresaRecebida.setLicenca(generateLicense(cnpj, vencimento, "INATIVO", "1"));
                             empresaRecebida.setIdent_database(empresaRecebida.getBanco());
                             empresaRecebida.setTipoConexao(empresaRecebida.getTipoConexao());
                             empresaRecebida.setUrl("HOST BLOQUEADO");

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Utilities;
+package Model.Security;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

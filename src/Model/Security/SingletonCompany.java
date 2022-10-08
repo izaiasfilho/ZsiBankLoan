@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Singletons;
+package Model.Security;
 
-import Model.Entities.CompanyEntity;
+import Model.Security.CompanyEntity;
 
 /**
  *

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Services.Interfaces;
+package Model.Security;
 
 /**
  *
@@ -11,6 +11,6 @@ package Model.Services.Interfaces;
  */
 public interface CompanyInterface {
     
-    public void suesCompanySingleton();
-    public void validateLicense();
+   // public void suesCompanySingleton();
+    public void validateLicenseImplemetation();
 }

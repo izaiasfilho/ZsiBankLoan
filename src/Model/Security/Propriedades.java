@@ -3,10 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Utilities;
+package Model.Security;
 
-import Model.Entities.CompanyEntity;
-import Model.Singletons.SingletonCompany;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,8 +13,9 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static Model.Utilities.InfoSis.enderecoMAC;
-import static Model.Utilities.TransformaNumero.gerarMD5;
+import static Model.Security.InfoSis.enderecoMAC;
+import static Model.Security.TransformaNumero.gerarMD5;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -84,7 +83,7 @@ public class Propriedades {
         return null;
     }
 
-    public static void getEmpresaPropiedades() {
+    public static void suesCompanySingleton() {
 
         try {
             String OS = getOS();
@@ -93,7 +92,7 @@ public class Propriedades {
 
             prop.load(file);
 
-            SingletonCompany.instancia.setLicenca(prop.getProperty("licenca"));
+            SingletonCompany.Company().setLicenca(prop.getProperty("licenca"));
             SingletonCompany.instancia.setData_aviso(prop.getProperty("dataAviso"));
             SingletonCompany.instancia.setData_vencimento(prop.getProperty("dataVencimentos"));
             SingletonCompany.instancia.setQtd_login(Integer.parseInt(prop.getProperty("qtd_login")));
@@ -438,8 +437,23 @@ public class Propriedades {
         }
     } 
 
-    private static String getOS() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public static String getOS() {
+        String os = System.getProperty("os.name");
+        String Sistema = "C:";
+        String user = "izaias";
+
+        try {
+
+            if (os.startsWith("Windows")) {
+                Sistema = "C:";
+            } else if (os.startsWith("Linux")) {
+                Sistema = "//home" + File.separator + user;
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "O.S não identificado");
+        }
+
+        return Sistema;
     }
 
     private static String convSTnullVazio(String valueOf) {
