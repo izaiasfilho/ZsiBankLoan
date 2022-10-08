@@ -4,8 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Izaias/Documents/NetBeansProjects/ZsiBankLoan/src/ZsiBankLoanApiApplication.java</file>
+<<<<<<< HEAD
             <file>file:/C:/Users/Izaias/Documents/NetBeansProjects/ZsiBankLoan/src/Model/Security/CompanyImplemetation.java</file>
             <file>file:/C:/Users/Izaias/Documents/NetBeansProjects/ZsiBankLoan/src/Model/Security/InfoSis.java</file>
+=======
+>>>>>>> 16daa6dc0cfeebcf6eef609683131e2c35fe5836
         </group>
     </open-files>
 </project-private>
