@@ -45,24 +45,14 @@ public class QuerySequency {
         array.add("INSERT INTO tb_role (id, description) VALUES (3, 'FUNCIONARIO');");
         array.add("INSERT INTO tb_role (id, description) VALUES (4, 'CONSULTOR');");
         array.add("INSERT INTO tb_role (id, description) VALUES (5, 'CLIENTE');");
-        
+
         array.add("CREATE TABLE IF NOT EXISTS tb_Loan_status( \n"
                 + "	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\n"
                 + "	description VARCHAR(100) NOT NULL);");
-        
+
         array.add("INSERT INTO tb_Loan_status (id, description) VALUES (1, 'FINALIZADO');");
         array.add("INSERT INTO tb_Loan_status (id, description) VALUES (2, 'CANCELADO');");
         array.add("INSERT INTO tb_Loan_status (id, description) VALUES (3, 'DIGITADO');");
- 
-        
-        array.add("CREATE TABLE IF NOT EXISTS tb_City( \n"
-                + "	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\n"
-                + "	description VARCHAR(100) NOT NULL);");
-        
-        
-        
- 
-       
 
         array.add("CREATE TABLE IF NOT EXISTS tb_transaction( \n"
                 + "	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\n"
@@ -110,7 +100,23 @@ public class QuerySequency {
         array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (25,'SP', 'São Paulo', 'São Paulo');");
         array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (26,'SE', 'Sergipe', 'Aracajú');");
         array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (27,'TO', 'Tocantins', 'Palma');");
- 
+
+        array.add("CREATE TABLE `tb_city` (\n"
+                + "  `id` INT NOT NULL AUTO_INCREMENT,\n"
+                + "  `name` VARCHAR(500) NOT NULL,\n"
+                + "  `id_state` INT NOT NULL,\n"
+                + "  PRIMARY KEY (`id`));");
+
+        array.add("ALTER TABLE `tb_city` \n"
+                + "ADD INDEX `id_state_fk_idx` (`id_state` ASC) VISIBLE;\n"
+                + ";");
+        array.add("ALTER TABLE `tb_city` \n"
+                + "ADD CONSTRAINT `id_state_fk`\n"
+                + "  FOREIGN KEY (`id_state`)\n"
+                + "  REFERENCES `tb_state` (`id`)\n"
+                + "  ON DELETE NO ACTION\n"
+                + "  ON UPDATE NO ACTION;");
+
         return array;
 
     }
@@ -122,5 +128,5 @@ public class QuerySequency {
                 + "" + "'" + typetransactionsSql.getId() + "'" + ","
                 + "" + "'" + "  " + "');";
     }
- 
+
 }
