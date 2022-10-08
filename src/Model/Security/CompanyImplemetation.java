@@ -60,6 +60,7 @@ public class CompanyImplemetation implements CompanyInterface {
             vencimentoFalse();
         } else {
             JOptionPane.showMessageDialog(null, "QR code vencido!");
+            System.exit(0);
         }
     }
 
