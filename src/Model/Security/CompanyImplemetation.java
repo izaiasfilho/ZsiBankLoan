@@ -169,7 +169,7 @@ public class CompanyImplemetation implements CompanyInterface {
         //String meuIp = "";; //verifica o mac da maquina
 
         if (listaEndLocal != null) {
-
+           empresaSolicitada.setCnpj(SingletonCompany.instancia.getCnpj());
             empresaRecebida = select.selectEmpresasCNPJ(empresaSolicitada);//
 
             if (empresaRecebida != null) {//verifica se na nuvem esta cadastrado

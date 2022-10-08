@@ -457,6 +457,6 @@ public class Propriedades {
     }
 
     private static String convSTnullVazio(String valueOf) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return valueOf != null ? valueOf : "";
     }
 }
