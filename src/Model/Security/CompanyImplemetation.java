@@ -8,10 +8,13 @@ package Model.Security;
 import Model.Entities.Host_Nuvem;
 import static Model.Security.InfoSis.enderecoMAC;
 import static Model.Security.Propriedades.suesCompanySingleton;
+import java.awt.Font;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,10 +34,12 @@ public class CompanyImplemetation implements CompanyInterface {
                 data.desenverteDateData(SingletonCompany.instancia.getData_vencimento()),
                 SingletonCompany.instancia.getStatus(), String.valueOf(SingletonCompany.instancia.getTipoLicenca()));
 
+        //valida se a licença é valida
         if (licenca_gerada.equals(SingletonCompany.instancia.getLicenca())) {
-            checkExpiration();
+            checkExpiration();//se for, verifica
         } else {
-            lowLicense(true, null);
+            lowLicense(true, null);//se nao for baixa
+            checkExpiration();//se for, verifica
         }
     }
 
@@ -43,7 +48,7 @@ public class CompanyImplemetation implements CompanyInterface {
         if (SingletonCompany.instancia.getData_vencimento() != null) {
             if (diasVencimento()) {//nao esta vencido
                 vencimentoFalse();
-            } else {
+            } else {//esta vencido
                 revalidaLicenca();
             }
         }
@@ -51,16 +56,17 @@ public class CompanyImplemetation implements CompanyInterface {
 
     public boolean diasVencimento() {
         Calendario_Aux data = new Calendario_Aux();
-        return data.verificaDiasVencimento(SingletonCompany.instancia.getData_vencimento()) >= 0;
+        boolean valido = data.verificaDiasVencimento(SingletonCompany.instancia.getData_vencimento()) >= 0;
+        return valido;
     }
 
     public void revalidaLicenca() {
         lowLicense(true, null); //vencido
+        suesCompanySingleton();// carrega o singleton
         if (diasVencimento()) {
             vencimentoFalse();
         } else {
-            JOptionPane.showMessageDialog(null, "QR code vencido!");
-            System.exit(0);
+            chavaPix();
         }
     }
 
@@ -68,12 +74,24 @@ public class CompanyImplemetation implements CompanyInterface {
         int diasAviso = verificaProximidadeAvisoVencimento();
 
         if (diasAviso <= 10) {
-            if (diasAviso > 2) {
                 lowLicense(true, null);
-            }
         }
-        int diasVen = verificaProximidadeVencimento();
 
+    }
+
+    public void chavaPix() {
+        JLabel label = new JLabel("");
+        label.setFont(new Font("Arial", Font.BOLD, 100));
+
+        JOptionPane.showMessageDialog(null, label, "LIVENÇA VENCIDA - Efetue o pagamento para liberação do sistema",
+                JOptionPane.INFORMATION_MESSAGE, new ImageIcon("C:\\Util\\Logo\\QRcode2.JPEG"));
+        System.exit(0);
+    }
+
+    public void exibirCobrancaQRcode() {
+        int diasVen = verificaProximidadeVencimento();
+        chavaPix();
+//        System.exit(0);
     }
 
 //---------###---------- LICENÇA ---------- ### ----------
@@ -169,7 +187,7 @@ public class CompanyImplemetation implements CompanyInterface {
         //String meuIp = "";; //verifica o mac da maquina
 
         if (listaEndLocal != null) {
-           empresaSolicitada.setCnpj(SingletonCompany.instancia.getCnpj());
+            empresaSolicitada.setCnpj(SingletonCompany.instancia.getCnpj());
             empresaRecebida = select.selectEmpresasCNPJ(empresaSolicitada);//
 
             if (empresaRecebida != null) {//verifica se na nuvem esta cadastrado
@@ -349,7 +367,7 @@ public class CompanyImplemetation implements CompanyInterface {
             empresa.setUltimoAcesso(data.getdate());
             empresa.setId(SingletonCompany.instancia.getId());
 
-             update.alterarEmpresa_InsereULTIMO_ACESSO(empresa);
+            update.alterarEmpresa_InsereULTIMO_ACESSO(empresa);
         } catch (Exception ex) {
             LerTXT.log(identificacaoMetodo + "Erro: " + ex.getMessage());
         }
@@ -363,7 +381,7 @@ public class CompanyImplemetation implements CompanyInterface {
 
         PersistenceCloud update = new PersistenceCloud();
         try {
-             update.alterarEmpresa_InsereIpNuvem(host);
+            update.alterarEmpresa_InsereIpNuvem(host);
         } catch (Exception ex) {
             LerTXT.log(identificacaoMetodo + "Erro: " + ex.getMessage());
         }
@@ -377,7 +395,7 @@ public class CompanyImplemetation implements CompanyInterface {
 
         PersistenceCloud update = new PersistenceCloud();
         try {
-              update.alterarEmpresa_atuliza_todos_host(host);
+            update.alterarEmpresa_atuliza_todos_host(host);
         } catch (Exception ex) {
             LerTXT.log(identificacaoMetodo + "Erro: " + ex.getMessage());
         }
