@@ -116,7 +116,25 @@ public class QuerySequency {
                 + "  REFERENCES `tb_state` (`id`)\n"
                 + "  ON DELETE NO ACTION\n"
                 + "  ON UPDATE NO ACTION;");
+        
+        array.add("CREATE TABLE `tb_address` (\n"
+                + "  `id` INT NOT NULL AUTO_INCREMENT,\n"
+                + "  `id_city` INT NOT NULL,\n"
+                + "  `streetName` VARCHAR(300) NULL,\n"
+                + "  `number` VARCHAR(300) NULL,\n"
+                + "  `district` VARCHAR(300) NULL,\n"
+                + "  `zipCode` VARCHAR(300) NULL,\n"
+                + "  PRIMARY KEY (`id`));");
 
+        
+        array.add("ALTER TABLE `tb_address` \n"
+                + "ADD INDEX `id_city_fk_idx` (`id_city` ASC) VISIBLE;");
+        array.add("ALTER TABLE `tb_address` \n"
+                + "ADD CONSTRAINT `id_city_fk`\n"
+                + "  FOREIGN KEY (`id_city`)\n"
+                + "  REFERENCES `tb_city` (`id`)\n"
+                + "  ON DELETE NO ACTION\n"
+                + "  ON UPDATE NO ACTION;");
         return array;
 
     }
