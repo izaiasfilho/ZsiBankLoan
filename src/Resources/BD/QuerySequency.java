@@ -116,7 +116,8 @@ public class QuerySequency {
                 + "  REFERENCES `tb_state` (`id`)\n"
                 + "  ON DELETE NO ACTION\n"
                 + "  ON UPDATE NO ACTION;");
-
+        
+       array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (28,'DF', 'lula', 'Palma');");
         return array;
 
     }
