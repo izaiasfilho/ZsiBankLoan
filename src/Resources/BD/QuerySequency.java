@@ -116,8 +116,8 @@ public class QuerySequency {
                 + "  REFERENCES `tb_state` (`id`)\n"
                 + "  ON DELETE NO ACTION\n"
                 + "  ON UPDATE NO ACTION;");
-        
-       array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (28,'DF', 'lula', 'Palma');");
+
+        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (28,'DF', 'lula', 'Palma');");
 
         array.add("CREATE TABLE IF NOT EXISTS `tb_address` (\n"
                 + "  `id` INT NOT NULL AUTO_INCREMENT,\n"
@@ -148,6 +148,78 @@ public class QuerySequency {
                 + "  `description` VARCHAR(300) NULL,\n"
                 + "  PRIMARY KEY (`id`));");
 
+        array.add("CREATE TABLE IF NOT EXISTS `tb_genre` (\n"
+                + "  `id` INT NOT NULL AUTO_INCREMENT,\n"
+                + "  `description` VARCHAR(300) NULL,\n"
+                + "  PRIMARY KEY (`id`));");
+
+        array.add("CREATE TABLE IF NOT EXISTS `tb_user` (\n"
+                + "  `id` INT NOT NULL AUTO_INCREMENT,\n"
+                + "  `physicalPersonRegistration` VARCHAR(300) NOT NULL,\n"
+                + "  `Registration` VARCHAR(300) NULL,\n"
+                + "  `name` VARCHAR(300) NULL,\n"
+                + "  `spouse` VARCHAR(300) NULL,\n"
+                + "  `issuingBody` VARCHAR(300) NULL,\n"
+                + "  `issuer` VARCHAR(300) NULL,\n"
+                + "  `birthDate` VARCHAR(300) NULL,\n"
+                + "  `naturalness` VARCHAR(300) NULL,\n"
+                + "  `email` VARCHAR(300) NULL,\n"
+                + "  `dad` VARCHAR(300) NULL,\n"
+                + "  `mother` VARCHAR(300) NULL,\n"
+                + "  `id_address` int NOT NULL,\n"
+                + "  PRIMARY KEY (`id`));");
+
+        array.add("ALTER TABLE `tb_user` \n"
+                + "ADD INDEX `id_address_fk_idx` (`id_address` ASC) VISIBLE;");
+
+        array.add("ALTER TABLE `tb_user` \n"
+                + "ADD CONSTRAINT `id_address_fk`\n"
+                + "  FOREIGN KEY (`id_address`)\n"
+                + "  REFERENCES `tb_address` (`id`)\n"
+                + "  ON DELETE NO ACTION\n"
+                + "  ON UPDATE NO ACTION;");
+
+        array.add("CREATE TABLE IF NOT EXISTS `tb_phone` (\n"
+                + "  `id` INT NOT NULL AUTO_INCREMENT,\n"
+                + "  `numberType` VARCHAR(300) NULL,\n"
+                + "  `id_user` INT NOT NULL,\n"
+                + "  PRIMARY KEY (`id`));");
+
+        array.add("ALTER TABLE `tb_phone` \n"
+                + "ADD INDEX `id_user_fk_idx` (`id_user` ASC) VISIBLE;");
+
+        array.add("ALTER TABLE `tb_phone` \n"
+                + "ADD CONSTRAINT `id_user_fk`\n"
+                + "  FOREIGN KEY (`id_user`)\n"
+                + "  REFERENCES `tb_user` (`id`)\n"
+                + "  ON DELETE NO ACTION\n"
+                + "  ON UPDATE NO ACTION;");
+
+        array.add("CREATE TABLE IF NOT EXISTS `tb_user_role` (\n"
+                + "  `id` INT NOT NULL AUTO_INCREMENT,\n"
+                + "  `id_user` INT NOT NULL,\n"
+                + "  `id_role` INT NOT NULL,\n"
+                + "  PRIMARY KEY (`id`));");
+
+        array.add("ALTER TABLE `tb_user_role` \n"
+                + "ADD INDEX `id_user_role_fk_idx` (`id_user` ASC) VISIBLE;");
+
+        array.add("ALTER TABLE `tb_user_role` \n"
+                + "ADD CONSTRAINT `id_userEn_fk`\n"
+                + "  FOREIGN KEY (`id_user`)\n"
+                + "  REFERENCES `tb_user` (`id`)\n"
+                + "  ON DELETE NO ACTION\n"
+                + "  ON UPDATE NO ACTION;");
+
+        array.add("ALTER TABLE `tb_user_role` \n"
+                + "ADD INDEX `idr_user_role_fk_idx` (`id_role` ASC) VISIBLE;");
+
+        array.add("ALTER TABLE `tb_user_role` \n"
+                + "ADD CONSTRAINT `idr_user_role_fk`\n"
+                + "  FOREIGN KEY (`id_role`)\n"
+                + "  REFERENCES `tb_role` (`id`)\n"
+                + "  ON DELETE NO ACTION\n"
+                + "  ON UPDATE NO ACTION;");
         return array;
 
     }
