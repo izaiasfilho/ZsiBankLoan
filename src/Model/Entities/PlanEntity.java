@@ -7,12 +7,11 @@ package Model.Entities;
 
 /**
  *
- * @author Artur
+ * @author Izaias
  */
-public class BranchEntity {
+public class PlanEntity {
     private int id;
     private String description;
-    private Double fee;
 
     public int getId() {
         return id;
@@ -29,13 +28,6 @@ public class BranchEntity {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public Double getFee() {
-        return fee;
-    }
-
-    public void setFee(Double fee) {
-        this.fee = fee;
-    }
-
+    
+    
 }

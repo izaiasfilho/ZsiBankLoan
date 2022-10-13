@@ -66,7 +66,7 @@ public class QuerySequency {
         array.add("INSERT INTO tb_transaction (id, description) VALUES (7, 'FGTS');");
         array.add("INSERT INTO tb_transaction (id, description) VALUES (6, 'CARTAO BENEFICIARIO');");
 
-        array.add("CREATE TABLE `tb_state` (\n"
+        array.add("CREATE TABLE IF NOT EXISTS `tb_state` (\n"
                 + "  `id` INT NOT NULL AUTO_INCREMENT,\n"
                 + "  `uf` VARCHAR(45) NOT NULL,\n"
                 + "  `descripition` VARCHAR(100) NOT NULL,\n"
@@ -101,7 +101,7 @@ public class QuerySequency {
         array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (26,'SE', 'Sergipe', 'Aracajú');");
         array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (27,'TO', 'Tocantins', 'Palma');");
 
-        array.add("CREATE TABLE `tb_city` (\n"
+        array.add("CREATE TABLE IF NOT EXISTS `tb_city` (\n"
                 + "  `id` INT NOT NULL AUTO_INCREMENT,\n"
                 + "  `name` VARCHAR(500) NOT NULL,\n"
                 + "  `id_state` INT NOT NULL,\n"
@@ -118,6 +118,36 @@ public class QuerySequency {
                 + "  ON UPDATE NO ACTION;");
         
        array.add("INSERT INTO `tb_state` (`id`, `uf`, `descripition`, `county`) VALUES (28,'DF', 'lula', 'Palma');");
+
+        array.add("CREATE TABLE IF NOT EXISTS `tb_address` (\n"
+                + "  `id` INT NOT NULL AUTO_INCREMENT,\n"
+                + "  `id_city` INT NOT NULL,\n"
+                + "  `streetName` VARCHAR(300) NULL,\n"
+                + "  `number` VARCHAR(300) NULL,\n"
+                + "  `district` VARCHAR(300) NULL,\n"
+                + "  `zipCode` VARCHAR(300) NULL,\n"
+                + "  PRIMARY KEY (`id`));");
+
+        array.add("ALTER TABLE `tb_address` \n"
+                + "ADD INDEX `id_city_fk_idx` (`id_city` ASC) VISIBLE;");
+        array.add("ALTER TABLE `tb_address` \n"
+                + "ADD CONSTRAINT `id_city_fk`\n"
+                + "  FOREIGN KEY (`id_city`)\n"
+                + "  REFERENCES `tb_city` (`id`)\n"
+                + "  ON DELETE NO ACTION\n"
+                + "  ON UPDATE NO ACTION;");
+
+        array.add("CREATE TABLE IF NOT EXISTS `tb_branch` (\n"
+                + "  `id` INT NOT NULL AUTO_INCREMENT,\n"
+                + "  `description` VARCHAR(300) NOT NULL,\n"
+                + "  `fee` DOUBLE NULL,\n"
+                + "  PRIMARY KEY (`id`));");
+
+        array.add("CREATE TABLE IF NOT EXISTS `tb_plan` (\n"
+                + "  `id` INT NOT NULL AUTO_INCREMENT,\n"
+                + "  `description` VARCHAR(300) NULL,\n"
+                + "  PRIMARY KEY (`id`));");
+
         return array;
 
     }
