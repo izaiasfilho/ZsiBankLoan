@@ -5,8 +5,13 @@
  */
 package View;
 
+import Controller.CityController;
+import Controller.StateController;
+import Model.Entities.CityEntity;
+import Model.Entities.StateEntity;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,6 +21,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     /**
      * Creates new form MainScreenView
+     *
      * @param parent
      * @param modal
      */
@@ -23,12 +29,39 @@ public final class MainScreenView extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         resolucaoTela();
+        getListState();
     }
-    
-    public void resolucaoTela(){
+
+    public void resolucaoTela() {
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setSize((int)size.getWidth(),(int)size.getHeight());
+        this.setSize((int) size.getWidth(), (int) size.getHeight());
         this.setLocationRelativeTo(null);
+    }
+
+    public void getListState() {
+        StateController controller = new StateController();
+        controller.getListStateController().stream().forEach(uf -> {
+            jComboBoxState.addItem(uf.getUf());
+        });
+    }
+
+    public void insertCity() {
+        CityController cityController = new CityController();
+        StateController stateController = new StateController();
+
+        CityEntity city = new CityEntity();
+        city.setName(jTexCity.getText().toUpperCase());
+
+        StateEntity state = new StateEntity();
+        state.setUf((String) jComboBoxState.getSelectedItem());
+        state = stateController.getStateByUf(state);
+        city.setStateEntity(state);
+
+       if(cityController.insertCity(city)){
+           JOptionPane.showMessageDialog(null, "Cidade cadastrada com sucesso");
+       } else{
+           JOptionPane.showMessageDialog(null, "NAO CADASTRADO");
+       }
     }
 
     /**
@@ -76,10 +109,10 @@ public final class MainScreenView extends javax.swing.JDialog {
         jTextField14 = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jTextField15 = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBoxState = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jTextField16 = new javax.swing.JTextField();
+        jTexCity = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jTextField17 = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
@@ -212,15 +245,13 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         jLabel16.setText("Bairro:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel17.setText("UF:");
 
         jLabel18.setText("Cidade:");
 
-        jTextField16.addActionListener(new java.awt.event.ActionListener() {
+        jTexCity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField16ActionPerformed(evt);
+                jTexCityActionPerformed(evt);
             }
         });
 
@@ -254,11 +285,11 @@ public final class MainScreenView extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTexCity, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBoxState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(322, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -286,9 +317,9 @@ public final class MainScreenView extends javax.swing.JDialog {
                         .addGap(21, 21, 21)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel18)
-                            .addComponent(jTextField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTexCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jComboBoxState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
 
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -394,6 +425,11 @@ public final class MainScreenView extends javax.swing.JDialog {
         jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton2.setText("Salvar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Limpar");
 
@@ -856,9 +892,9 @@ public final class MainScreenView extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField16ActionPerformed
+    private void jTexCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTexCityActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField16ActionPerformed
+    }//GEN-LAST:event_jTexCityActionPerformed
 
     private void jTextField13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField13ActionPerformed
         // TODO add your handling code here:
@@ -883,6 +919,10 @@ public final class MainScreenView extends javax.swing.JDialog {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+         insertCity();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -936,13 +976,13 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JComboBox<String> jComboBox6;
     private javax.swing.JComboBox<String> jComboBox7;
     private javax.swing.JComboBox<String> jComboBox8;
+    private javax.swing.JComboBox<String> jComboBoxState;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -997,6 +1037,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField jTexCity;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
@@ -1005,7 +1046,6 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField19;

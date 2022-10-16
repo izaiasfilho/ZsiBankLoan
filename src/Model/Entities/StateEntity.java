@@ -7,12 +7,22 @@ package Model.Entities;
 
 /**
  *
- * @author Artur
+ * @author Izaias
  */
-public class InstitutionEntity {
+public class StateEntity {
     private int id;
     private String description;
-    private Double fee;
+    private String county;
+    private String uf;
+
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+    
 
     public int getId() {
         return id;
@@ -30,12 +40,12 @@ public class InstitutionEntity {
         this.description = description;
     }
 
-    public Double getFee() {
-        return fee;
+    public String getCounty() {
+        return county;
     }
 
-    public void setFee(Double fee) {
-        this.fee = fee;
+    public void setCounty(String county) {
+        this.county = county;
     }
-
+    
 }

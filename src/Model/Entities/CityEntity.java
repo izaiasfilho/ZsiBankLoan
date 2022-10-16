@@ -5,7 +5,6 @@
  */
 package Model.Entities;
 
-import Model.Enuns.StateEnum;
 
 /**
  *
@@ -14,7 +13,7 @@ import Model.Enuns.StateEnum;
 public class CityEntity {
     private int id;
     private String name;
-    private StateEnum stateEnum;
+    private StateEntity stateEntity;
 
     public int getId() {
         return id;
@@ -32,12 +31,12 @@ public class CityEntity {
         this.name = name;
     }
 
-    public StateEnum getStateEnum() {
-        return stateEnum;
+    public StateEntity getStateEntity() {
+        return stateEntity;
     }
 
-    public void setStateEnum(StateEnum stateEnum) {
-        this.stateEnum = stateEnum;
+    public void setStateEntity(StateEntity stateEntity) {
+        this.stateEntity = stateEntity;
     }
     
     
