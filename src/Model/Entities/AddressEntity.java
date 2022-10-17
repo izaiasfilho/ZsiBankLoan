@@ -16,6 +16,16 @@ public class AddressEntity {
     private String number;
     private String district;
     private String zipCode;
+    private String complement;
+
+    public String getComplement() {
+        return complement;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
+    }
+    
 
     public int getId() {
         return id;

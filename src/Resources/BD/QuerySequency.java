@@ -313,6 +313,9 @@ public class QuerySequency {
                 + "  ON DELETE NO ACTION\n"
                 + "  ON UPDATE NO ACTION;");
 
+        array.add("ALTER TABLE `tb_address` \n"
+                + "ADD COLUMN `complement` VARCHAR(500) NULL AFTER `zipCode`;");
+
         return array;
 
     }
