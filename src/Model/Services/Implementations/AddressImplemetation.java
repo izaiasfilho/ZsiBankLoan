@@ -39,7 +39,14 @@ public class AddressImplemetation implements AddressInterface {
 
     @Override
     public boolean updateAddressInterface(AddressEntity addressEntity) {
-        return AddressPersistence.updateUpdaatePersistence(addressEntity);
+            CityController cityController = new CityController();
+            CityEntity city = cityController.getCityController(addressEntity.getCityEntity());
+            if (city != null) {
+                addressEntity.setCityEntity(city);
+            } else {
+                return updateAddressAndInsertCity(addressEntity);
+            }
+            return AddressPersistence.updateUpdaatePersistence(addressEntity);
     }
 
     @Override
@@ -60,6 +67,18 @@ public class AddressImplemetation implements AddressInterface {
         } catch (SQLException ex) {
             Logger.getLogger(AddressImplemetation.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
+    }
+
+    public boolean updateAddressAndInsertCity(AddressEntity addressEntity) {
+            CityController cityController = new CityController();
+            if (cityController.insertCity(addressEntity.getCityEntity())) {
+                CityEntity city = cityController.getCityController(addressEntity.getCityEntity());
+                if (city != null) {
+                    addressEntity.setCityEntity(city);
+                }
+                return AddressPersistence.updateUpdaatePersistence(addressEntity);
+            }
         return false;
     }
 

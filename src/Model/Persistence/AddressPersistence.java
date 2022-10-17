@@ -97,7 +97,7 @@ public class AddressPersistence {
 
     public static boolean updateUpdaatePersistence(AddressEntity addressEntity) {
         String query = "UPDATE tb_address SET id_city = ?, streetName = ?, "
-                + "number = ?, district = ?, zipCode = ? where id = ?";
+                + "number = ?, district = ?, zipCode = ?, complement = ? where id = ?";
         PreparedStatement preparedStatement = null;
         if (Checks()) {
             closeConect();
@@ -109,8 +109,9 @@ public class AddressPersistence {
             preparedStatement.setString(3, addressEntity.getNumber());
             preparedStatement.setString(4, addressEntity.getDistrict());
             preparedStatement.setString(5, addressEntity.getZipCode());
+            preparedStatement.setString(6, addressEntity.getComplement());
 
-            preparedStatement.setInt(6, addressEntity.getId());
+            preparedStatement.setInt(7, addressEntity.getId());
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException ex) {
