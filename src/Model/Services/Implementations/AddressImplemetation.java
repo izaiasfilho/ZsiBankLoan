@@ -42,6 +42,7 @@ public class AddressImplemetation implements AddressInterface {
             CityController cityController = new CityController();
             CityEntity city = cityController.getCityController(addressEntity.getCityEntity());
             if (city != null) {
+                cityController.updateCityController(city);
                 addressEntity.setCityEntity(city);
             } else {
                 return updateAddressAndInsertCity(addressEntity);

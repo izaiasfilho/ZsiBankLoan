@@ -50,7 +50,7 @@ public class AddressPersistence {
         return false;
     }
 
-    //TODO montar join
+    
     public static AddressEntity getAddressPersistence(AddressEntity addressEntity) {
         String query = "SELECT\n"
                 + " a.id, a.streetName, a.number, a.district, a.zipCode, a.complement,\n"

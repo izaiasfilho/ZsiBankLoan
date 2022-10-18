@@ -316,6 +316,22 @@ public class QuerySequency {
         array.add("ALTER TABLE `tb_address` \n"
                 + "ADD COLUMN `complement` VARCHAR(500) NULL AFTER `zipCode`;");
 
+        array.add("ALTER TABLE `tb_user` \n"
+                + "ADD COLUMN `genre` VARCHAR(100) NULL AFTER `id_address`;");
+
+        array.add("INSERT INTO `tb_genre` (`id`, `description`) VALUES ('1', 'M');");
+        array.add("INSERT INTO `tb_genre` (`id`, `description`) VALUES ('2', 'F');");
+
+        array.add("ALTER TABLE `tb_user` \n"
+                + "CHANGE COLUMN `genre` `id_genre` INT NOT NULL ,\n"
+                + "ADD INDEX `id_genre_fk_idx` (`id_genre` ASC) VISIBLE;");
+
+        array.add("ALTER TABLE `tb_user` \n"
+                + "ADD CONSTRAINT `id_genre_fk`\n"
+                + "  FOREIGN KEY (`id_genre`)\n"
+                + "  REFERENCES `tb_genre` (`id`)\n"
+                + "  ON DELETE NO ACTION\n"
+                + "  ON UPDATE NO ACTION;");
         return array;
 
     }

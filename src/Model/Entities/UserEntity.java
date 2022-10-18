@@ -23,6 +23,15 @@ public class UserEntity {
     private String dad;
     private String mother;
     private AddressEntity addressEntity;
+    private GenreEntity genreEntity;
+
+    public GenreEntity getGenreEntity() {
+        return genreEntity;
+    }
+
+    public void setGenreEntity(GenreEntity genreEntity) {
+        this.genreEntity = genreEntity;
+    }
 
     public int getId() {
         return id;
