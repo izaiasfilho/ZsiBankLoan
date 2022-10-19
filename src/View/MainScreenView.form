@@ -61,7 +61,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="712" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="715" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -112,13 +112,15 @@
                                           <Component id="jLabel3" min="-2" pref="71" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jTextFieldRG" min="-2" pref="141" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                                              <Component id="jComboBoxGenero" min="-2" pref="93" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jComboBoxGenero" max="32767" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jButton6" min="-2" pref="29" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="jTextFieldName" alignment="0" min="-2" pref="299" max="-2" attributes="0"/>
+                                          <Component id="jTextFieldName" min="-2" pref="299" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -204,7 +206,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel22" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jLabel22" alignment="1" pref="23" max="32767" attributes="0"/>
                           <Component id="jTextFieldCPF" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelIdUser" max="32767" attributes="0"/>
@@ -229,6 +231,7 @@
                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldMae" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBox8" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton6" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -293,11 +296,7 @@
             <Component class="javax.swing.JComboBox" name="jComboBoxGenero">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="M"/>
-                    <StringItem index="1" value="F"/>
-                    <StringItem index="2" value="O"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -1170,6 +1169,11 @@
                 <Property name="text" type="java.lang.String" value="Mudar Status"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JButton" name="jButton6">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel4">
@@ -1189,7 +1193,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="712" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="715" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -1211,7 +1215,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="712" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="715" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -1233,7 +1237,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="712" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="715" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -1255,7 +1259,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="712" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="715" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>

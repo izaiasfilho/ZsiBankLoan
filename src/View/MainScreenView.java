@@ -5,7 +5,7 @@
  */
 package View;
 
-import Controller.AddressController;
+import Controller.GenreController;
 import Controller.StateController;
 import Controller.UserController;
 import Model.Entities.AddressEntity;
@@ -15,6 +15,7 @@ import Model.Entities.StateEntity;
 import Model.Entities.UserEntity;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,6 +34,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         initComponents();
         resolucaoTela();
         setListStateView();
+        setListGenreView();
     }
 
     public UserEntity getUserView() {
@@ -85,8 +87,11 @@ public final class MainScreenView extends javax.swing.JDialog {
     }
 
     public GenreEntity getGenreView() {
+        GenreController genreController = new GenreController();
         GenreEntity genreEntity = new GenreEntity();
-        genreEntity.setId(1);
+        String genre = (String) jComboBoxGenero.getSelectedItem();
+        genreEntity.setDescription(genre);
+        genreEntity = genreController.getGenreController(genreEntity);
         return genreEntity;
     }
 
@@ -106,6 +111,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         jTextFieldPai.setText(user.getDad());
         jTextFieldMae.setText(user.getMother());
 
+        setGenreView(userEntity.getGenreEntity());
         setAddressView(user.getAddressEntity());
     }
 
@@ -119,6 +125,10 @@ public final class MainScreenView extends javax.swing.JDialog {
         jComboBoxState.setSelectedItem(address.getCityEntity().getStateEntity().getUf());
         jTextFieldCep.setText(address.getZipCode());
     }
+    
+    public void setGenreView(GenreEntity genreEntity){
+        jComboBoxGenero.setSelectedItem(genreEntity.getDescription());
+    }
 
     public void resolucaoTela() {
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
@@ -130,6 +140,13 @@ public final class MainScreenView extends javax.swing.JDialog {
         StateController controller = new StateController();
         controller.getListStateController().stream().forEach(uf -> {
             jComboBoxState.addItem(uf.getUf());
+        });
+    }
+
+    public void setListGenreView() {
+        GenreController genreController = new GenreController();
+        genreController.listGenre().stream().forEach(genre -> {
+            jComboBoxGenero.addItem(genre.getDescription());
         });
     }
 
@@ -151,6 +168,24 @@ public final class MainScreenView extends javax.swing.JDialog {
     public void updateUser() {
         UserController userController = new UserController();
         userController.updateUserController(getUserView());
+    }
+
+    public void insertGenre() {
+        GenreController genreController = new GenreController();
+        GenreEntity genreEntity = new GenreEntity();
+        String descript = JOptionPane.showInputDialog("Novo Gênero");
+        if (descript != null) {
+            if (!descript.equals("")) {
+                genreEntity.setDescription(descript.toUpperCase());
+                genreController.insertGenreController(genreEntity);
+                cleanGenreList();
+                setListGenreView();
+            }
+        }
+    }
+
+    public void cleanGenreList() {
+        jComboBoxGenero.removeAllItems();
     }
 
     /**
@@ -262,6 +297,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel40 = new javax.swing.JLabel();
         jComboBox8 = new javax.swing.JComboBox<>();
         jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -277,7 +313,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 712, Short.MAX_VALUE)
+            .addGap(0, 715, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Aniversariantes                ", jPanel2);
@@ -296,8 +332,6 @@ public final class MainScreenView extends javax.swing.JDialog {
                 jTextFieldNameActionPerformed(evt);
             }
         });
-
-        jComboBoxGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F", "O" }));
 
         jLabel5.setText("Data Nasc:");
 
@@ -767,6 +801,12 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         jButton5.setText("Mudar Status");
 
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -798,11 +838,13 @@ public final class MainScreenView extends javax.swing.JDialog {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jTextFieldRG, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(65, 65, 65)
-                                        .addComponent(jComboBoxGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jComboBoxGenero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -866,7 +908,7 @@ public final class MainScreenView extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                     .addComponent(jTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jLabelIdUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -888,7 +930,8 @@ public final class MainScreenView extends javax.swing.JDialog {
                     .addComponent(jTextFieldNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(jTextFieldMae, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
@@ -925,7 +968,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 712, Short.MAX_VALUE)
+            .addGap(0, 715, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Propostas                               ", jPanel4);
@@ -938,7 +981,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 712, Short.MAX_VALUE)
+            .addGap(0, 715, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Relatórios                                ", jPanel6);
@@ -951,7 +994,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 712, Short.MAX_VALUE)
+            .addGap(0, 715, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Contas a pagar/Receber              ", jPanel7);
@@ -964,7 +1007,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 712, Short.MAX_VALUE)
+            .addGap(0, 715, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Entradas e Saidas             ", jPanel8);
@@ -1024,6 +1067,10 @@ public final class MainScreenView extends javax.swing.JDialog {
         getUserByPhysicalPersonRegistration();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        insertGenre();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1075,6 +1122,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
