@@ -6,7 +6,6 @@
 package Model.Persistence;
 
 import Model.Entities.GenreEntity;
-import Model.Entities.StateEntity;
 import static Resources.BD.Conection.Checks;
 import static Resources.BD.Conection.closeConect;
 import static Resources.BD.Conection.conect;

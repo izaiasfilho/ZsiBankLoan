@@ -5,7 +5,6 @@
  */
 package Model.Persistence;
 
-import Controller.AddressController;
 import Model.Entities.AddressEntity;
 import Model.Entities.CityEntity;
 import Model.Entities.GenreEntity;
@@ -74,6 +73,7 @@ public class UserPersistence {
                 + "FROM \n"
                 + "     tb_user as u, tb_address as a, tb_city as c, tb_state as s, tb_genre g\n"
                 + "where u.physicalPersonRegistration = ? \n"
+                + "and u.id_address = a.id \n"
                 + "and (a.id_city = c.id\n"
                 + "and c.id_state = s.id\n"
                 + "and  g.id = u.id_genre)\n"

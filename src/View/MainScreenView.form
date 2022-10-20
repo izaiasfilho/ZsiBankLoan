@@ -222,16 +222,18 @@
                           <Component id="jLabel40" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldRG" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBoxGenero" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldNaturalidade" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextFieldMae" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBox8" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jButton6" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldRG" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBoxGenero" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldNaturalidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextFieldMae" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jComboBox8" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -1020,11 +1022,14 @@
                 <Component class="javax.swing.JComboBox" name="jComboBox7">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
+                      <StringArray count="7">
+                        <StringItem index="0" value="PORTABILIDADE"/>
+                        <StringItem index="1" value="REFINANCIAMENTO"/>
+                        <StringItem index="2" value="MARGEM_LIVRE"/>
+                        <StringItem index="3" value="CARTAO_RMC"/>
+                        <StringItem index="4" value="EMPRESTIMO_CARTAO"/>
+                        <StringItem index="5" value="CARTAO_BENEFICIARIO"/>
+                        <StringItem index="6" value="FGTS"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -1152,11 +1157,10 @@
             <Component class="javax.swing.JComboBox" name="jComboBox8">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
+                  <StringArray count="3">
+                    <StringItem index="0" value="DIGITADO"/>
+                    <StringItem index="1" value="FINALIZADO"/>
+                    <StringItem index="2" value="CANCELADO"/>
                   </StringArray>
                 </Property>
               </Properties>

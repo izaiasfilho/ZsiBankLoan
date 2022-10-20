@@ -6,15 +6,19 @@
 package View;
 
 import Controller.GenreController;
+import Controller.PhoneController;
 import Controller.StateController;
 import Controller.UserController;
 import Model.Entities.AddressEntity;
 import Model.Entities.CityEntity;
 import Model.Entities.GenreEntity;
+import Model.Entities.PhoneEntity;
 import Model.Entities.StateEntity;
 import Model.Entities.UserEntity;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -95,6 +99,42 @@ public final class MainScreenView extends javax.swing.JDialog {
         return genreEntity;
     }
 
+    public List<PhoneEntity> getListPhoneView(UserEntity userEntity) {
+        List<PhoneEntity> listPhone = new ArrayList();
+
+        if (!jTextFieldFone1.getText().equals("")) {
+            PhoneEntity phone1 = new PhoneEntity();
+            phone1.setUserEntity(userEntity);
+            phone1.setNumber(jTextFieldFone1.getText());
+            phone1.setNumberType((String) jComboBox3.getSelectedItem());
+            listPhone.add(phone1);
+        }
+
+        if (!jTextField1Fone2.getText().equals("")) {
+            PhoneEntity phone2 = new PhoneEntity();
+            phone2.setUserEntity(userEntity);
+            phone2.setNumber(jTextField1Fone2.getText());
+            phone2.setNumberType((String) jComboBox4.getSelectedItem());
+            listPhone.add(phone2);
+        }
+        return listPhone;
+    }
+
+    public void setListPhoneView(UserEntity user) {
+        PhoneController phoneController = new PhoneController();
+        List<PhoneEntity> list = phoneController.listPhone(user.getId());
+        
+        if (list.size() > 0) {
+            jTextFieldFone1.setText(list.get(0).getNumber());
+            jComboBox3.setSelectedItem(list.get(0).getNumberType());
+        }
+
+        if (list.size() > 1) {
+            jTextField1Fone2.setText(list.get(1).getNumber());
+            jComboBox4.setSelectedItem(list.get(1).getNumberType());
+        }
+    }
+
     public void setUserView(UserEntity userEntity) {
         UserController userController = new UserController();
         UserEntity user = userController.getUserController(userEntity);
@@ -113,6 +153,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         setGenreView(userEntity.getGenreEntity());
         setAddressView(user.getAddressEntity());
+        setListPhoneView(user);
     }
 
     public void setAddressView(AddressEntity address) {
@@ -125,8 +166,8 @@ public final class MainScreenView extends javax.swing.JDialog {
         jComboBoxState.setSelectedItem(address.getCityEntity().getStateEntity().getUf());
         jTextFieldCep.setText(address.getZipCode());
     }
-    
-    public void setGenreView(GenreEntity genreEntity){
+
+    public void setGenreView(GenreEntity genreEntity) {
         jComboBoxGenero.setSelectedItem(genreEntity.getDescription());
     }
 
@@ -162,12 +203,19 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public void insertUser() {
         UserController userController = new UserController();
-        userController.insertUserController(getUserView());
+        if (userController.insertUserController(getUserView())) {
+            getListPhoneView(userController.getUserController(getUserView()));
+        }
     }
 
     public void updateUser() {
         UserController userController = new UserController();
-        userController.updateUserController(getUserView());
+        if (userController.updateUserController(getUserView())) {
+
+            UserEntity user = userController.getUserController(getUserView());
+            PhoneController phoneController = new PhoneController();
+            phoneController.updateListPhone(getListPhoneView(user));
+        }
     }
 
     public void insertGenre() {
@@ -538,7 +586,7 @@ public final class MainScreenView extends javax.swing.JDialog {
             }
         });
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PORTABILIDADE", "REFINANCIAMENTO", "MARGEM_LIVRE", "CARTAO_RMC", "EMPRESTIMO_CARTAO", "CARTAO_BENEFICIARIO", "FGTS" }));
 
         jTextField23.setText("Observação");
 
@@ -797,7 +845,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         jLabel40.setText("Status atual:");
 
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DIGITADO", "FINALIZADO", "CANCELADO" }));
 
         jButton5.setText("Mudar Status");
 
@@ -922,16 +970,17 @@ public final class MainScreenView extends javax.swing.JDialog {
                     .addComponent(jTextFieldPai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextFieldRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextFieldNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextFieldMae, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(jTextFieldRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6)
+                        .addComponent(jTextFieldNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8)
+                        .addComponent(jTextFieldMae, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)

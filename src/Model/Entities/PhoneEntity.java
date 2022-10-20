@@ -13,6 +13,15 @@ public class PhoneEntity {
     private int id;
     private String numberType;
     private UserEntity userEntity;
+    private String number;
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
 
     public int getId() {
         return id;

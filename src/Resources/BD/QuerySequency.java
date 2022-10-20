@@ -332,6 +332,10 @@ public class QuerySequency {
                 + "  REFERENCES `tb_genre` (`id`)\n"
                 + "  ON DELETE NO ACTION\n"
                 + "  ON UPDATE NO ACTION;");
+
+        array.add("ALTER TABLE`tb_phone` \n"
+                + "ADD COLUMN `number` VARCHAR(300) NULL AFTER `id_user`;");
+
         return array;
 
     }
