@@ -252,20 +252,28 @@ public class QuerySequency {
         array.add("CREATE TABLE `tb_loan` (\n"
                 + "  `id` INT NOT NULL AUTO_INCREMENT,\n"
                 + "  `id_user` INT NOT NULL,\n"
+                + "  `contactNumber` VARCHAR(405) NULL,\n"
+                + "  `issueDate` DATETIME NULL,\n"
+                + "  `changeDate` DATETIME NULL,\n"
+                + "  PRIMARY KEY (`id`));");
+
+        array.add("CREATE TABLE `tb_loanMovement` (\n"
+                + "  `id` INT NOT NULL AUTO_INCREMENT,\n"
+                + "  `id_loan` INT NOT NULL,\n"
                 + "  `id_institution` INT NOT NULL,\n"
                 + "  `id_plan` INT NOT NULL,\n"
                 + "  `id_transaction` INT NOT NULL,\n"
                 + "  `id_user_institution` INT NOT NULL,\n"
                 + "  `id_loan_status` INT NOT NULL,\n"
                 + "  `broker` VARCHAR(405) NULL,\n"
-                + "  `issueDate` DATETIME NULL,\n"
+                + "  `date` DATETIME NULL,\n"
                 + "  `commission` VARCHAR(400) NULL,\n"
                 + "  `grossValue` DOUBLE NULL,\n"
                 + "  `netValue` DOUBLE NULL,\n"
                 + "  `amountOfInstallments` DOUBLE NULL,\n"
                 + "  `valueInstallments` DOUBLE NULL,\n"
-                + "  `contactNumber` VARCHAR(400) NULL,\n"
                 + "  `operator` VARCHAR(405) NULL,\n"
+                + "  `typist` VARCHAR(405) NULL,\n"
                 + "  `note` VARCHAR(405) NULL,\n"
                 + "  `files` VARCHAR(405) NULL,\n"
                 + "  `numberADE` VARCHAR(405) NULL,\n"
@@ -273,26 +281,26 @@ public class QuerySequency {
                 + "  `speciesCode` VARCHAR(405) NULL,\n"
                 + "  PRIMARY KEY (`id`));");
 
-        array.add("ALTER TABLE `tb_loan` \n"
-                + "ADD INDEX `id_loan_user_fk_idx` (`id_user` ASC) VISIBLE,\n"
-                + "ADD INDEX `id_loan_insti_fk_idx` (`id_institution` ASC) VISIBLE,\n"
-                + "ADD INDEX `id_loan_plan_fk_idx` (`id_plan` ASC) VISIBLE,\n"
-                + "ADD INDEX `id_loan_transaction_fk_idx` (`id_transaction` ASC) VISIBLE,\n"
-                + "ADD INDEX `id_loan_user_inst_fk_idx` (`id_user_institution` ASC) VISIBLE,\n"
-                + "ADD INDEX `id_loan_loan_status_fk_idx` (`id_loan_status` ASC) VISIBLE;");
+        array.add("ALTER TABLE `tb_loanMovement` \n"
+                + "ADD INDEX `id_loanMovement_loan_fk_idx` (`id_loan` ASC) VISIBLE,\n"
+                + "ADD INDEX `id_loanMovement_insti_fk_idx` (`id_institution` ASC) VISIBLE,\n"
+                + "ADD INDEX `id_loanMovement_plan_fk_idx` (`id_plan` ASC) VISIBLE,\n"
+                + "ADD INDEX `id_loanMovement_transaction_fk_idx` (`id_transaction` ASC) VISIBLE,\n"
+                + "ADD INDEX `id_loanMovement_user_inst_fk_idx` (`id_user_institution` ASC) VISIBLE,\n"
+                + "ADD INDEX `id_loanMovement_loan_status_fk_idx` (`id_loan_status` ASC) VISIBLE;");
 
-        array.add("ALTER TABLE `tb_loan` \n"
-                + "ADD CONSTRAINT `id_loan_user_fk`\n"
-                + "  FOREIGN KEY (`id_user`)\n"
-                + "  REFERENCES `tb_user` (`id`)\n"
+        array.add("ALTER TABLE `tb_loanMovement` \n"
+                + "ADD CONSTRAINT `id_loanMovement_loan_fk`\n"
+                + "  FOREIGN KEY (`id_loan`)\n"
+                + "  REFERENCES `tb_loan` (`id`)\n"
                 + "  ON DELETE NO ACTION\n"
                 + "  ON UPDATE NO ACTION,\n"
-                + "ADD CONSTRAINT `id_loan_insti_fk`\n"
+                + "ADD CONSTRAINT `id_loanMovement_insti_fk`\n"
                 + "  FOREIGN KEY (`id_institution`)\n"
                 + "  REFERENCES `tb_institution` (`id`)\n"
                 + "  ON DELETE NO ACTION\n"
                 + "  ON UPDATE NO ACTION,\n"
-                + "ADD CONSTRAINT `id_loan_plan_fk`\n"
+                + "ADD CONSTRAINT `id_loanMovement_plan_fk`\n"
                 + "  FOREIGN KEY (`id_plan`)\n"
                 + "  REFERENCES `tb_plan` (`id`)\n"
                 + "  ON DELETE NO ACTION\n"
@@ -302,12 +310,12 @@ public class QuerySequency {
                 + "  REFERENCES `tb_transaction` (`id`)\n"
                 + "  ON DELETE NO ACTION\n"
                 + "  ON UPDATE NO ACTION,\n"
-                + "ADD CONSTRAINT `id_loan_user_inst_fk`\n"
+                + "ADD CONSTRAINT `id_loanMovement_user_inst_fk`\n"
                 + "  FOREIGN KEY (`id_user_institution`)\n"
                 + "  REFERENCES `tb_user_institution` (`id`)\n"
                 + "  ON DELETE NO ACTION\n"
                 + "  ON UPDATE NO ACTION,\n"
-                + "ADD CONSTRAINT `id_loan_loan_status_fk`\n"
+                + "ADD CONSTRAINT `id_loanMovement_loan_status_fk`\n"
                 + "  FOREIGN KEY (`id_loan_status`)\n"
                 + "  REFERENCES `tb_loan_status` (`id`)\n"
                 + "  ON DELETE NO ACTION\n"
@@ -335,6 +343,16 @@ public class QuerySequency {
 
         array.add("ALTER TABLE`tb_phone` \n"
                 + "ADD COLUMN `number` VARCHAR(300) NULL AFTER `id_user`;");
+
+        array.add("ALTER TABLE `tb_loan` \n"
+                + "ADD INDEX `id_user_loan_fk_idx` (`id_user` ASC) VISIBLE;");
+
+        array.add("ALTER TABLE `tb_loan` \n"
+                + "ADD CONSTRAINT `id_user_loan_fk`\n"
+                + "  FOREIGN KEY (`id_user`)\n"
+                + "  REFERENCES `u323187073_zsibl`.`tb_user` (`id`)\n"
+                + "  ON DELETE NO ACTION\n"
+                + "  ON UPDATE NO ACTION;");
 
         return array;
 
