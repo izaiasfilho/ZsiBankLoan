@@ -31,7 +31,7 @@ public class LoanMovementImplemetation implements LoanMovementInterface{
 
     @Override
     public LoanMovementEntity getLoanMovementByIdLoan(int idLoan) {
-        return LoanMovementPersistence.getLoanloanMovementByIdLoanPersistence(idLoan);
+        return LoanMovementPersistence.getLoanMovementByIdLoanPersistence(idLoan);
     }
 
     @Override

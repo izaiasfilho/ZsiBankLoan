@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Model.Entities.UserEntity;
 import Model.Entities.UserInstitutionEntity;
 import Model.Services.Implementations.UserInstitutionImplemetation;
 import Model.Services.Interfaces.UserInstitutionInterface;
@@ -28,5 +29,14 @@ public class UserInstitutionController {
     
     public List<UserInstitutionEntity> getListUserInstitutionByIdUser(int id_user){
         return repository.getListUserInstitutionByIdUser(id_user);
+    }
+    
+    
+    public boolean updateReseteMainUserInstitution(UserEntity userEntity){
+        return repository.updateReseteMainUserInstitution(userEntity);
+    }
+    
+    public boolean updateMainUserInstitution(int id_institution, int id_user, boolean valueMain){
+        return repository.updateMainUserInstitution(id_institution, id_user, valueMain);
     }
 }

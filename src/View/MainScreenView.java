@@ -61,57 +61,66 @@ public final class MainScreenView extends javax.swing.JDialog {
         LoanEntity loan = new LoanEntity();
 
         loan.setUsrEntity(userEntity);
-        loan.setContactNumber(jT_contactNumber.getText());
-        loan.setIssueDate(jT_issueDate.getText());
+        loan.setContactNumber(campo_numeroContrato.getText());
+        loan.setIssueDate(campo_dataemissao.getText());
         loan.setChangeDate(util.getdate());
+        
+        UserInstitutionEntity userInstitutionEntity = new UserInstitutionEntity();
+        InstitutionController institutionController = new InstitutionController();
+        InstitutionEntity institutionEntity = 
+                institutionController.getInstitutionByDescription((String) combo_banco_beneficiario.getSelectedItem());
+        institutionEntity.setId(institutionEntity.getId());
+        userInstitutionEntity.setInstitutionUser(institutionEntity);
+        loan.setUserInstitutionEntity(userInstitutionEntity);
+        
         return loan;
     }
 
     public LoanMovementEntity getLoanMovementView(LoanEntity loanEntity) {
         Utilities utility = new Utilities();
         LoanMovementEntity loanMovement = new LoanMovementEntity();
-        
+
         loanMovement.setLoanEntity(loanEntity);
         loanMovement.setDate(utility.getdate());
-        
+
         InstitutionController institutionController = new InstitutionController();
-        InstitutionEntity institutionEntity = 
-                institutionController.getInstitutionByDescription((String) jComboBox5.getSelectedItem());
-        
+        InstitutionEntity institutionEntity
+                = institutionController.getInstitutionByDescription((String) combo_bancoOrigem.getSelectedItem());
+
         loanMovement.setInstitutionEntity(institutionEntity);
-        
+
         PlanController planController = new PlanController();
-        PlanEntity planEntity = planController.getinserPlanEntityByDescripition((String) jComboBox6.getSelectedItem());
+        PlanEntity planEntity = planController.getinserPlanEntityByDescripition((String) combo_convenio.getSelectedItem());
         loanMovement.setPlanEntity(planEntity);
-        
-        loanMovement.setTransactionEnum(TransactionEnum.valueOf((String) jComboBox7.getSelectedItem()));
-        
+
+        loanMovement.setTransactionEnum(TransactionEnum.valueOf((String) combo_operacao.getSelectedItem()));
+
         UserInstitutionController userInstitutionController = new UserInstitutionController();
         UserInstitutionEntity userInstitutionEntity = new UserInstitutionEntity();
         userInstitutionEntity.setUserEntity(loanEntity.getUsrEntity());
-        
-        userInstitutionEntity.setBranchEntity(institutionEntity);
-        userInstitutionEntity.setAgency(jTextField29.getText());
-        userInstitutionEntity.setAccountNumber(jTextField36.getText());
-        
+
+        userInstitutionEntity.setInstitutionUser(institutionEntity);
+        userInstitutionEntity.setAgency(campo_agencia.getText());
+        userInstitutionEntity.setAccountNumber(campo_conta_ben.getText());
+
         userInstitutionController.insertUserInstitution(userInstitutionEntity);
-        userInstitutionEntity =
-                userInstitutionController.getUserInstitutionEntityByInstitution(institutionEntity.getDescription());
+        userInstitutionEntity
+                = userInstitutionController.getUserInstitutionEntityByInstitution(institutionEntity.getDescription());
         loanMovement.setUserInstitutionEntity(userInstitutionEntity);
-        
-        loanMovement.setLoanStatutsEnum(LoanStatusEnum.valueOf((String) jComboBox8.getSelectedItem()));
-        loanMovement.setBroker(jTextField_Corretor.getText());
-        loanMovement.setCommission(jTextField_Comissao.getText());
-        loanMovement.setGrossValue(Double.parseDouble(jTextField_ValorBruto.getText()));
-        loanMovement.setNetValue(Double.parseDouble(jTextField_ValorLiquido.getText()));
-        loanMovement.setAmountOfInstallments(Double.parseDouble(jTextField_QtdParcelas.getText()));
-        loanMovement.setValueInstallments(Double.parseDouble(jTextField_ValorParcela.getText()));
-        loanMovement.setOperator(jTextField_operador.getText());
-        loanMovement.setNote(jTextArea_obs.getText());
-        loanMovement.setFiles(jTextField_Caminho_anexo.getText());
-        loanMovement.setNumberADE(jTextField_NumeroADE.getText());
-        loanMovement.setBenefitNumber(jTextField_NumeroBeneficio.getText());
-        loanMovement.setSpeciesCode(jTextField_CodigoEspecie.getText());
+
+        loanMovement.setLoanStatutsEnum(LoanStatusEnum.valueOf((String) combo_status.getSelectedItem()));
+        loanMovement.setBroker(campo_corretor.getText());
+        loanMovement.setCommission(campo_comissao.getText());
+        loanMovement.setGrossValue(Double.parseDouble(campo_valorbruto.getText()));
+        loanMovement.setNetValue(Double.parseDouble(campo_valorliquido.getText()));
+        loanMovement.setAmountOfInstallments(Double.parseDouble(campo_qtd_parcelas.getText()));
+        loanMovement.setValueInstallments(Double.parseDouble(campo_valorparcela.getText()));
+        loanMovement.setOperator(campo_digitador.getText());
+        loanMovement.setNote(campo_obs.getText());
+        loanMovement.setFiles(campo_caminho_file.getText());
+        loanMovement.setNumberADE(campo_ADE.getText());
+        loanMovement.setBenefitNumber(campo_numero_beneficio.getText());
+        loanMovement.setSpeciesCode(campo_codigoespecie.getText());
 
         return loanMovement;
     }
@@ -122,17 +131,17 @@ public final class MainScreenView extends javax.swing.JDialog {
             int idUser = Integer.parseInt(jLabelIdUser.getText().toUpperCase());
             user.setId(idUser);
         }
-        user.setPhysicalPersonRegistration(jTextFieldCPF.getText().toUpperCase());
-        user.setName(jTextFieldName.getText().toUpperCase());
-        user.setSpouse(jTextFieldConjuge.getText().toUpperCase());
-        user.setRegistration(jTextFieldRG.getText().toUpperCase());
-        user.setIssuingBody(jTextFieldOrgaoEmissor.getText().toUpperCase());
-        user.setIssuer(jTextFieldEmissor.getText().toUpperCase());
-        user.setBirthDate(jTextFieldDataNascimento.getText().toUpperCase());
-        user.setNaturalness(jTextFieldNaturalidade.getText().toUpperCase());
-        user.setEmail(jTextFieldEmail.getText().toUpperCase());
-        user.setDad(jTextFieldPai.getText().toUpperCase());
-        user.setMother(jTextFieldMae.getText().toUpperCase());
+        user.setPhysicalPersonRegistration(campo_cpf.getText().toUpperCase());
+        user.setName(campo_nome.getText().toUpperCase());
+        user.setSpouse(campo_conjugue.getText().toUpperCase());
+        user.setRegistration(campo_rg.getText().toUpperCase());
+        user.setIssuingBody(campo_orgao_emissor.getText().toUpperCase());
+        user.setIssuer(campo_emissor.getText().toUpperCase());
+        user.setBirthDate(campo_data_nascimento.getText().toUpperCase());
+        user.setNaturalness(campo_naturalidade.getText().toUpperCase());
+        user.setEmail(campo_email.getText().toUpperCase());
+        user.setDad(campo_pai.getText().toUpperCase());
+        user.setMother(campo_mae.getText().toUpperCase());
         user.setGenreEntity(getGenreView());
         user.setAddressEntity(getAddressView());
         return user;
@@ -141,10 +150,10 @@ public final class MainScreenView extends javax.swing.JDialog {
     public CityEntity getCityView() {
         StateController stateController = new StateController();
         CityEntity city = new CityEntity();
-        city.setName(jTexCity.getText().toUpperCase());
+        city.setName(campo_cidade.getText().toUpperCase());
 
         StateEntity state = new StateEntity();
-        state.setUf((String) jComboBoxState.getSelectedItem());
+        state.setUf((String) combo_uf.getSelectedItem());
         state = stateController.getStateByUf(state);
         city.setStateEntity(state);
         return city;
@@ -156,11 +165,11 @@ public final class MainScreenView extends javax.swing.JDialog {
         if (!jLabelId.getText().toUpperCase().equals("")) {
             address.setId(Integer.parseInt(jLabelId.getText().toUpperCase()));
         }
-        address.setZipCode(jTextFieldCep.getText().toUpperCase());
-        address.setStreetName(jTextFieldRua.getText().toUpperCase());
-        address.setNumber(jTextFieldNumero.getText().toUpperCase());
-        address.setDistrict(jTextFieldBairro.getText().toUpperCase());
-        address.setComplement(jTextFieldComplemento.getText().toUpperCase());
+        address.setZipCode(campo_cep.getText().toUpperCase());
+        address.setStreetName(campo_rua.getText().toUpperCase());
+        address.setNumber(campo_numero.getText().toUpperCase());
+        address.setDistrict(campo_bairro.getText().toUpperCase());
+        address.setComplement(campo_complemento.getText().toUpperCase());
         address.setCityEntity(getCityView());
         return address;
     }
@@ -168,7 +177,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     public GenreEntity getGenreView() {
         GenreController genreController = new GenreController();
         GenreEntity genreEntity = new GenreEntity();
-        String genre = (String) jComboBoxGenero.getSelectedItem();
+        String genre = (String) combobox_sexo.getSelectedItem();
         genreEntity.setDescription(genre);
         genreEntity = genreController.getGenreController(genreEntity);
         return genreEntity;
@@ -177,19 +186,19 @@ public final class MainScreenView extends javax.swing.JDialog {
     public List<PhoneEntity> getListPhoneView(UserEntity userEntity) {
         List<PhoneEntity> listPhone = new ArrayList();
 
-        if (!jTextFieldFone1.getText().equals("")) {
+        if (!campo_fone1.getText().equals("")) {
             PhoneEntity phone1 = new PhoneEntity();
             phone1.setUserEntity(userEntity);
-            phone1.setNumber(jTextFieldFone1.getText());
-            phone1.setNumberType((String) jComboBox3.getSelectedItem());
+            phone1.setNumber(campo_fone1.getText());
+            phone1.setNumberType((String) combo_tipo_fone1.getSelectedItem());
             listPhone.add(phone1);
         }
 
-        if (!jTextField1Fone2.getText().equals("")) {
+        if (!campo_fone2.getText().equals("")) {
             PhoneEntity phone2 = new PhoneEntity();
             phone2.setUserEntity(userEntity);
-            phone2.setNumber(jTextField1Fone2.getText());
-            phone2.setNumberType((String) jComboBox4.getSelectedItem());
+            phone2.setNumber(campo_fone2.getText());
+            phone2.setNumberType((String) combo_tipo_fone2.getSelectedItem());
             listPhone.add(phone2);
         }
         return listPhone;
@@ -235,13 +244,13 @@ public final class MainScreenView extends javax.swing.JDialog {
         List<PhoneEntity> list = phoneController.listPhone(user.getId());
 
         if (list.size() > 0) {
-            jTextFieldFone1.setText(list.get(0).getNumber());
-            jComboBox3.setSelectedItem(list.get(0).getNumberType());
+            campo_fone1.setText(list.get(0).getNumber());
+            combo_tipo_fone1.setSelectedItem(list.get(0).getNumberType());
         }
 
         if (list.size() > 1) {
-            jTextField1Fone2.setText(list.get(1).getNumber());
-            jComboBox4.setSelectedItem(list.get(1).getNumberType());
+            campo_fone2.setText(list.get(1).getNumber());
+            combo_tipo_fone2.setSelectedItem(list.get(1).getNumberType());
         }
     }
 
@@ -249,17 +258,17 @@ public final class MainScreenView extends javax.swing.JDialog {
         UserController userController = new UserController();
         UserEntity user = userController.getUserController(userEntity);
         jLabelIdUser.setText(String.valueOf(user.getId()));
-        jTextFieldCPF.setText(user.getPhysicalPersonRegistration());
-        jTextFieldName.setText(user.getName());
-        jTextFieldConjuge.setText(user.getSpouse());
-        jTextFieldRG.setText(user.getRegistration());
-        jTextFieldOrgaoEmissor.setText(user.getIssuingBody());
-        jTextFieldEmissor.setText(user.getIssuer());
-        jTextFieldDataNascimento.setText(user.getBirthDate());
-        jTextFieldNaturalidade.setText(user.getNaturalness());
-        jTextFieldEmail.setText(user.getEmail());
-        jTextFieldPai.setText(user.getDad());
-        jTextFieldMae.setText(user.getMother());
+        campo_cpf.setText(user.getPhysicalPersonRegistration());
+        campo_nome.setText(user.getName());
+        campo_conjugue.setText(user.getSpouse());
+        campo_rg.setText(user.getRegistration());
+        campo_orgao_emissor.setText(user.getIssuingBody());
+        campo_emissor.setText(user.getIssuer());
+        campo_data_nascimento.setText(user.getBirthDate());
+        campo_naturalidade.setText(user.getNaturalness());
+        campo_email.setText(user.getEmail());
+        campo_pai.setText(user.getDad());
+        campo_mae.setText(user.getMother());
 
         setGenreView(userEntity.getGenreEntity());
         setAddressView(user.getAddressEntity());
@@ -268,17 +277,17 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public void setAddressView(AddressEntity address) {
         jLabelId.setText(String.valueOf(address.getId()));
-        jTextFieldRua.setText(address.getStreetName());
-        jTextFieldBairro.setText(address.getDistrict());
-        jTextFieldNumero.setText(address.getNumber());
-        jTextFieldComplemento.setText(address.getComplement());
-        jTexCity.setText(address.getCityEntity().getName());
-        jComboBoxState.setSelectedItem(address.getCityEntity().getStateEntity().getUf());
-        jTextFieldCep.setText(address.getZipCode());
+        campo_rua.setText(address.getStreetName());
+        campo_bairro.setText(address.getDistrict());
+        campo_numero.setText(address.getNumber());
+        campo_complemento.setText(address.getComplement());
+        campo_cidade.setText(address.getCityEntity().getName());
+        combo_uf.setSelectedItem(address.getCityEntity().getStateEntity().getUf());
+        campo_cep.setText(address.getZipCode());
     }
 
     public void setGenreView(GenreEntity genreEntity) {
-        jComboBoxGenero.setSelectedItem(genreEntity.getDescription());
+        combobox_sexo.setSelectedItem(genreEntity.getDescription());
     }
 
     public void resolucaoTela() {
@@ -290,81 +299,151 @@ public final class MainScreenView extends javax.swing.JDialog {
     public void setListStateView() {
         StateController controller = new StateController();
         controller.getListStateController().stream().forEach(uf -> {
-            jComboBoxState.addItem(uf.getUf());
+            combo_uf.addItem(uf.getUf());
         });
     }
 
     public void setListGenreView() {
         GenreController genreController = new GenreController();
         genreController.listGenre().stream().forEach(genre -> {
-            jComboBoxGenero.addItem(genre.getDescription());
+            combobox_sexo.addItem(genre.getDescription());
         });
     }
 
     public void setListInsitutionView() {
+        cleanInstitutionUser();
+        cleanInstitutionist();
         InstitutionController institutionController = new InstitutionController();
         institutionController.getListInstitution().stream().forEach(inst -> {
-            jComboBox5.addItem(inst.getDescription());
-            jComboBox1.addItem(inst.getDescription());
+            combo_bancoOrigem.addItem(inst.getDescription());
+            combo_banco_beneficiario.addItem(inst.getDescription());
         });
+    }
+
+    public void setListInstitutionUser(UserEntity userEntity) {
+        UserInstitutionController userInstController = new UserInstitutionController();
+        List<UserInstitutionEntity> list
+                = userInstController.getListUserInstitutionByIdUser(userEntity.getId());
+        if (list.size() > 0) {
+            cleanInstitutionUser();
+            list.stream().forEach(inst -> {
+                combo_banco_beneficiario.addItem(inst.getInstitutionUser().getDescription());
+            });
+        }
     }
 
     public void setListPlanView() {
         PlanController planController = new PlanController();
         planController.getListinserPlan().stream().forEach(inst -> {
-            jComboBox6.addItem(inst.getDescription());
+            combo_convenio.addItem(inst.getDescription());
         });
     }
 
     public void setListInstitutionView() {
         InstitutionController institutionController = new InstitutionController();
         institutionController.getListInstitution().stream().forEach(inst -> {
-            jComboBoxGenero.addItem(inst.getDescription());
+            combobox_sexo.addItem(inst.getDescription());
         });
+    }
+
+    public void setInstitutionUserView(LoanEntity loanEntity) {
+        setListInstitutionUser(loanEntity.getUsrEntity());
+            combo_banco_beneficiario.setSelectedItem(
+                    loanEntity.getUserInstitutionEntity().getInstitutionUser().getDescription());
+            campo_agencia.setText(loanEntity.getUserInstitutionEntity().getAgency());
+            campo_conta_ben.setText(loanEntity.getUserInstitutionEntity().getAccountNumber());
+    }
+
+    public void setLaonView(UserEntity userEntity) {
+        LoanController loanController = new LoanController();
+        LoanEntity loanEntity = loanController.getLoanByUser(userEntity.getId());
+        campo_numeroContrato.setText(loanEntity.getContactNumber());
+        campo_dataemissao.setText(loanEntity.getIssueDate());
+
+        setLoanMovementeView(loanEntity);
+        setInstitutionUserView(loanEntity);
+        
+    }
+
+    public void setLoanMovementeView(LoanEntity loanEntity) {
+        LoanMovementController loanMovementController = new LoanMovementController();
+        List<LoanMovementEntity> ListLoanMov = loanMovementController.listLoanMovementByIdLoan(loanEntity.getId());
+
+        if (ListLoanMov.size() > 0) {
+            combo_bancoOrigem.setSelectedItem(ListLoanMov.get(ListLoanMov.size() -1).getInstitutionEntity().getDescription());
+            combo_convenio.setSelectedItem(ListLoanMov.get(ListLoanMov.size() -1).getPlanEntity().getDescription());
+            combo_operacao.setSelectedItem(ListLoanMov.get(ListLoanMov.size() -1).getTransactionEnum().name());
+            combo_status.setSelectedItem(ListLoanMov.get(ListLoanMov.size() -1).getLoanStatutsEnum().name());
+            campo_corretor.setText(ListLoanMov.get(ListLoanMov.size() -1).getBroker());
+            campo_comissao.setText(ListLoanMov.get(ListLoanMov.size() -1).getCommission());
+            campo_valorbruto.setText(String.valueOf(ListLoanMov.get(ListLoanMov.size() -1).getGrossValue()));
+            campo_valorliquido.setText(String.valueOf(ListLoanMov.get(ListLoanMov.size() -1).getNetValue()));
+            campo_qtd_parcelas.setText(String.valueOf(ListLoanMov.get(ListLoanMov.size() -1).getAmountOfInstallments()));
+            campo_valorparcela.setText(String.valueOf(ListLoanMov.get(ListLoanMov.size() -1).getValueInstallments()));
+            campo_digitador.setText(ListLoanMov.get(ListLoanMov.size() -1).getOperator());
+            campo_obs.setText(ListLoanMov.get(ListLoanMov.size() -1).getNote());
+            campo_caminho_file.setText(ListLoanMov.get(ListLoanMov.size() -1).getFiles());
+            campo_ADE.setText(ListLoanMov.get(ListLoanMov.size() -1).getNumberADE());
+            campo_numero_beneficio.setText(ListLoanMov.get(ListLoanMov.size() -1).getBenefitNumber());
+            campo_codigoespecie.setText(ListLoanMov.get(ListLoanMov.size() -1).getSpeciesCode());
+        }
     }
 
     public void getUserByPhysicalPersonRegistration() {
         UserEntity user = new UserEntity();
         UserController userController = new UserController();
 
-        user.setPhysicalPersonRegistration(jTextFieldCPF.getText().toUpperCase());
+        user.setPhysicalPersonRegistration(campo_cpf.getText().toUpperCase());
         user = userController.getUserController(user);
 
         setUserView(user);
+        setLaonView(user);
     }
 
-    
-    public void insertLoan(){
-        
+    public void insertLoan() {
         LoanController loanController = new LoanController();
+
         loanController.insertLoan(getLoanView(insertUser()));
-        
-        loanController.getLoanByContactNumber(jT_contactNumber.getText());
-        
+        LoanEntity loan = loanController.getLoanByContactNumber(campo_numeroContrato.getText());
+        insertLoanMoviment(loan);
+    }
+
+    public void UpdateLoan() {
+        LoanController loanController = new LoanController();
+
+        loanController.updateLoan(getLoanView(updateUser()));
+        LoanEntity loan = loanController.getLoanByContactNumber(campo_numeroContrato.getText());
+        insertLoanMoviment(loan);
+    }
+
+    public void insertLoanMoviment(LoanEntity loan) {
+
         LoanMovementController loanMovementController = new LoanMovementController();
-        LoanEntity loan = loanController.getLoanByContactNumber(jT_contactNumber.getText());
-        
         LoanMovementEntity loanMovementEntity = getLoanMovementView(loan);
         loanMovementController.insertLoanMovement(loanMovementEntity);
     }
+
     public UserEntity insertUser() {
         UserController userController = new UserController();
         if (userController.insertUserController(getUserView())) {
-            UserEntity user = userController.getUserController(getUserView()); 
+            UserEntity user = userController.getUserController(getUserView());
             getListPhoneView(user);
             return user;
         }
         return null;
     }
 
-    public void updateUser() {
+    public UserEntity updateUser() {
         UserController userController = new UserController();
         if (userController.updateUserController(getUserView())) {
 
             UserEntity user = userController.getUserController(getUserView());
             PhoneController phoneController = new PhoneController();
             phoneController.updateListPhone(getListPhoneView(user));
+
+            return userController.getUserController(getUserView());
         }
+        return null;
     }
 
     public void insertGenre() {
@@ -382,16 +461,19 @@ public final class MainScreenView extends javax.swing.JDialog {
     }
 
     public void cleanGenreList() {
-        jComboBoxGenero.removeAllItems();
+        combobox_sexo.removeAllItems();
     }
 
     public void cleanInstitutionist() {
-        jComboBox5.removeAllItems();
-        jComboBox1.removeAllItems();
+        combo_bancoOrigem.removeAllItems();
+    }
+
+    public void cleanInstitutionUser() {
+        combo_banco_beneficiario.removeAllItems();
     }
 
     public void cleanPlanList() {
-        jComboBox6.removeAllItems();
+        combo_convenio.removeAllItems();
     }
 
     /**
@@ -410,49 +492,49 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextFieldCPF = new javax.swing.JTextField();
-        jTextFieldName = new javax.swing.JTextField();
-        jTextFieldRG = new javax.swing.JTextField();
+        campo_cpf = new javax.swing.JTextField();
+        campo_nome = new javax.swing.JTextField();
+        campo_rg = new javax.swing.JTextField();
         jLabelIdUser = new javax.swing.JLabel();
-        jComboBoxGenero = new javax.swing.JComboBox<>();
+        combobox_sexo = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextFieldDataNascimento = new javax.swing.JTextField();
-        jTextFieldNaturalidade = new javax.swing.JTextField();
+        campo_data_nascimento = new javax.swing.JTextField();
+        campo_naturalidade = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextFieldPai = new javax.swing.JTextField();
-        jTextFieldMae = new javax.swing.JTextField();
+        campo_pai = new javax.swing.JTextField();
+        campo_mae = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jTextFieldConjuge = new javax.swing.JTextField();
+        campo_conjugue = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTextFieldOrgaoEmissor = new javax.swing.JTextField();
+        campo_orgao_emissor = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextFieldEmissor = new javax.swing.JTextField();
+        campo_emissor = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jTextFieldCep = new javax.swing.JTextField();
+        campo_cep = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jTextFieldRua = new javax.swing.JTextField();
+        campo_rua = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jTextFieldNumero = new javax.swing.JTextField();
+        campo_numero = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        jTextFieldComplemento = new javax.swing.JTextField();
+        campo_complemento = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jTextFieldBairro = new javax.swing.JTextField();
-        jComboBoxState = new javax.swing.JComboBox<>();
+        campo_bairro = new javax.swing.JTextField();
+        combo_uf = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jTexCity = new javax.swing.JTextField();
+        campo_cidade = new javax.swing.JTextField();
         jLabelId = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jTextFieldEmail = new javax.swing.JTextField();
+        campo_email = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        jTextFieldFone1 = new javax.swing.JTextField();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        campo_fone1 = new javax.swing.JTextField();
+        combo_tipo_fone1 = new javax.swing.JComboBox<>();
         jLabel21 = new javax.swing.JLabel();
-        jTextField1Fone2 = new javax.swing.JTextField();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        campo_fone2 = new javax.swing.JTextField();
+        combo_tipo_fone2 = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -466,15 +548,15 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
-        jTextField_Corretor = new javax.swing.JTextField();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jComboBox6 = new javax.swing.JComboBox<>();
-        jT_issueDate = new javax.swing.JTextField();
-        jTextField_ValorLiquido = new javax.swing.JTextField();
-        jTextField_QtdParcelas = new javax.swing.JTextField();
-        jTextField_ValorParcela = new javax.swing.JTextField();
-        jT_contactNumber = new javax.swing.JTextField();
-        jTextField_NumeroBeneficio = new javax.swing.JTextField();
+        campo_corretor = new javax.swing.JTextField();
+        combo_bancoOrigem = new javax.swing.JComboBox<>();
+        combo_convenio = new javax.swing.JComboBox<>();
+        campo_dataemissao = new javax.swing.JTextField();
+        campo_valorliquido = new javax.swing.JTextField();
+        campo_qtd_parcelas = new javax.swing.JTextField();
+        campo_valorparcela = new javax.swing.JTextField();
+        campo_numeroContrato = new javax.swing.JTextField();
+        campo_numero_beneficio = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
@@ -482,30 +564,30 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel45 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
-        jTextField_NumeroADE = new javax.swing.JTextField();
-        jTextField_ValorBruto = new javax.swing.JTextField();
-        jTextField36 = new javax.swing.JTextField();
-        jTextField_CodigoEspecie = new javax.swing.JTextField();
-        jComboBox7 = new javax.swing.JComboBox<>();
-        jTextField_operador = new javax.swing.JTextField();
-        jTextField_Comissao = new javax.swing.JTextField();
-        jTextField29 = new javax.swing.JTextField();
+        campo_ADE = new javax.swing.JTextField();
+        campo_valorbruto = new javax.swing.JTextField();
+        campo_conta_ben = new javax.swing.JTextField();
+        campo_codigoespecie = new javax.swing.JTextField();
+        combo_operacao = new javax.swing.JComboBox<>();
+        campo_digitador = new javax.swing.JTextField();
+        campo_comissao = new javax.swing.JTextField();
+        campo_agencia = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea_obs = new javax.swing.JTextArea();
+        campo_obs = new javax.swing.JTextArea();
         jPanel9 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel36 = new javax.swing.JLabel();
-        jTextField_Caminho_anexo = new javax.swing.JTextField();
+        campo_caminho_file = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        combo_banco_beneficiario = new javax.swing.JComboBox<>();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
-        jComboBox8 = new javax.swing.JComboBox<>();
+        combo_status = new javax.swing.JComboBox<>();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -523,7 +605,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 563, Short.MAX_VALUE)
+            .addGap(0, 595, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Aniversariantes                ", jPanel2);
@@ -540,9 +622,9 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel3.setText("RG:");
 
-        jTextFieldName.addActionListener(new java.awt.event.ActionListener() {
+        campo_nome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNameActionPerformed(evt);
+                campo_nomeActionPerformed(evt);
             }
         });
 
@@ -557,6 +639,12 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setText("Mãe:");
+
+        campo_mae.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campo_maeActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -577,9 +665,9 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         jLabel14.setText("Numero:");
 
-        jTextFieldNumero.addActionListener(new java.awt.event.ActionListener() {
+        campo_numero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNumeroActionPerformed(evt);
+                campo_numeroActionPerformed(evt);
             }
         });
 
@@ -587,13 +675,19 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         jLabel16.setText("Bairro:");
 
+        combo_uf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_ufActionPerformed(evt);
+            }
+        });
+
         jLabel17.setText("UF:");
 
         jLabel18.setText("Cidade:");
 
-        jTexCity.addActionListener(new java.awt.event.ActionListener() {
+        campo_cidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTexCityActionPerformed(evt);
+                campo_cidadeActionPerformed(evt);
             }
         });
 
@@ -605,7 +699,7 @@ public final class MainScreenView extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextFieldCep, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(campo_cep, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelId, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -615,26 +709,26 @@ public final class MainScreenView extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextFieldRua, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campo_rua, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel18)
                             .addComponent(jLabel14)))
-                    .addComponent(jTextFieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campo_bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campo_numero, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(campo_complemento, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTexCity, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campo_cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxState, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(combo_uf, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(177, 177, 177))
         );
         jPanel1Layout.setVerticalGroup(
@@ -645,23 +739,23 @@ public final class MainScreenView extends javax.swing.JDialog {
                     .addComponent(jLabelId, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13)
-                        .addComponent(jTextFieldRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campo_rua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel15)
-                        .addComponent(jTextFieldComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campo_complemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel14)
-                        .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campo_numero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel12)
-                        .addComponent(jTextFieldCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(campo_cep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel16)
-                        .addComponent(jTextFieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(campo_bairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel18)
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBoxState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTexCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(combo_uf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campo_cidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jLabel19.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -671,12 +765,12 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel20.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel20.setText("Fone:");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Celular", "Residencial", "Casa", "Trabalho" }));
+        combo_tipo_fone1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Celular", "Residencial", "Casa", "Trabalho" }));
 
         jLabel21.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel21.setText("Fone:");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Celular", "Residencial", "Casa", "Trabalho" }));
+        combo_tipo_fone2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Celular", "Residencial", "Casa", "Trabalho" }));
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados para liberação"));
 
@@ -716,9 +810,15 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel34.setText("Digitador:");
 
-        jTextField_NumeroBeneficio.addActionListener(new java.awt.event.ActionListener() {
+        campo_dataemissao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_NumeroBeneficioActionPerformed(evt);
+                campo_dataemissaoActionPerformed(evt);
+            }
+        });
+
+        campo_numero_beneficio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campo_numero_beneficioActionPerformed(evt);
             }
         });
 
@@ -741,27 +841,25 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel48.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel48.setText("Nº ADE:");
 
-        jTextField_NumeroADE.addActionListener(new java.awt.event.ActionListener() {
+        campo_ADE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_NumeroADEActionPerformed(evt);
+                campo_ADEActionPerformed(evt);
             }
         });
 
-        jTextField_CodigoEspecie.addActionListener(new java.awt.event.ActionListener() {
+        campo_codigoespecie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_CodigoEspecieActionPerformed(evt);
+                campo_codigoespecieActionPerformed(evt);
             }
         });
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PORTABILIDADE", "REFINANCIAMENTO", "MARGEM_LIVRE", "CARTAO_RMC", "EMPRESTIMO_CARTAO", "CARTAO_BENEFICIARIO", "FGTS" }));
+        combo_operacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PORTABILIDADE", "REFINANCIAMENTO", "MARGEM_LIVRE", "CARTAO_RMC", "EMPRESTIMO_CARTAO", "CARTAO_BENEFICIARIO", "FGTS" }));
 
-        jTextField_operador.setText("Observação");
+        campo_agencia.setText("upload de arquivos jpeg (pdf)");
 
-        jTextField29.setText("upload de arquivos jpeg (pdf)");
-
-        jTextArea_obs.setColumns(20);
-        jTextArea_obs.setRows(5);
-        jScrollPane1.setViewportView(jTextArea_obs);
+        campo_obs.setColumns(20);
+        campo_obs.setRows(5);
+        jScrollPane1.setViewportView(campo_obs);
 
         jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -866,13 +964,13 @@ public final class MainScreenView extends javax.swing.JDialog {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField_Corretor, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jT_issueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_Comissao, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campo_corretor, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campo_dataemissao, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campo_comissao, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jComboBox6, javax.swing.GroupLayout.Alignment.LEADING, 0, 165, Short.MAX_VALUE)
-                                    .addComponent(jComboBox5, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(combo_convenio, javax.swing.GroupLayout.Alignment.LEADING, 0, 165, Short.MAX_VALUE)
+                                    .addComponent(combo_bancoOrigem, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -891,10 +989,10 @@ public final class MainScreenView extends javax.swing.JDialog {
                                 .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField_ValorBruto)
-                            .addComponent(jTextField_ValorLiquido, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField_QtdParcelas, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField_ValorParcela, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(campo_valorbruto)
+                            .addComponent(campo_valorliquido, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campo_qtd_parcelas, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(campo_valorparcela, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(62, 62, 62)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel38, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -903,16 +1001,16 @@ public final class MainScreenView extends javax.swing.JDialog {
                             .addComponent(jLabel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jT_contactNumber, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField_NumeroBeneficio, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox7, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField_operador, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField29, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-                    .addComponent(jTextField36, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField_NumeroADE, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField_CodigoEspecie, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campo_numeroContrato, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campo_numero_beneficio, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(combo_operacao, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(campo_digitador, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campo_agencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                    .addComponent(campo_conta_ben, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campo_ADE, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campo_codigoespecie, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(combo_banco_beneficiario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton7)))
                 .addGap(18, 18, 18)
@@ -928,7 +1026,7 @@ public final class MainScreenView extends javax.swing.JDialog {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField_Caminho_anexo)
+                                    .addComponent(campo_caminho_file)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addComponent(jButton1)
                                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -938,16 +1036,17 @@ public final class MainScreenView extends javax.swing.JDialog {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField_Corretor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel34)
-                            .addComponent(jTextField_operador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel46)
-                            .addComponent(jLabel36)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(campo_corretor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel34)
+                                .addComponent(campo_digitador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel46)
+                                .addComponent(jLabel36)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -956,83 +1055,79 @@ public final class MainScreenView extends javax.swing.JDialog {
                                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel24)
                                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(combo_bancoOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(jButton9)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel25)
-                                            .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(combo_convenio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel32)
-                                            .addComponent(jTextField_NumeroBeneficio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(campo_numero_beneficio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jButton8)))
                                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel28)
-                                        .addComponent(jT_contactNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(campo_numeroContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel26)
-                                    .addComponent(jT_issueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campo_dataemissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel35)
-                                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(combo_operacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel27)
-                                    .addComponent(jTextField_Comissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(campo_comissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jTextField_Caminho_anexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campo_caminho_file, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton1))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel48)
-                            .addComponent(jTextField_NumeroADE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel48)
+                        .addComponent(campo_ADE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(31, 31, 31)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField_ValorLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campo_valorliquido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField_ValorBruto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campo_valorbruto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel33))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel30)
-                            .addComponent(jTextField_QtdParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(campo_qtd_parcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel31)
-                            .addComponent(jTextField_ValorParcela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(campo_valorparcela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(combo_banco_beneficiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButton7)
                                     .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(campo_agencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(campo_conta_ben, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField_CodigoEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(3, 3, 3))))
+                                    .addComponent(campo_codigoespecie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                .addGap(49, 49, 49))
         );
 
         jLabel22.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -1041,7 +1136,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel40.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel40.setText("Status atual:");
 
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DIGITADO", "FINALIZADO", "CANCELADO" }));
+        combo_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DIGITADO", "FINALIZADO", "CANCELADO" }));
 
         jButton5.setText("Mudar Status");
 
@@ -1067,19 +1162,19 @@ public final class MainScreenView extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jTextFieldOrgaoEmissor, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(campo_orgao_emissor, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel11)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTextFieldEmissor, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jTextFieldConjuge)))
+                                        .addComponent(campo_emissor, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(campo_conjugue)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(campo_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabelIdUser, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -1089,12 +1184,12 @@ public final class MainScreenView extends javax.swing.JDialog {
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addComponent(jTextFieldRG, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(campo_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jComboBoxGenero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(combobox_sexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                            .addComponent(campo_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel5)
@@ -1105,41 +1200,41 @@ public final class MainScreenView extends javax.swing.JDialog {
                             .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldDataNascimento)
-                                    .addComponent(jTextFieldNaturalidade))
+                                    .addComponent(campo_email, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                                    .addComponent(campo_data_nascimento)
+                                    .addComponent(campo_naturalidade))
                                 .addGap(23, 23, 23)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(jPanel3Layout.createSequentialGroup()
                                             .addComponent(jLabel8)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jTextFieldMae))
+                                            .addComponent(campo_mae))
                                         .addGroup(jPanel3Layout.createSequentialGroup()
                                             .addComponent(jLabel7)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jTextFieldPai, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(campo_pai, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel20)
                                             .addComponent(jLabel21))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextFieldFone1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField1Fone2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(campo_fone1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(campo_fone2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jComboBox3, 0, 124, Short.MAX_VALUE)
-                                            .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                            .addComponent(combo_tipo_fone1, 0, 124, Short.MAX_VALUE)
+                                            .addComponent(combo_tipo_fone2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox8, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(combo_status, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1177, Short.MAX_VALUE)
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)))
                 .addGap(207, 207, 207))
@@ -1149,57 +1244,57 @@ public final class MainScreenView extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldCPF)
+                    .addComponent(campo_cpf)
                     .addComponent(jLabelIdUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextFieldDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextFieldPai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldName)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campo_nome)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(campo_data_nascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7)
+                        .addComponent(campo_pai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldNaturalidade, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jTextFieldRG)
+                    .addComponent(campo_naturalidade, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(campo_rg)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
-                        .addComponent(jTextFieldMae, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(campo_mae, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(combo_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBoxGenero))
+                    .addComponent(combobox_sexo)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campo_conjugue)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel19)
-                        .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campo_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel20)
-                        .addComponent(jTextFieldFone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton5)
-                        .addComponent(jTextFieldConjuge))
+                        .addComponent(campo_fone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(combo_tipo_fone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton5))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextFieldOrgaoEmissor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1Fone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campo_orgao_emissor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campo_fone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21)
                     .addComponent(jLabel11)
-                    .addComponent(jTextFieldEmissor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campo_emissor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combo_tipo_fone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
@@ -1217,7 +1312,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 563, Short.MAX_VALUE)
+            .addGap(0, 595, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Propostas                               ", jPanel4);
@@ -1230,7 +1325,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 563, Short.MAX_VALUE)
+            .addGap(0, 595, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Relatórios                                ", jPanel6);
@@ -1243,7 +1338,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 563, Short.MAX_VALUE)
+            .addGap(0, 595, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Contas a pagar/Receber              ", jPanel7);
@@ -1256,7 +1351,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 563, Short.MAX_VALUE)
+            .addGap(0, 595, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Entradas e Saidas             ", jPanel8);
@@ -1274,8 +1369,8 @@ public final class MainScreenView extends javax.swing.JDialog {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1294,36 +1389,36 @@ public final class MainScreenView extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTexCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTexCityActionPerformed
+    private void campo_cidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_cidadeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTexCityActionPerformed
+    }//GEN-LAST:event_campo_cidadeActionPerformed
 
-    private void jTextFieldNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNumeroActionPerformed
+    private void campo_numeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_numeroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNumeroActionPerformed
+    }//GEN-LAST:event_campo_numeroActionPerformed
 
-    private void jTextFieldNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNameActionPerformed
+    private void campo_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_nomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNameActionPerformed
+    }//GEN-LAST:event_campo_nomeActionPerformed
 
-    private void jTextField_NumeroADEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_NumeroADEActionPerformed
+    private void campo_ADEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_ADEActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_NumeroADEActionPerformed
+    }//GEN-LAST:event_campo_ADEActionPerformed
 
-    private void jTextField_NumeroBeneficioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_NumeroBeneficioActionPerformed
+    private void campo_numero_beneficioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_numero_beneficioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_NumeroBeneficioActionPerformed
+    }//GEN-LAST:event_campo_numero_beneficioActionPerformed
 
-    private void jTextField_CodigoEspecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_CodigoEspecieActionPerformed
+    private void campo_codigoespecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_codigoespecieActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_CodigoEspecieActionPerformed
+    }//GEN-LAST:event_campo_codigoespecieActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        updateUser();
+        UpdateLoan();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       insertLoan();
+        insertLoan();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -1339,12 +1434,26 @@ public final class MainScreenView extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        getInsertInstitutionView();
+        campo_agencia.setText("");
+        campo_conta_ben.setText("");
+        setListInsitutionView();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         getInsertPlanEnityView();
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void campo_dataemissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_dataemissaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campo_dataemissaoActionPerformed
+
+    private void campo_maeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_maeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campo_maeActionPerformed
+
+    private void combo_ufActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_ufActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combo_ufActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1392,6 +1501,50 @@ public final class MainScreenView extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField campo_ADE;
+    private javax.swing.JTextField campo_agencia;
+    private javax.swing.JTextField campo_bairro;
+    private javax.swing.JTextField campo_caminho_file;
+    private javax.swing.JTextField campo_cep;
+    private javax.swing.JTextField campo_cidade;
+    private javax.swing.JTextField campo_codigoespecie;
+    private javax.swing.JTextField campo_comissao;
+    private javax.swing.JTextField campo_complemento;
+    private javax.swing.JTextField campo_conjugue;
+    private javax.swing.JTextField campo_conta_ben;
+    private javax.swing.JTextField campo_corretor;
+    private javax.swing.JTextField campo_cpf;
+    private javax.swing.JTextField campo_data_nascimento;
+    private javax.swing.JTextField campo_dataemissao;
+    private javax.swing.JTextField campo_digitador;
+    private javax.swing.JTextField campo_email;
+    private javax.swing.JTextField campo_emissor;
+    private javax.swing.JTextField campo_fone1;
+    private javax.swing.JTextField campo_fone2;
+    private javax.swing.JTextField campo_mae;
+    private javax.swing.JTextField campo_naturalidade;
+    private javax.swing.JTextField campo_nome;
+    private javax.swing.JTextField campo_numero;
+    private javax.swing.JTextField campo_numeroContrato;
+    private javax.swing.JTextField campo_numero_beneficio;
+    private javax.swing.JTextArea campo_obs;
+    private javax.swing.JTextField campo_orgao_emissor;
+    private javax.swing.JTextField campo_pai;
+    private javax.swing.JTextField campo_qtd_parcelas;
+    private javax.swing.JTextField campo_rg;
+    private javax.swing.JTextField campo_rua;
+    private javax.swing.JTextField campo_valorbruto;
+    private javax.swing.JTextField campo_valorliquido;
+    private javax.swing.JTextField campo_valorparcela;
+    private javax.swing.JComboBox<String> combo_bancoOrigem;
+    private javax.swing.JComboBox<String> combo_banco_beneficiario;
+    private javax.swing.JComboBox<String> combo_convenio;
+    private javax.swing.JComboBox<String> combo_operacao;
+    private javax.swing.JComboBox<String> combo_status;
+    private javax.swing.JComboBox<String> combo_tipo_fone1;
+    private javax.swing.JComboBox<String> combo_tipo_fone2;
+    private javax.swing.JComboBox<String> combo_uf;
+    private javax.swing.JComboBox<String> combobox_sexo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -1401,15 +1554,6 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JComboBox<String> jComboBox7;
-    private javax.swing.JComboBox<String> jComboBox8;
-    private javax.swing.JComboBox<String> jComboBoxGenero;
-    private javax.swing.JComboBox<String> jComboBoxState;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1465,41 +1609,6 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jT_contactNumber;
-    private javax.swing.JTextField jT_issueDate;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTexCity;
-    private javax.swing.JTextArea jTextArea_obs;
-    private javax.swing.JTextField jTextField1Fone2;
-    private javax.swing.JTextField jTextField29;
-    private javax.swing.JTextField jTextField36;
-    private javax.swing.JTextField jTextFieldBairro;
-    private javax.swing.JTextField jTextFieldCPF;
-    private javax.swing.JTextField jTextFieldCep;
-    private javax.swing.JTextField jTextFieldComplemento;
-    private javax.swing.JTextField jTextFieldConjuge;
-    private javax.swing.JTextField jTextFieldDataNascimento;
-    private javax.swing.JTextField jTextFieldEmail;
-    private javax.swing.JTextField jTextFieldEmissor;
-    private javax.swing.JTextField jTextFieldFone1;
-    private javax.swing.JTextField jTextFieldMae;
-    private javax.swing.JTextField jTextFieldName;
-    private javax.swing.JTextField jTextFieldNaturalidade;
-    private javax.swing.JTextField jTextFieldNumero;
-    private javax.swing.JTextField jTextFieldOrgaoEmissor;
-    private javax.swing.JTextField jTextFieldPai;
-    private javax.swing.JTextField jTextFieldRG;
-    private javax.swing.JTextField jTextFieldRua;
-    private javax.swing.JTextField jTextField_Caminho_anexo;
-    private javax.swing.JTextField jTextField_CodigoEspecie;
-    private javax.swing.JTextField jTextField_Comissao;
-    private javax.swing.JTextField jTextField_Corretor;
-    private javax.swing.JTextField jTextField_NumeroADE;
-    private javax.swing.JTextField jTextField_NumeroBeneficio;
-    private javax.swing.JTextField jTextField_QtdParcelas;
-    private javax.swing.JTextField jTextField_ValorBruto;
-    private javax.swing.JTextField jTextField_ValorLiquido;
-    private javax.swing.JTextField jTextField_ValorParcela;
-    private javax.swing.JTextField jTextField_operador;
     // End of variables declaration//GEN-END:variables
 }

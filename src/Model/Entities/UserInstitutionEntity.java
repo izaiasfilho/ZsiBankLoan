@@ -9,13 +9,22 @@ package Model.Entities;
  *
  * @author Izaias
  */
+
 public class UserInstitutionEntity {
     
     private int id;
     private UserEntity userEntity;
-    private InstitutionEntity branchEntity;
+    private InstitutionEntity institutionUser;
     private String agency;
     private String accountNumber;
+
+    public InstitutionEntity getInstitutionUser() {
+        return institutionUser;
+    }
+
+    public void setInstitutionUser(InstitutionEntity institutionUser) {
+        this.institutionUser = institutionUser;
+    }
 
     public int getId() {
         return id;
@@ -33,13 +42,6 @@ public class UserInstitutionEntity {
         this.userEntity = userEntity;
     }
 
-    public InstitutionEntity getBranchEntity() {
-        return branchEntity;
-    }
-
-    public void setBranchEntity(InstitutionEntity branchEntity) {
-        this.branchEntity = branchEntity;
-    }
 
     public String getAgency() {
         return agency;

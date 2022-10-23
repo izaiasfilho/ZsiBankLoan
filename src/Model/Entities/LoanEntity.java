@@ -16,6 +16,16 @@ public class LoanEntity {
     private String issueDate;
     private String changeDate;
     private String contactNumber;
+    private UserInstitutionEntity userInstitutionEntity;
+
+    public UserInstitutionEntity getUserInstitutionEntity() {
+        return userInstitutionEntity;
+    }
+
+    public void setUserInstitutionEntity(UserInstitutionEntity userInstitutionEntity) {
+        this.userInstitutionEntity = userInstitutionEntity;
+    }
+    
 
     public String getChangeDate() {
         return changeDate;

@@ -34,8 +34,8 @@ public class LoanImplementatio implements LoanInterface {
 
     @Override
     public boolean updateLoan(LoanEntity loanEntity) {
-        return LoanPersistence.updateLoanPersistence(
-                getLoanByContactNumber(loanEntity.getContactNumber()));
+        loanEntity.setId(getLoanByContactNumber(loanEntity.getContactNumber()).getId());
+        return LoanPersistence.updateLoanPersistence(loanEntity);
     }
 
     @Override

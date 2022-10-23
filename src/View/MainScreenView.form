@@ -52,8 +52,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jTabbedPane1" min="-2" pref="591" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <Component id="jTabbedPane1" min="-2" pref="623" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -80,7 +80,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="563" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="595" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -110,13 +110,13 @@
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <Component id="jTextFieldOrgaoEmissor" min="-2" pref="135" max="-2" attributes="0"/>
+                                                  <Component id="campo_orgao_emissor" min="-2" pref="135" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="jTextFieldEmissor" min="-2" pref="91" max="-2" attributes="0"/>
+                                                  <Component id="campo_emissor" min="-2" pref="91" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="jTextFieldConjuge" max="32767" attributes="0"/>
+                                              <Component id="campo_conjugue" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
@@ -125,7 +125,7 @@
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel1" min="-2" pref="84" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="jTextFieldCPF" min="-2" pref="145" max="-2" attributes="0"/>
+                                                  <Component id="campo_cpf" min="-2" pref="145" max="-2" attributes="0"/>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                                   <Component id="jLabelIdUser" min="-2" pref="79" max="-2" attributes="0"/>
                                               </Group>
@@ -137,13 +137,13 @@
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                       <Group type="102" attributes="0">
-                                                          <Component id="jTextFieldRG" min="-2" pref="141" max="-2" attributes="0"/>
+                                                          <Component id="campo_rg" min="-2" pref="141" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="jComboBoxGenero" max="32767" attributes="0"/>
+                                                          <Component id="combobox_sexo" max="32767" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
                                                           <Component id="jButton6" min="-2" pref="29" max="-2" attributes="0"/>
                                                       </Group>
-                                                      <Component id="jTextFieldName" min="-2" pref="299" max="-2" attributes="0"/>
+                                                      <Component id="campo_nome" min="-2" pref="299" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
@@ -160,9 +160,9 @@
                                       <Component id="jLabel22" alignment="0" min="-2" pref="208" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jTextFieldEmail" pref="110" max="32767" attributes="0"/>
-                                              <Component id="jTextFieldDataNascimento" max="32767" attributes="0"/>
-                                              <Component id="jTextFieldNaturalidade" max="32767" attributes="0"/>
+                                              <Component id="campo_email" pref="110" max="32767" attributes="0"/>
+                                              <Component id="campo_data_nascimento" max="32767" attributes="0"/>
+                                              <Component id="campo_naturalidade" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="1" attributes="0">
@@ -170,12 +170,12 @@
                                                   <Group type="102" attributes="0">
                                                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="jTextFieldMae" max="32767" attributes="0"/>
+                                                      <Component id="campo_mae" max="32767" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="jTextFieldPai" min="-2" pref="332" max="-2" attributes="0"/>
+                                                      <Component id="campo_pai" min="-2" pref="332" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <Group type="102" alignment="1" attributes="0">
@@ -185,20 +185,20 @@
                                                   </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jTextFieldFone1" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
-                                                      <Component id="jTextField1Fone2" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                                                      <Component id="campo_fone1" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
+                                                      <Component id="campo_fone2" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Component id="jComboBox3" pref="124" max="32767" attributes="0"/>
-                                                      <Component id="jComboBox4" max="32767" attributes="0"/>
+                                                      <Component id="combo_tipo_fone1" pref="124" max="32767" attributes="0"/>
+                                                      <Component id="combo_tipo_fone2" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="jLabel40" max="32767" attributes="0"/>
-                                              <Component id="jComboBox8" max="32767" attributes="0"/>
+                                              <Component id="combo_status" max="32767" attributes="0"/>
                                               <Component id="jButton5" alignment="0" pref="154" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -207,7 +207,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jPanel1" pref="0" max="32767" attributes="0"/>
+                                      <Component id="jPanel1" pref="1177" max="32767" attributes="0"/>
                                       <Component id="jPanel5" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace pref="18" max="32767" attributes="0"/>
@@ -222,51 +222,52 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jTextFieldCPF" max="32767" attributes="0"/>
+                              <Component id="campo_cpf" max="32767" attributes="0"/>
                               <Component id="jLabelIdUser" max="32767" attributes="0"/>
                               <Component id="jLabel22" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldDataNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldPai" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel40" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jTextFieldName" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="campo_nome" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabel2" alignment="1" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="campo_data_nascimento" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="campo_pai" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel40" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jTextFieldNaturalidade" pref="25" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jLabel6" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="jTextFieldRG" alignment="0" max="32767" attributes="0"/>
+                              <Component id="campo_naturalidade" pref="25" max="32767" attributes="0"/>
+                              <Component id="campo_rg" alignment="0" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextFieldMae" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jComboBox8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="campo_mae" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="combo_status" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jButton6" max="32767" attributes="0"/>
-                              <Component id="jComboBoxGenero" alignment="0" max="32767" attributes="0"/>
+                              <Component id="combobox_sexo" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel6" max="32767" attributes="0"/>
+                                      <Component id="jLabel3" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="campo_conjugue" alignment="0" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextFieldEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="campo_email" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextFieldFone1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jComboBox3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="campo_fone1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="combo_tipo_fone1" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextFieldConjuge" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
@@ -276,12 +277,12 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldOrgaoEmissor" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField1Fone2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="campo_orgao_emissor" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="campo_fone2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextFieldEmissor" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jComboBox4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="campo_emissor" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="combo_tipo_fone2" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                           <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -320,18 +321,18 @@
                     <Property name="text" type="java.lang.String" value="RG:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextFieldCPF">
+                <Component class="javax.swing.JTextField" name="campo_cpf">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextFieldName">
+                <Component class="javax.swing.JTextField" name="campo_nome">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldNameActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_nomeActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextFieldRG">
+                <Component class="javax.swing.JTextField" name="campo_rg">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabelIdUser">
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBoxGenero">
+                <Component class="javax.swing.JComboBox" name="combobox_sexo">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="0"/>
@@ -357,9 +358,9 @@
                     <Property name="text" type="java.lang.String" value="Naturalidade:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextFieldDataNascimento">
+                <Component class="javax.swing.JTextField" name="campo_data_nascimento">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextFieldNaturalidade">
+                <Component class="javax.swing.JTextField" name="campo_naturalidade">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel7">
                   <Properties>
@@ -377,9 +378,12 @@
                     <Property name="text" type="java.lang.String" value="M&#xe3;e:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextFieldPai">
+                <Component class="javax.swing.JTextField" name="campo_pai">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextFieldMae">
+                <Component class="javax.swing.JTextField" name="campo_mae">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_maeActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel9">
                   <Properties>
@@ -390,7 +394,7 @@
                     <Property name="text" type="java.lang.String" value="C&#xf4;njuge:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextFieldConjuge">
+                <Component class="javax.swing.JTextField" name="campo_conjugue">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel10">
                   <Properties>
@@ -401,7 +405,7 @@
                     <Property name="text" type="java.lang.String" value="Org&#xe3;o Emissor:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextFieldOrgaoEmissor">
+                <Component class="javax.swing.JTextField" name="campo_orgao_emissor">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel11">
                   <Properties>
@@ -411,7 +415,7 @@
                     <Property name="text" type="java.lang.String" value="Emissor:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextFieldEmissor">
+                <Component class="javax.swing.JTextField" name="campo_emissor">
                 </Component>
                 <Container class="javax.swing.JPanel" name="jPanel1">
                   <Properties>
@@ -429,7 +433,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jTextFieldCep" min="-2" pref="124" max="-2" attributes="0"/>
+                              <Component id="campo_cep" min="-2" pref="124" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabelId" min="-2" pref="54" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -440,30 +444,30 @@
                               <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jTextFieldRua" min="-2" pref="331" max="-2" attributes="0"/>
+                                      <Component id="campo_rua" min="-2" pref="331" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="jTextFieldBairro" alignment="0" min="-2" pref="203" max="-2" attributes="0"/>
+                                  <Component id="campo_bairro" alignment="0" min="-2" pref="203" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jTextFieldNumero" min="-2" pref="81" max="-2" attributes="0"/>
+                                      <Component id="campo_numero" min="-2" pref="81" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldComplemento" min="-2" pref="205" max="-2" attributes="0"/>
+                                      <Component id="campo_complemento" min="-2" pref="205" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jTexCity" min="-2" pref="248" max="-2" attributes="0"/>
+                                      <Component id="campo_cidade" min="-2" pref="248" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                                       <Component id="jLabel17" min="-2" pref="25" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jComboBoxState" max="32767" attributes="0"/>
+                                      <Component id="combo_uf" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="177" max="-2" attributes="0"/>
@@ -478,27 +482,27 @@
                                   <Component id="jLabelId" min="-2" pref="20" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldRua" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="campo_rua" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldComplemento" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="campo_complemento" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldNumero" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="campo_numero" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldCep" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="campo_cep" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextFieldBairro" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="campo_bairro" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                       <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel17" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                                      <Component id="jComboBoxState" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="combo_uf" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jTexCity" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="campo_cidade" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -510,23 +514,23 @@
                         <Property name="text" type="java.lang.String" value="CEP:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextFieldCep">
+                    <Component class="javax.swing.JTextField" name="campo_cep">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel13">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Rua:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextFieldRua">
+                    <Component class="javax.swing.JTextField" name="campo_rua">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel14">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Numero:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextFieldNumero">
+                    <Component class="javax.swing.JTextField" name="campo_numero">
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldNumeroActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_numeroActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel15">
@@ -534,21 +538,24 @@
                         <Property name="text" type="java.lang.String" value="Complemento:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextFieldComplemento">
+                    <Component class="javax.swing.JTextField" name="campo_complemento">
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel16">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Bairro:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextFieldBairro">
+                    <Component class="javax.swing.JTextField" name="campo_bairro">
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="jComboBoxState">
+                    <Component class="javax.swing.JComboBox" name="combo_uf">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="0"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="combo_ufActionPerformed"/>
+                      </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
@@ -563,9 +570,9 @@
                         <Property name="text" type="java.lang.String" value="Cidade:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTexCity">
+                    <Component class="javax.swing.JTextField" name="campo_cidade">
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTexCityActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_cidadeActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabelId">
@@ -581,7 +588,7 @@
                     <Property name="text" type="java.lang.String" value="Email:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextFieldEmail">
+                <Component class="javax.swing.JTextField" name="campo_email">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel20">
                   <Properties>
@@ -591,9 +598,9 @@
                     <Property name="text" type="java.lang.String" value="Fone:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextFieldFone1">
+                <Component class="javax.swing.JTextField" name="campo_fone1">
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox3">
+                <Component class="javax.swing.JComboBox" name="combo_tipo_fone1">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="4">
@@ -616,9 +623,9 @@
                     <Property name="text" type="java.lang.String" value="Fone:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField1Fone2">
+                <Component class="javax.swing.JTextField" name="campo_fone2">
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox4">
+                <Component class="javax.swing.JComboBox" name="combo_tipo_fone2">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="4">
@@ -680,13 +687,13 @@
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jTextField_Corretor" min="-2" pref="207" max="-2" attributes="0"/>
-                                          <Component id="jT_issueDate" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
-                                          <Component id="jTextField_Comissao" min="-2" pref="93" max="-2" attributes="0"/>
+                                          <Component id="campo_corretor" min="-2" pref="207" max="-2" attributes="0"/>
+                                          <Component id="campo_dataemissao" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
+                                          <Component id="campo_comissao" min="-2" pref="93" max="-2" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="jComboBox6" alignment="0" pref="165" max="32767" attributes="0"/>
-                                                  <Component id="jComboBox5" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="combo_convenio" alignment="0" pref="165" max="32767" attributes="0"/>
+                                                  <Component id="combo_bancoOrigem" alignment="0" max="32767" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="32767" attributes="0"/>
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -715,10 +722,10 @@
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jTextField_ValorBruto" max="32767" attributes="0"/>
-                                          <Component id="jTextField_ValorLiquido" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jTextField_QtdParcelas" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jTextField_ValorParcela" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                                          <Component id="campo_valorbruto" max="32767" attributes="0"/>
+                                          <Component id="campo_valorliquido" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="campo_qtd_parcelas" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="campo_valorparcela" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -731,16 +738,16 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jT_contactNumber" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTextField_NumeroBeneficio" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jComboBox7" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTextField_operador" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTextField29" alignment="0" pref="194" max="32767" attributes="0"/>
-                                  <Component id="jTextField36" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTextField_NumeroADE" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTextField_CodigoEspecie" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="campo_numeroContrato" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="campo_numero_beneficio" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="combo_operacao" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="campo_digitador" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="campo_agencia" alignment="0" pref="194" max="32767" attributes="0"/>
+                                  <Component id="campo_conta_ben" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="campo_ADE" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="campo_codigoespecie" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
-                                      <Component id="jComboBox1" max="32767" attributes="0"/>
+                                      <Component id="combo_banco_beneficiario" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButton7" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -759,7 +766,7 @@
                                               <Component id="jScrollPane1" min="-2" pref="226" max="-2" attributes="0"/>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jTextField_Caminho_anexo" max="32767" attributes="0"/>
+                                                  <Component id="campo_caminho_file" max="32767" attributes="0"/>
                                                   <Group type="102" attributes="0">
                                                       <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -777,16 +784,18 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jTextField_Corretor" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jTextField_operador" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel46" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel23" alignment="0" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="campo_corretor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="campo_digitador" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel46" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -796,51 +805,48 @@
                                                       <Group type="103" groupAlignment="0" attributes="0">
                                                           <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
                                                           <Group type="103" groupAlignment="3" attributes="0">
-                                                              <Component id="jComboBox5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="combo_bancoOrigem" alignment="3" min="-2" max="-2" attributes="0"/>
                                                               <Component id="jButton9" alignment="3" min="-2" max="-2" attributes="0"/>
                                                           </Group>
                                                       </Group>
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Group type="103" groupAlignment="3" attributes="0">
                                                           <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jComboBox6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="combo_convenio" alignment="3" min="-2" max="-2" attributes="0"/>
                                                           <Component id="jLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jTextField_NumeroBeneficio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="campo_numero_beneficio" alignment="3" min="-2" max="-2" attributes="0"/>
                                                           <Component id="jButton8" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                                   <Group type="103" groupAlignment="3" attributes="0">
                                                       <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jT_contactNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="campo_numeroContrato" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jLabel26" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jT_issueDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="campo_dataemissao" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel35" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jComboBox7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="combo_operacao" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jTextField_Comissao" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="campo_comissao" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                                           <Group type="102" attributes="0">
-                                              <Component id="jTextField_Caminho_anexo" min="-2" max="-2" attributes="0"/>
+                                              <Component id="campo_caminho_file" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel48" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jTextField_NumeroADE" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel48" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="campo_ADE" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -849,14 +855,14 @@
                                           <Group type="102" attributes="0">
                                               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jTextField_ValorLiquido" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="campo_valorliquido" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel29" alignment="3" min="-2" pref="9" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jTextField_ValorBruto" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="campo_valorbruto" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
@@ -864,12 +870,12 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel30" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jTextField_QtdParcelas" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="campo_qtd_parcelas" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel31" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jTextField_ValorParcela" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="campo_valorparcela" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" attributes="0">
@@ -877,34 +883,31 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="combo_banco_beneficiario" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jButton7" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel38" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jLabel37" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
-                                                  <Component id="jTextField29" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="campo_agencia" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jLabel39" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                                                  <Component id="jTextField36" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="campo_conta_ben" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="jTextField_CodigoEspecie" min="-2" max="-2" attributes="0"/>
-                                                  <Group type="102" attributes="0">
-                                                      <Component id="jLabel45" min="-2" pref="17" max="-2" attributes="0"/>
-                                                      <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
-                                                  </Group>
+                                                  <Component id="campo_codigoespecie" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel45" min="-2" pref="17" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Component id="jPanel9" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -982,9 +985,9 @@
                         <Property name="text" type="java.lang.String" value="Digitador:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField_Corretor">
+                    <Component class="javax.swing.JTextField" name="campo_corretor">
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="jComboBox5">
+                    <Component class="javax.swing.JComboBox" name="combo_bancoOrigem">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="0"/>
@@ -994,7 +997,7 @@
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="jComboBox6">
+                    <Component class="javax.swing.JComboBox" name="combo_convenio">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="0"/>
@@ -1004,19 +1007,22 @@
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jT_issueDate">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField_ValorLiquido">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField_QtdParcelas">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField_ValorParcela">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="jT_contactNumber">
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField_NumeroBeneficio">
+                    <Component class="javax.swing.JTextField" name="campo_dataemissao">
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField_NumeroBeneficioActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_dataemissaoActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="campo_valorliquido">
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="campo_qtd_parcelas">
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="campo_valorparcela">
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="campo_numeroContrato">
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="campo_numero_beneficio">
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_numero_beneficioActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel35">
@@ -1059,21 +1065,21 @@
                         <Property name="text" type="java.lang.String" value="N&#xba; ADE:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField_NumeroADE">
+                    <Component class="javax.swing.JTextField" name="campo_ADE">
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField_NumeroADEActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_ADEActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField_ValorBruto">
+                    <Component class="javax.swing.JTextField" name="campo_valorbruto">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField36">
+                    <Component class="javax.swing.JTextField" name="campo_conta_ben">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField_CodigoEspecie">
+                    <Component class="javax.swing.JTextField" name="campo_codigoespecie">
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField_CodigoEspecieActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_codigoespecieActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="jComboBox7">
+                    <Component class="javax.swing.JComboBox" name="combo_operacao">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="7">
@@ -1091,14 +1097,11 @@
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField_operador">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Observa&#xe7;&#xe3;o"/>
-                      </Properties>
+                    <Component class="javax.swing.JTextField" name="campo_digitador">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField_Comissao">
+                    <Component class="javax.swing.JTextField" name="campo_comissao">
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField29">
+                    <Component class="javax.swing.JTextField" name="campo_agencia">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="upload de arquivos jpeg (pdf)"/>
                       </Properties>
@@ -1110,7 +1113,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTextArea" name="jTextArea_obs">
+                        <Component class="javax.swing.JTextArea" name="campo_obs">
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
                             <Property name="rows" type="int" value="5"/>
@@ -1187,7 +1190,7 @@
                         <Property name="text" type="java.lang.String" value="Caminho Anexo:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField_Caminho_anexo">
+                    <Component class="javax.swing.JTextField" name="campo_caminho_file">
                     </Component>
                     <Component class="javax.swing.JButton" name="jButton1">
                       <Properties>
@@ -1202,7 +1205,7 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="jComboBox1">
+                    <Component class="javax.swing.JComboBox" name="combo_banco_beneficiario">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="0"/>
@@ -1246,7 +1249,7 @@
                     <Property name="text" type="java.lang.String" value="Status atual:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox8">
+                <Component class="javax.swing.JComboBox" name="combo_status">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="3">
@@ -1289,7 +1292,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="563" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="595" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1311,7 +1314,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="563" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="595" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1333,7 +1336,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="563" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="595" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -1355,7 +1358,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="563" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="595" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>

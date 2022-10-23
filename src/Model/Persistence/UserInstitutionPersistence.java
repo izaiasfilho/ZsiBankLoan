@@ -5,10 +5,7 @@
  */
 package Model.Persistence;
 
-import Model.Entities.CityEntity;
 import Model.Entities.InstitutionEntity;
-import Model.Entities.PhoneEntity;
-import Model.Entities.StateEntity;
 import Model.Entities.UserEntity;
 import Model.Entities.UserInstitutionEntity;
 import static Resources.BD.Conection.Checks;
@@ -37,7 +34,7 @@ public class UserInstitutionPersistence {
         try {
             preparedStatement = conect().prepareStatement(query);
             preparedStatement.setInt(1, userInstitutionEntity.getUserEntity().getId());
-            preparedStatement.setInt(2, userInstitutionEntity.getBranchEntity().getId());
+            preparedStatement.setInt(2, userInstitutionEntity.getInstitutionUser().getId());
             preparedStatement.setString(3, userInstitutionEntity.getAgency());
             preparedStatement.setString(4, userInstitutionEntity.getAccountNumber());
             preparedStatement.executeUpdate();
@@ -51,8 +48,13 @@ public class UserInstitutionPersistence {
         return false;
     }
 
-    public static List<UserInstitutionEntity> getListUserInstitutionByIdUserPersistence( int idUser) {
-        String query = "SELECT * FROM tb_user_institution where id_user =?;";
+    public static List<UserInstitutionEntity> getListUserInstitutionByIdUserPersistence(int idUser) {
+        String query = "SELECT ins.description, ui.agency, ui.account_number FROM \n"
+                + "tb_user us, tb_user_institution ui, tb_institution ins\n"
+                + "where \n"
+                + "    us.id = ui.id_user\n"
+                + "and ui.id_institution = ins.id\n"
+                + "and us.id = ?;";
         PreparedStatement preparedStatement = null;
         if (Checks()) {
             closeConect();
@@ -64,19 +66,14 @@ public class UserInstitutionPersistence {
 
             List<UserInstitutionEntity> list = new ArrayList();
             while (rs.next()) {
+                InstitutionEntity institution = new InstitutionEntity();
+                institution.setDescription(rs.getString("description"));
+                
                 UserInstitutionEntity userInstitutionEntity = new UserInstitutionEntity();
-                userInstitutionEntity.setId(rs.getInt("id"));
-                
-                UserEntity userEntity = new UserEntity();
-                userEntity.setId(rs.getInt("id_user"));
-                userInstitutionEntity.setUserEntity(userEntity);
-                
-                InstitutionEntity branchEntity = new InstitutionEntity();
-                branchEntity.setId(rs.getInt("id_institution"));
-                userInstitutionEntity.setBranchEntity(branchEntity);
-                
+                userInstitutionEntity.setInstitutionUser(institution);
                 userInstitutionEntity.setAgency(rs.getString("agency"));
                 userInstitutionEntity.setAccountNumber(rs.getString("account_number"));
+
                 list.add(userInstitutionEntity);
             }
             return list;
@@ -86,7 +83,7 @@ public class UserInstitutionPersistence {
         return null;
     }
 
-    public static UserInstitutionEntity getUserInstitutionByInstitutionNumberPersistence( int id_institution) {
+    public static UserInstitutionEntity getUserInstitutionByInstitutionNumberPersistence(int id_institution) {
         String query = "SELECT * FROM tb_user_institution where id_institution =?;";
         PreparedStatement preparedStatement = null;
         if (Checks()) {
@@ -100,15 +97,15 @@ public class UserInstitutionPersistence {
             while (rs.next()) {
                 UserInstitutionEntity userInstitutionEntity = new UserInstitutionEntity();
                 userInstitutionEntity.setId(rs.getInt("id"));
-                
+
                 UserEntity userEntity = new UserEntity();
                 userEntity.setId(rs.getInt("id_user"));
                 userInstitutionEntity.setUserEntity(userEntity);
-                
-                InstitutionEntity branchEntity = new InstitutionEntity();
-                branchEntity.setId(rs.getInt("id_institution"));
-                userInstitutionEntity.setBranchEntity(branchEntity);
-                
+
+                InstitutionEntity inst = new InstitutionEntity();
+                inst.setId(rs.getInt("id_institution"));
+                userInstitutionEntity.setInstitutionUser(inst);
+
                 userInstitutionEntity.setAgency(rs.getString("agency"));
                 userInstitutionEntity.setAccountNumber(rs.getString("account_number"));
                 return userInstitutionEntity;
@@ -117,6 +114,44 @@ public class UserInstitutionPersistence {
             Logger.getLogger(UserInstitutionPersistence.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    
+    public static boolean updateReseteMainUserInstitutionPersistence(UserEntity userEntity) {
+        String query = "UPDATE tb_user_institution SET main = false where id_user= ?";
+        PreparedStatement preparedStatement = null;
+        if (Checks()) {
+            closeConect();
+        }
+        try {
+            preparedStatement = conect().prepareStatement(query);
+            preparedStatement.setString(1, userEntity.getIssuer());
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(CityPersistence.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    
+    public static boolean updateMainUserInstitutionPersistence(int id_institution, int id_user, boolean valueMain) {
+        String query = "UPDATE tb_user_institution SET main = ? where id_user= ? and id_institution =?";
+        PreparedStatement preparedStatement = null;
+        if (Checks()) {
+            closeConect();
+        }
+        try {
+            preparedStatement = conect().prepareStatement(query);
+            preparedStatement.setBoolean(1, valueMain);
+            preparedStatement.setInt(2, id_user);
+            preparedStatement.setInt(3, id_institution);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(CityPersistence.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
 }

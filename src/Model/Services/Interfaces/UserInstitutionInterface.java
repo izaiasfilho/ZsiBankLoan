@@ -5,6 +5,7 @@
  */
 package Model.Services.Interfaces;
 
+import Model.Entities.UserEntity;
 import Model.Entities.UserInstitutionEntity;
 import java.util.List;
 
@@ -19,4 +20,9 @@ public interface UserInstitutionInterface {
     public UserInstitutionEntity getUserInstitutionEntityByInstitution(String Institution);
     
     public List<UserInstitutionEntity> getListUserInstitutionByIdUser(int id_user);
+    
+    public boolean updateReseteMainUserInstitution(UserEntity userEntity);
+    
+    public boolean updateMainUserInstitution(int id_institution, int id_user, boolean valueMain);
+    
 }

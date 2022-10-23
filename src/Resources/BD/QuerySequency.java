@@ -350,7 +350,26 @@ public class QuerySequency {
         array.add("ALTER TABLE `tb_loan` \n"
                 + "ADD CONSTRAINT `id_user_loan_fk`\n"
                 + "  FOREIGN KEY (`id_user`)\n"
-                + "  REFERENCES `u323187073_zsibl`.`tb_user` (`id`)\n"
+                + "  REFERENCES `tb_user` (`id`)\n"
+                + "  ON DELETE NO ACTION\n"
+                + "  ON UPDATE NO ACTION;");
+
+        array.add("ALTER TABLE `tb_user_institution` \n"
+                + "ADD COLUMN `main` INT NULL DEFAULT 0 AFTER `account_number`;");
+
+        array.add("ALTER TABLE `tb_user_institution` \n"
+                + "DROP COLUMN `main`;");
+
+        array.add("ALTER TABLE `tb_loan` \n"
+                + "ADD COLUMN `id_institution_user` INT NOT NULL AFTER `changeDate`;");
+
+        array.add("ALTER TABLE `tb_loan` \n"
+                + "ADD INDEX `id_institurion_user_fk_idx` (`id_institution_user` ASC) VISIBLE;");
+
+        array.add("ALTER TABLE `tb_loan` \n"
+                + "ADD CONSTRAINT `id_institurion_user_fk`\n"
+                + "  FOREIGN KEY (`id_institution_user`)\n"
+                + "  REFERENCES `tb_user_institution` (`id`)\n"
                 + "  ON DELETE NO ACTION\n"
                 + "  ON UPDATE NO ACTION;");
 
