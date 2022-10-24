@@ -21,7 +21,6 @@ public class LoanMovementEntity {
     private InstitutionEntity institutionEntity;
     private PlanEntity planEntity;
     private TransactionEnum transactionEnum;
-    private UserInstitutionEntity userInstitutionEntity;
     private LoanStatusEnum loanStatutsEnum;
     private String broker;
     private String commission;
@@ -83,14 +82,6 @@ public class LoanMovementEntity {
 
     public void setTransactionEnum(TransactionEnum transactionEnum) {
         this.transactionEnum = transactionEnum;
-    }
-
-    public UserInstitutionEntity getUserInstitutionEntity() {
-        return userInstitutionEntity;
-    }
-
-    public void setUserInstitutionEntity(UserInstitutionEntity userInstitutionEntity) {
-        this.userInstitutionEntity = userInstitutionEntity;
     }
 
     public LoanStatusEnum getLoanStatutsEnum() {

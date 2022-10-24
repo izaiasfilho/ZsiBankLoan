@@ -16,14 +16,33 @@ public class LoanEntity {
     private String issueDate;
     private String changeDate;
     private String contactNumber;
-    private UserInstitutionEntity userInstitutionEntity;
+    private String agency;
+    private String account_number;
+    private InstitutionEntity institutionEntity;
 
-    public UserInstitutionEntity getUserInstitutionEntity() {
-        return userInstitutionEntity;
+    public InstitutionEntity getInstitutionEntity() {
+        return institutionEntity;
     }
 
-    public void setUserInstitutionEntity(UserInstitutionEntity userInstitutionEntity) {
-        this.userInstitutionEntity = userInstitutionEntity;
+    public void setInstitutionEntity(InstitutionEntity institutionEntity) {
+        this.institutionEntity = institutionEntity;
+    }
+    
+
+    public String getAgency() {
+        return agency;
+    }
+
+    public void setAgency(String agency) {
+        this.agency = agency;
+    }
+
+    public String getAccount_number() {
+        return account_number;
+    }
+
+    public void setAccount_number(String account_number) {
+        this.account_number = account_number;
     }
     
 

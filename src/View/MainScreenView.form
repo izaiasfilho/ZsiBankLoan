@@ -322,13 +322,22 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="campo_cpf">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="101"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="campo_nome">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="nome1"/>
+                  </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_nomeActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="campo_rg">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="00001"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabelIdUser">
                 </Component>
@@ -359,8 +368,14 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="campo_data_nascimento">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="2022-01-01"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="campo_naturalidade">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="mamanguape"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel7">
                   <Properties>
@@ -379,8 +394,14 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="campo_pai">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="pai"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="campo_mae">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="mae"/>
+                  </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_maeActionPerformed"/>
                   </Events>
@@ -395,6 +416,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="campo_conjugue">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="conjuge"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel10">
                   <Properties>
@@ -406,6 +430,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="campo_orgao_emissor">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="orgao emisso"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel11">
                   <Properties>
@@ -416,6 +443,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="campo_emissor">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="emissor"/>
+                  </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="jPanel1">
                   <Properties>
@@ -515,6 +545,9 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_cep">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="58068360"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel13">
                       <Properties>
@@ -522,6 +555,9 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_rua">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="rua"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel14">
                       <Properties>
@@ -529,6 +565,9 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_numero">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="numero"/>
+                      </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_numeroActionPerformed"/>
                       </Events>
@@ -539,6 +578,9 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_complemento">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="complemento"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel16">
                       <Properties>
@@ -546,6 +588,9 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_bairro">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="bairro"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="combo_uf">
                       <Properties>
@@ -571,6 +616,9 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_cidade">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="cidade"/>
+                      </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_cidadeActionPerformed"/>
                       </Events>
@@ -589,6 +637,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="campo_email">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="@email"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel20">
                   <Properties>
@@ -599,6 +650,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="campo_fone1">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="2222222"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="combo_tipo_fone1">
                   <Properties>
@@ -624,6 +678,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="campo_fone2">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="333333"/>
+                  </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="combo_tipo_fone2">
                   <Properties>
@@ -986,6 +1043,9 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_corretor">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="corretor"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="combo_bancoOrigem">
                       <Properties>
@@ -1008,19 +1068,37 @@
                       </AuxValues>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_dataemissao">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="2022-01-01"/>
+                      </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_dataemissaoActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_valorliquido">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="1800"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_qtd_parcelas">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="10"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_valorparcela">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="200"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_numeroContrato">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="222222"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_numero_beneficio">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="212121"/>
+                      </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_numero_beneficioActionPerformed"/>
                       </Events>
@@ -1066,13 +1144,22 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_ADE">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="333221"/>
+                      </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_ADEActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_valorbruto">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="2000"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_conta_ben">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="220012"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_codigoespecie">
                       <Events>
@@ -1098,12 +1185,18 @@
                       </AuxValues>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_digitador">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="digitador"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_comissao">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="10"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_agencia">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="upload de arquivos jpeg (pdf)"/>
+                        <Property name="text" type="java.lang.String" value="0000021"/>
                       </Properties>
                     </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -1117,6 +1210,7 @@
                           <Properties>
                             <Property name="columns" type="int" value="20"/>
                             <Property name="rows" type="int" value="5"/>
+                            <Property name="text" type="java.lang.String" value="obs"/>
                           </Properties>
                         </Component>
                       </SubComponents>
@@ -1191,6 +1285,9 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="campo_caminho_file">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="caminho"/>
+                      </Properties>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButton1">
                       <Properties>

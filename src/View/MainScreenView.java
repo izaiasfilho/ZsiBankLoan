@@ -13,7 +13,6 @@ import Controller.PhoneController;
 import Controller.PlanController;
 import Controller.StateController;
 import Controller.UserController;
-import Controller.UserInstitutionController;
 import Model.Entities.AddressEntity;
 import Model.Entities.CityEntity;
 import Model.Entities.GenreEntity;
@@ -24,7 +23,6 @@ import Model.Entities.PhoneEntity;
 import Model.Entities.PlanEntity;
 import Model.Entities.StateEntity;
 import Model.Entities.UserEntity;
-import Model.Entities.UserInstitutionEntity;
 import Model.Enuns.LoanStatusEnum;
 import Model.Enuns.TransactionEnum;
 import Model.Utility.Utilities;
@@ -65,14 +63,14 @@ public final class MainScreenView extends javax.swing.JDialog {
         loan.setIssueDate(campo_dataemissao.getText());
         loan.setChangeDate(util.getdate());
         
-        UserInstitutionEntity userInstitutionEntity = new UserInstitutionEntity();
         InstitutionController institutionController = new InstitutionController();
         InstitutionEntity institutionEntity = 
                 institutionController.getInstitutionByDescription((String) combo_banco_beneficiario.getSelectedItem());
         institutionEntity.setId(institutionEntity.getId());
-        userInstitutionEntity.setInstitutionUser(institutionEntity);
-        loan.setUserInstitutionEntity(userInstitutionEntity);
         
+        loan.setAgency(campo_agencia.getText());
+        loan.setAccount_number(campo_conta_ben.getText());
+        loan.setInstitutionEntity(institutionEntity);
         return loan;
     }
 
@@ -94,20 +92,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         loanMovement.setPlanEntity(planEntity);
 
         loanMovement.setTransactionEnum(TransactionEnum.valueOf((String) combo_operacao.getSelectedItem()));
-
-        UserInstitutionController userInstitutionController = new UserInstitutionController();
-        UserInstitutionEntity userInstitutionEntity = new UserInstitutionEntity();
-        userInstitutionEntity.setUserEntity(loanEntity.getUsrEntity());
-
-        userInstitutionEntity.setInstitutionUser(institutionEntity);
-        userInstitutionEntity.setAgency(campo_agencia.getText());
-        userInstitutionEntity.setAccountNumber(campo_conta_ben.getText());
-
-        userInstitutionController.insertUserInstitution(userInstitutionEntity);
-        userInstitutionEntity
-                = userInstitutionController.getUserInstitutionEntityByInstitution(institutionEntity.getDescription());
-        loanMovement.setUserInstitutionEntity(userInstitutionEntity);
-
         loanMovement.setLoanStatutsEnum(LoanStatusEnum.valueOf((String) combo_status.getSelectedItem()));
         loanMovement.setBroker(campo_corretor.getText());
         loanMovement.setCommission(campo_comissao.getText());
@@ -320,18 +304,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         });
     }
 
-    public void setListInstitutionUser(UserEntity userEntity) {
-        UserInstitutionController userInstController = new UserInstitutionController();
-        List<UserInstitutionEntity> list
-                = userInstController.getListUserInstitutionByIdUser(userEntity.getId());
-        if (list.size() > 0) {
-            cleanInstitutionUser();
-            list.stream().forEach(inst -> {
-                combo_banco_beneficiario.addItem(inst.getInstitutionUser().getDescription());
-            });
-        }
-    }
-
     public void setListPlanView() {
         PlanController planController = new PlanController();
         planController.getListinserPlan().stream().forEach(inst -> {
@@ -346,22 +318,17 @@ public final class MainScreenView extends javax.swing.JDialog {
         });
     }
 
-    public void setInstitutionUserView(LoanEntity loanEntity) {
-        setListInstitutionUser(loanEntity.getUsrEntity());
-            combo_banco_beneficiario.setSelectedItem(
-                    loanEntity.getUserInstitutionEntity().getInstitutionUser().getDescription());
-            campo_agencia.setText(loanEntity.getUserInstitutionEntity().getAgency());
-            campo_conta_ben.setText(loanEntity.getUserInstitutionEntity().getAccountNumber());
-    }
-
     public void setLaonView(UserEntity userEntity) {
         LoanController loanController = new LoanController();
         LoanEntity loanEntity = loanController.getLoanByUser(userEntity.getId());
         campo_numeroContrato.setText(loanEntity.getContactNumber());
         campo_dataemissao.setText(loanEntity.getIssueDate());
+        
+        combo_banco_beneficiario.setSelectedItem(loanEntity.getInstitutionEntity().getDescription());
+        campo_agencia.setText(loanEntity.getAgency());
+        campo_conta_ben.setText(loanEntity.getAccount_number());
 
         setLoanMovementeView(loanEntity);
-        setInstitutionUserView(loanEntity);
         
     }
 
@@ -413,6 +380,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         loanController.updateLoan(getLoanView(updateUser()));
         LoanEntity loan = loanController.getLoanByContactNumber(campo_numeroContrato.getText());
+       
         insertLoanMoviment(loan);
     }
 
@@ -427,10 +395,20 @@ public final class MainScreenView extends javax.swing.JDialog {
         UserController userController = new UserController();
         if (userController.insertUserController(getUserView())) {
             UserEntity user = userController.getUserController(getUserView());
-            getListPhoneView(user);
+          
+            insertPhone(getListPhoneView(user));
             return user;
         }
         return null;
+    }
+    
+    public void insertPhone(List<PhoneEntity> listPhone){
+        PhoneController phoneController = new PhoneController();
+        if(listPhone.size() > 0){
+            listPhone.stream().forEach(phone -> {
+            phoneController.insertPhone(phone);
+            });
+        }
     }
 
     public UserEntity updateUser() {
@@ -622,11 +600,16 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel3.setText("RG:");
 
+        campo_cpf.setText("101");
+
+        campo_nome.setText("nome1");
         campo_nome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campo_nomeActionPerformed(evt);
             }
         });
+
+        campo_rg.setText("00001");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setText("Data Nasc:");
@@ -634,12 +617,19 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setText("Naturalidade:");
 
+        campo_data_nascimento.setText("2022-01-01");
+
+        campo_naturalidade.setText("mamanguape");
+
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("Pai:");
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel8.setText("Mãe:");
 
+        campo_pai.setText("pai");
+
+        campo_mae.setText("mae");
         campo_mae.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campo_maeActionPerformed(evt);
@@ -650,21 +640,32 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel9.setText("Cônjuge:");
 
+        campo_conjugue.setText("conjuge");
+
         jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel10.setText("Orgão Emissor:");
 
+        campo_orgao_emissor.setText("orgao emisso");
+
         jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel11.setText("Emissor:");
+
+        campo_emissor.setText("emissor");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço"));
 
         jLabel12.setText("CEP:");
 
+        campo_cep.setText("58068360");
+
         jLabel13.setText("Rua:");
+
+        campo_rua.setText("rua");
 
         jLabel14.setText("Numero:");
 
+        campo_numero.setText("numero");
         campo_numero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campo_numeroActionPerformed(evt);
@@ -673,7 +674,11 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         jLabel15.setText("Complemento:");
 
+        campo_complemento.setText("complemento");
+
         jLabel16.setText("Bairro:");
+
+        campo_bairro.setText("bairro");
 
         combo_uf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -685,6 +690,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         jLabel18.setText("Cidade:");
 
+        campo_cidade.setText("cidade");
         campo_cidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campo_cidadeActionPerformed(evt);
@@ -762,13 +768,19 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel19.setText("Email:");
 
+        campo_email.setText("@email");
+
         jLabel20.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel20.setText("Fone:");
+
+        campo_fone1.setText("2222222");
 
         combo_tipo_fone1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Celular", "Residencial", "Casa", "Trabalho" }));
 
         jLabel21.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel21.setText("Fone:");
+
+        campo_fone2.setText("333333");
 
         combo_tipo_fone2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Celular", "Residencial", "Casa", "Trabalho" }));
 
@@ -810,12 +822,24 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel34.setText("Digitador:");
 
+        campo_corretor.setText("corretor");
+
+        campo_dataemissao.setText("2022-01-01");
         campo_dataemissao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campo_dataemissaoActionPerformed(evt);
             }
         });
 
+        campo_valorliquido.setText("1800");
+
+        campo_qtd_parcelas.setText("10");
+
+        campo_valorparcela.setText("200");
+
+        campo_numeroContrato.setText("222222");
+
+        campo_numero_beneficio.setText("212121");
         campo_numero_beneficio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campo_numero_beneficioActionPerformed(evt);
@@ -841,11 +865,16 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel48.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel48.setText("Nº ADE:");
 
+        campo_ADE.setText("333221");
         campo_ADE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 campo_ADEActionPerformed(evt);
             }
         });
+
+        campo_valorbruto.setText("2000");
+
+        campo_conta_ben.setText("220012");
 
         campo_codigoespecie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -855,10 +884,15 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         combo_operacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PORTABILIDADE", "REFINANCIAMENTO", "MARGEM_LIVRE", "CARTAO_RMC", "EMPRESTIMO_CARTAO", "CARTAO_BENEFICIARIO", "FGTS" }));
 
-        campo_agencia.setText("upload de arquivos jpeg (pdf)");
+        campo_digitador.setText("digitador");
+
+        campo_comissao.setText("10");
+
+        campo_agencia.setText("0000021");
 
         campo_obs.setColumns(20);
         campo_obs.setRows(5);
+        campo_obs.setText("obs");
         jScrollPane1.setViewportView(campo_obs);
 
         jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -909,6 +943,8 @@ public final class MainScreenView extends javax.swing.JDialog {
         );
 
         jLabel36.setText("Caminho Anexo:");
+
+        campo_caminho_file.setText("caminho");
 
         jButton1.setText("Localizar:");
 

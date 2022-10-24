@@ -64,20 +64,20 @@ public class UserPersistence {
 
     public static UserEntity getUserPersistence(UserEntity userEntity) {
         String query = "select \n"
-                + "     u.id, u.physicalPersonRegistration, u.Registration, u.name, u.spouse, u.issuingBody,\n"
-                + "     u.issuer, u.birthDate, u.naturalness, u.email, u.dad, u.mother,\n"
-                + "     g.description,\n"
-                + "     a.id, a.streetName, a.number, a.district, a.zipCode, a.complement,\n"
-                + "     c.name,\n"
-                + "     s.uf\n"
+                + "       u.id, u.physicalPersonRegistration, u.Registration, u.name, u.spouse, u.issuingBody,\n"
+                + "       u.issuer, u.birthDate, u.naturalness, u.email, u.dad, u.mother,\n"
+                + "       g.description,\n"
+                + "       a.id, a.streetName, a.number, a.district, a.zipCode, a.complement,\n"
+                + "       c.name,\n"
+                + "       s.uf\n"
                 + "FROM \n"
-                + "     tb_user as u, tb_address as a, tb_city as c, tb_state as s, tb_genre g\n"
-                + "where u.physicalPersonRegistration = ? \n"
-                + "and u.id_address = a.id \n"
-                + "and (a.id_city = c.id\n"
-                + "and c.id_state = s.id\n"
-                + "and  g.id = u.id_genre)\n"
-                + "group by u.id; ;";
+                + "       tb_user as u, tb_address as a, tb_city as c, tb_state as s, tb_genre g\n"
+                + "where    u.physicalPersonRegistration = ?\n"
+                + "        and u.id_address = a.id \n"
+                + "        and (a.id_city = c.id)\n"
+                + "        and c.id_state = s.id\n"
+                + "        and  g.id = u.id_genre\n"
+                + "        group by u.id;";
         PreparedStatement preparedStatement = null;
         if (Checks()) {
             closeConect();
@@ -101,7 +101,7 @@ public class UserPersistence {
                 user.setEmail(rs.getString(10));
                 user.setDad(rs.getString(11));
                 user.setMother(rs.getString(12));
-                
+
                 GenreEntity genre = new GenreEntity();
                 genre.setDescription(rs.getString(13));
                 user.setGenreEntity(genre);
@@ -113,16 +113,16 @@ public class UserPersistence {
                 addressEntity.setDistrict(rs.getString(17));
                 addressEntity.setZipCode(rs.getString(18));
                 addressEntity.setComplement(rs.getString(19));
-                
+
                 CityEntity city = new CityEntity();
                 city.setName(rs.getString(20));
-                
+
                 StateEntity state = new StateEntity();
                 state.setUf(rs.getString(21));
-                
+
                 city.setStateEntity(state);
                 addressEntity.setCityEntity(city);
-                
+
                 user.setAddressEntity(addressEntity);
                 return user;
             }
@@ -161,7 +161,7 @@ public class UserPersistence {
                 addressEntity.setId(rs.getInt(12));
 
                 user.setAddressEntity(addressEntity);
-                
+
                 GenreEntity genre = new GenreEntity();
                 genre.setId(rs.getInt(13));
                 user.setGenreEntity(genre);

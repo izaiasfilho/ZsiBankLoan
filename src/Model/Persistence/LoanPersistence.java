@@ -8,7 +8,6 @@ package Model.Persistence;
 import Model.Entities.InstitutionEntity;
 import Model.Entities.LoanEntity;
 import Model.Entities.UserEntity;
-import Model.Entities.UserInstitutionEntity;
 import static Resources.BD.Conection.Checks;
 import static Resources.BD.Conection.closeConect;
 import static Resources.BD.Conection.conect;
@@ -27,13 +26,12 @@ import java.util.logging.Logger;
 public class LoanPersistence {
 
     public static LoanEntity getLoanByIdPersistence(int idUser) {
-        String query = "SELECT lo.id,lo.id_user,lo.contactNumber, lo.issueDate, lo.changeDate,\n"
-                + "        ui.agency, ui.account_number, ins.description \n"
-                + "FROM \n"
-                + "  tb_loan lo, tb_institution ins, tb_user us,tb_user_institution ui\n"
-                + "  where lo.id_institution_user = ins.id \n"
-                + "  and lo.id_institution_user = ui.id_institution \n"
-                + "  and lo.id_user = ?;";
+        String query = "SELECT lo.id, lo.id_user, lo.contactNumber, lo.issueDate, lo.changeDate, ins.description,\n"
+                + "               lo.agency, lo.account_number\n"
+                + "               FROM tb_loan lo, tb_institution ins, tb_user u\n"
+                + "               where lo.id_inst_user = ins.id\n"
+                + "               and lo.id_user = u.id\n"
+                + "               and lo.id_user = ?";
         PreparedStatement preparedStatement = null;
         if (Checks()) {
             closeConect();
@@ -53,14 +51,12 @@ public class LoanPersistence {
                 loan.setIssueDate(rs.getString("issueDate"));
                 loan.setChangeDate(rs.getString("changeDate"));
 
-                UserInstitutionEntity userInstitutionEntity = new UserInstitutionEntity();
-                userInstitutionEntity.setAgency(rs.getString("agency"));
-                userInstitutionEntity.setAccountNumber(rs.getString("account_number"));
-
                 InstitutionEntity institutionEntity = new InstitutionEntity();
                 institutionEntity.setDescription(rs.getString("description"));
-                userInstitutionEntity.setInstitutionUser(institutionEntity);
-                loan.setUserInstitutionEntity(userInstitutionEntity);
+                loan.setInstitutionEntity(institutionEntity);
+
+                loan.setAgency(rs.getString("agency"));
+                loan.setAccount_number(rs.getString("account_number"));
                 return loan;
             }
         } catch (SQLException ex) {
@@ -157,7 +153,8 @@ public class LoanPersistence {
     }
 
     public static boolean insertLoanPersistence(LoanEntity loanEntity) throws SQLException {
-        String query = "INSERT INTO tb_loan (id_user, contactNumber, issueDate, changeDate) VALUES (?,?,?,?)";
+        String query = "INSERT INTO tb_loan (id_user, contactNumber, issueDate, changeDate,"
+                + " agency, account_number, id_inst_user) VALUES (?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = null;
         if (Checks()) {
             closeConect();
@@ -168,6 +165,9 @@ public class LoanPersistence {
             preparedStatement.setString(2, loanEntity.getContactNumber());
             preparedStatement.setString(3, loanEntity.getIssueDate());
             preparedStatement.setString(4, loanEntity.getChangeDate());
+            preparedStatement.setString(5, loanEntity.getAgency());
+            preparedStatement.setString(6, loanEntity.getAccount_number());
+            preparedStatement.setInt(7, loanEntity.getInstitutionEntity().getId());
 
             preparedStatement.executeUpdate();
             preparedStatement.close();
@@ -182,7 +182,7 @@ public class LoanPersistence {
 
     public static boolean updateLoanPersistence(LoanEntity loanEntity) {
         String query = "UPDATE tb_loan SET id_user =?, contactNumber =?,"
-                + " issueDate =?, changeDate =?, id_institution_user =? where id = ?";
+                + " issueDate =?, changeDate =?, id_inst_user =? where id = ?";
         PreparedStatement preparedStatement = null;
         if (Checks()) {
             closeConect();
@@ -193,7 +193,7 @@ public class LoanPersistence {
             preparedStatement.setString(2, loanEntity.getContactNumber());
             preparedStatement.setString(3, loanEntity.getIssueDate());
             preparedStatement.setString(4, loanEntity.getChangeDate());
-            preparedStatement.setInt(5, loanEntity.getUserInstitutionEntity().getInstitutionUser().getId());
+            preparedStatement.setInt(5, loanEntity.getInstitutionEntity().getId());
 
             preparedStatement.setInt(6, loanEntity.getId());
 
