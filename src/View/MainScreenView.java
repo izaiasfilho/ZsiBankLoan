@@ -52,6 +52,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         setListGenreView();
         setListInsitutionView();
         setListPlanView();
+        buttonControl();
     }
 
     public LoanEntity getLoanView(UserEntity userEntity) {
@@ -62,12 +63,12 @@ public final class MainScreenView extends javax.swing.JDialog {
         loan.setContactNumber(campo_numeroContrato.getText());
         loan.setIssueDate(campo_dataemissao.getText());
         loan.setChangeDate(util.getdate());
-        
+
         InstitutionController institutionController = new InstitutionController();
-        InstitutionEntity institutionEntity = 
-                institutionController.getInstitutionByDescription((String) combo_banco_beneficiario.getSelectedItem());
+        InstitutionEntity institutionEntity
+                = institutionController.getInstitutionByDescription((String) combo_banco_beneficiario.getSelectedItem());
         institutionEntity.setId(institutionEntity.getId());
-        
+
         loan.setAgency(campo_agencia.getText());
         loan.setAccount_number(campo_conta_ben.getText());
         loan.setInstitutionEntity(institutionEntity);
@@ -323,13 +324,13 @@ public final class MainScreenView extends javax.swing.JDialog {
         LoanEntity loanEntity = loanController.getLoanByUser(userEntity.getId());
         campo_numeroContrato.setText(loanEntity.getContactNumber());
         campo_dataemissao.setText(loanEntity.getIssueDate());
-        
+
         combo_banco_beneficiario.setSelectedItem(loanEntity.getInstitutionEntity().getDescription());
         campo_agencia.setText(loanEntity.getAgency());
         campo_conta_ben.setText(loanEntity.getAccount_number());
 
         setLoanMovementeView(loanEntity);
-        
+
     }
 
     public void setLoanMovementeView(LoanEntity loanEntity) {
@@ -337,22 +338,22 @@ public final class MainScreenView extends javax.swing.JDialog {
         List<LoanMovementEntity> ListLoanMov = loanMovementController.listLoanMovementByIdLoan(loanEntity.getId());
 
         if (ListLoanMov.size() > 0) {
-            combo_bancoOrigem.setSelectedItem(ListLoanMov.get(ListLoanMov.size() -1).getInstitutionEntity().getDescription());
-            combo_convenio.setSelectedItem(ListLoanMov.get(ListLoanMov.size() -1).getPlanEntity().getDescription());
-            combo_operacao.setSelectedItem(ListLoanMov.get(ListLoanMov.size() -1).getTransactionEnum().name());
-            combo_status.setSelectedItem(ListLoanMov.get(ListLoanMov.size() -1).getLoanStatutsEnum().name());
-            campo_corretor.setText(ListLoanMov.get(ListLoanMov.size() -1).getBroker());
-            campo_comissao.setText(ListLoanMov.get(ListLoanMov.size() -1).getCommission());
-            campo_valorbruto.setText(String.valueOf(ListLoanMov.get(ListLoanMov.size() -1).getGrossValue()));
-            campo_valorliquido.setText(String.valueOf(ListLoanMov.get(ListLoanMov.size() -1).getNetValue()));
-            campo_qtd_parcelas.setText(String.valueOf(ListLoanMov.get(ListLoanMov.size() -1).getAmountOfInstallments()));
-            campo_valorparcela.setText(String.valueOf(ListLoanMov.get(ListLoanMov.size() -1).getValueInstallments()));
-            campo_digitador.setText(ListLoanMov.get(ListLoanMov.size() -1).getOperator());
-            campo_obs.setText(ListLoanMov.get(ListLoanMov.size() -1).getNote());
-            campo_caminho_file.setText(ListLoanMov.get(ListLoanMov.size() -1).getFiles());
-            campo_ADE.setText(ListLoanMov.get(ListLoanMov.size() -1).getNumberADE());
-            campo_numero_beneficio.setText(ListLoanMov.get(ListLoanMov.size() -1).getBenefitNumber());
-            campo_codigoespecie.setText(ListLoanMov.get(ListLoanMov.size() -1).getSpeciesCode());
+            combo_bancoOrigem.setSelectedItem(ListLoanMov.get(ListLoanMov.size() - 1).getInstitutionEntity().getDescription());
+            combo_convenio.setSelectedItem(ListLoanMov.get(ListLoanMov.size() - 1).getPlanEntity().getDescription());
+            combo_operacao.setSelectedItem(ListLoanMov.get(ListLoanMov.size() - 1).getTransactionEnum().name());
+            combo_status.setSelectedItem(ListLoanMov.get(ListLoanMov.size() - 1).getLoanStatutsEnum().name());
+            campo_corretor.setText(ListLoanMov.get(ListLoanMov.size() - 1).getBroker());
+            campo_comissao.setText(ListLoanMov.get(ListLoanMov.size() - 1).getCommission());
+            campo_valorbruto.setText(String.valueOf(ListLoanMov.get(ListLoanMov.size() - 1).getGrossValue()));
+            campo_valorliquido.setText(String.valueOf(ListLoanMov.get(ListLoanMov.size() - 1).getNetValue()));
+            campo_qtd_parcelas.setText(String.valueOf(ListLoanMov.get(ListLoanMov.size() - 1).getAmountOfInstallments()));
+            campo_valorparcela.setText(String.valueOf(ListLoanMov.get(ListLoanMov.size() - 1).getValueInstallments()));
+            campo_digitador.setText(ListLoanMov.get(ListLoanMov.size() - 1).getOperator());
+            campo_obs.setText(ListLoanMov.get(ListLoanMov.size() - 1).getNote());
+            campo_caminho_file.setText(ListLoanMov.get(ListLoanMov.size() - 1).getFiles());
+            campo_ADE.setText(ListLoanMov.get(ListLoanMov.size() - 1).getNumberADE());
+            campo_numero_beneficio.setText(ListLoanMov.get(ListLoanMov.size() - 1).getBenefitNumber());
+            campo_codigoespecie.setText(ListLoanMov.get(ListLoanMov.size() - 1).getSpeciesCode());
         }
     }
 
@@ -362,9 +363,10 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         user.setPhysicalPersonRegistration(campo_cpf.getText().toUpperCase());
         user = userController.getUserController(user);
-
-        setUserView(user);
-        setLaonView(user);
+        if (user != null) {
+            setUserView(user);
+            setLaonView(user);
+        }
     }
 
     public void insertLoan() {
@@ -376,11 +378,12 @@ public final class MainScreenView extends javax.swing.JDialog {
     }
 
     public void UpdateLoan() {
+        
         LoanController loanController = new LoanController();
 
         loanController.updateLoan(getLoanView(updateUser()));
         LoanEntity loan = loanController.getLoanByContactNumber(campo_numeroContrato.getText());
-       
+
         insertLoanMoviment(loan);
     }
 
@@ -395,18 +398,18 @@ public final class MainScreenView extends javax.swing.JDialog {
         UserController userController = new UserController();
         if (userController.insertUserController(getUserView())) {
             UserEntity user = userController.getUserController(getUserView());
-          
+
             insertPhone(getListPhoneView(user));
             return user;
         }
         return null;
     }
-    
-    public void insertPhone(List<PhoneEntity> listPhone){
+
+    public void insertPhone(List<PhoneEntity> listPhone) {
         PhoneController phoneController = new PhoneController();
-        if(listPhone.size() > 0){
+        if (listPhone.size() > 0) {
             listPhone.stream().forEach(phone -> {
-            phoneController.insertPhone(phone);
+                phoneController.insertPhone(phone);
             });
         }
     }
@@ -452,6 +455,97 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public void cleanPlanList() {
         combo_convenio.removeAllItems();
+    }
+
+    /**
+     * ############################## CLEAN
+     */
+    public void cleanAll() {
+        cleanUser();
+        cleanAddress();
+        cleanLoan();
+    }
+
+    public void cleanUser() {
+        jLabelIdUser.setText("");
+        campo_cpf.setText("");
+        campo_nome.setText("");
+        campo_conjugue.setText("");
+        campo_rg.setText("");
+        campo_orgao_emissor.setText("");
+        campo_emissor.setText("");
+        campo_data_nascimento.setText("");
+        campo_naturalidade.setText("");
+        campo_email.setText("");
+        campo_pai.setText("");
+        campo_mae.setText("");
+        campo_fone1.setText("");
+        campo_fone2.setText("");
+    }
+
+    public void cleanAddress() {
+        jLabelId.setText("");
+        campo_rua.setText("");
+        campo_bairro.setText("");
+        campo_numero.setText("");
+        campo_complemento.setText("");
+        campo_cidade.setText("");
+        combo_uf.setSelectedItem("");
+        campo_cep.setText("");
+    }
+
+    public void cleanLoan() {
+        campo_numeroContrato.setText("");
+        campo_dataemissao.setText("");
+        combo_banco_beneficiario.setSelectedItem(null);
+        campo_agencia.setText("");
+        campo_conta_ben.setText("");
+
+        combo_bancoOrigem.setSelectedItem(null);
+        combo_convenio.setSelectedItem(null);
+        combo_operacao.setSelectedItem(null);
+        combo_status.setSelectedItem(null);
+        campo_corretor.setText("");
+        campo_comissao.setText("");
+        campo_valorbruto.setText("");
+        campo_valorliquido.setText("");
+        campo_qtd_parcelas.setText("");
+        campo_valorparcela.setText("");
+        campo_digitador.setText("");
+        campo_obs.setText("");
+        campo_caminho_file.setText("");
+        campo_ADE.setText("");
+        campo_numero_beneficio.setText("");
+        campo_codigoespecie.setText("");
+    }
+
+    /**
+     * #################### validation
+     *
+     */
+    public void buttonControl() {
+        enableSaveButton();
+        activateChangeButton();
+    }
+
+    public void enableSaveButton() {
+        if (jLabelIdUser.getText().equals("")) {
+            botaoSalvar.setEnabled(true);
+            botaoAlterar.setEnabled(false);
+        } else {
+            botaoSalvar.setEnabled(false);
+            botaoAlterar.setEnabled(true);
+        }
+    }
+
+    public void activateChangeButton() {
+        if (jLabelIdUser.getText().equals("")) {
+            botaoAlterar.setEnabled(false);
+            botaoSalvar.setEnabled(true);
+        } else {
+            botaoAlterar.setEnabled(true);
+            botaoSalvar.setEnabled(false);
+        }
     }
 
     /**
@@ -553,9 +647,9 @@ public final class MainScreenView extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         campo_obs = new javax.swing.JTextArea();
         jPanel9 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        botaoSalvar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        botaoAlterar = new javax.swing.JButton();
         jLabel36 = new javax.swing.JLabel();
         campo_caminho_file = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -897,10 +991,10 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton2.setText("Salvar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        botaoSalvar.setText("Salvar");
+        botaoSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                botaoSalvarActionPerformed(evt);
             }
         });
 
@@ -911,10 +1005,10 @@ public final class MainScreenView extends javax.swing.JDialog {
             }
         });
 
-        jButton4.setText("Alterar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        botaoAlterar.setText("Alterar");
+        botaoAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                botaoAlterarActionPerformed(evt);
             }
         });
 
@@ -924,9 +1018,9 @@ public final class MainScreenView extends javax.swing.JDialog {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botaoAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
@@ -936,8 +1030,8 @@ public final class MainScreenView extends javax.swing.JDialog {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
@@ -947,6 +1041,11 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_caminho_file.setText("caminho");
 
         jButton1.setText("Localizar:");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("+");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -1449,16 +1548,17 @@ public final class MainScreenView extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_campo_codigoespecieActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void botaoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarActionPerformed
         UpdateLoan();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_botaoAlterarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
         insertLoan();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_botaoSalvarActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        getUserByPhysicalPersonRegistration();
+        cleanAll();
+        buttonControl();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -1490,6 +1590,11 @@ public final class MainScreenView extends javax.swing.JDialog {
     private void combo_ufActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_ufActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_combo_ufActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        getUserByPhysicalPersonRegistration();
+        buttonControl();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1537,6 +1642,8 @@ public final class MainScreenView extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoAlterar;
+    private javax.swing.JButton botaoSalvar;
     private javax.swing.JTextField campo_ADE;
     private javax.swing.JTextField campo_agencia;
     private javax.swing.JTextField campo_bairro;
@@ -1582,9 +1689,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> combo_uf;
     private javax.swing.JComboBox<String> combobox_sexo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
