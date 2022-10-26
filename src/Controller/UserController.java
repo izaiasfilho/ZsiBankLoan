@@ -33,4 +33,8 @@ public class UserController {
     public List<UserEntity> listUserController(){
         return repository.listUser();
     }
+    
+    public boolean validateLoginAndPassword(String login, String password){
+       return repository.validateLoginAndPassword(login, password);
+    }
 }

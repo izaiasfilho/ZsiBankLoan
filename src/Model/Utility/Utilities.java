@@ -5,10 +5,6 @@
  */
 package Model.Utility;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -87,6 +83,16 @@ public class Utilities {
         }
         return data;
     }
-     
+    
+     public static String convertPasswordMd5(String password){
+            try {
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                BigInteger hash = new BigInteger(1, md.digest(password.getBytes()));
+
+               return  hash.toString(10);
+            } catch (NoSuchAlgorithmException ex) {
+            }
+        return null;
+     }
      
 }

@@ -207,5 +207,27 @@ public class UserPersistence {
         }
         return false;
     }
+ public static boolean validatePoginAndPasswordPersistence(String login, String password) {
+        String query = "select id from tb_user where login =? and passwoad =? ";
+        PreparedStatement preparedStatement = null;
+        if (Checks()) {
+            closeConect();
+        }
+        try {
+            preparedStatement = conect().prepareStatement(query);
+            preparedStatement.setString(1,login);
+            preparedStatement.setString(2, password);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                UserEntity user = new UserEntity();
+                user.setId(rs.getInt(1));
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserPersistence.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
 }

@@ -74,4 +74,9 @@ public class UserImplemetation implements UserInterface {
         return getListUserPersistence();
     }
 
+    @Override
+    public boolean validateLoginAndPassword(String login, String password) {
+        return UserPersistence.validatePoginAndPasswordPersistence(login, password);
+    }
+
 }

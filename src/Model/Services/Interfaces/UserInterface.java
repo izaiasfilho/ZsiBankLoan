@@ -21,4 +21,6 @@ public interface UserInterface {
     public UserEntity getUser(UserEntity userEntity);
     
     public List<UserEntity> listUser();
+    
+    public boolean validateLoginAndPassword(String login, String password);
 }

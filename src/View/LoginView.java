@@ -5,6 +5,10 @@
  */
 package View;
 
+import Controller.UserController;
+import Model.Utility.Utilities;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Izaias
@@ -17,6 +21,16 @@ public class LoginView extends javax.swing.JFrame {
     public LoginView() {
         initComponents();
         this.setLocationRelativeTo(this);
+    }
+    
+    public boolean validateLoginAndPassword(){
+        UserController userController = new UserController();
+        
+        char ConvertPassword[] = jtf_password.getPassword();
+
+        String password = new String(ConvertPassword);
+        return userController.validateLoginAndPassword(jtf_login.getText(), 
+                Utilities.convertPasswordMd5(password));
     }
 
     /**
@@ -33,8 +47,8 @@ public class LoginView extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        jtf_login = new javax.swing.JTextField();
+        jtf_password = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
 
@@ -79,8 +93,8 @@ public class LoginView extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1)
-                    .addComponent(jPasswordField1)
+                    .addComponent(jtf_login)
+                    .addComponent(jtf_password)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -90,11 +104,11 @@ public class LoginView extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtf_login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtf_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(jButton1)
                 .addContainerGap(42, Short.MAX_VALUE))
@@ -154,8 +168,12 @@ public class LoginView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       if(validateLoginAndPassword()){
         MainScreenView mainS = new MainScreenView(this, true);
-        mainS.setVisible(true);
+        mainS.setVisible(true);   
+       }else{
+           JOptionPane.showMessageDialog(null, "Login o senha Inválido");
+       }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -204,7 +222,7 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jtf_login;
+    private javax.swing.JPasswordField jtf_password;
     // End of variables declaration//GEN-END:variables
 }

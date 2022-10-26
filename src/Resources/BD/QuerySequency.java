@@ -338,6 +338,26 @@ public class QuerySequency {
         array.add("ALTER TABLE `tb_user` \n"
                 + "CHANGE COLUMN `birthDate` `birthDate` DATE NULL DEFAULT NULL ;");
 
+        array.add("ALTER TABLE `tb_user` \n"
+                + "ADD COLUMN `login` VARCHAR(400) NULL AFTER `id_genre`,\n"
+                + "ADD COLUMN `passwoad` VARCHAR(500) NULL AFTER `login`;");
+
+        array.add("INSERT INTO `tb_city` (`id`, `name`, `id_state`) VALUES (1,'JOÃO PESSOA', 15);");
+
+        array.add("INSERT INTO `tb_address` (`id`, `id_city`, `streetName`, `number`, `district`, `zipCode`, `complement`)\n"
+                + " VALUES ('1', '1', 'AV PRESIDENTE EPITACIO PESSOA', '1145', 'ESTADOS', '580300-000', 'CASA');");
+
+        array.add("INSERT INTO `tb_user` \n"
+                + "(`physicalPersonRegistration`, `Registration`, `name`, `spouse`, `issuingBody`, `issuer`, `birthDate`, \n"
+                + "`naturalness`, `email`, `dad`, `mother`, `id_address`, `id_genre`, `login`, `passwoad`)\n"
+                + " VALUES ('10713142030', '000001', 'ADMIN', 'CONJUGE', 'ORGAO EMISSOR', 'EMISSOR', '2022-01-01', 'NATURALS',\n"
+                + " 'ADMIN@EMAIL.COM', 'DAD', 'MOTHER', 1, 1, 'ADMIN', '24075358794712306910815942748117422392');");
+
+        array.add("INSERT INTO `tb_user` \n"
+                + "(`physicalPersonRegistration`, `Registration`, `name`, `spouse`, `issuingBody`, `issuer`, `birthDate`, \n"
+                + "`naturalness`, `email`, `dad`, `mother`, `id_address`, `id_genre`, `login`, `passwoad`)\n"
+                + " VALUES ('92566369054', '000002', 'USER', 'CONJUGE', 'ORGAO EMISSOR', 'EMISSOR', '2022-01-01', 'NATURALS',\n"
+                + " 'ADMIN@EMAIL.COM', 'DAD', 'MOTHER', 1, 1, 'USER', '192696746890102074315919597072972193604');");
         return array;
 
     }
