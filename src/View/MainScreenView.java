@@ -50,7 +50,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         resolucaoTela();
-       // cleanAll();
+        // cleanAll();
         setListStateView();
         setListGenreView();
         setListInsitutionView();
@@ -392,7 +392,11 @@ public final class MainScreenView extends javax.swing.JDialog {
 
             loanController.insertLoan(getLoanView(insertUser()));
             LoanEntity loan = loanController.getLoanByContactNumber(campo_numeroContrato.getText());
-            insertLoanMoviment(loan);
+            if (loan != null) {
+                insertLoanMoviment(loan);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Preencha os Campos obrigatorios!");
         }
     }
 
@@ -410,7 +414,12 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         LoanMovementController loanMovementController = new LoanMovementController();
         LoanMovementEntity loanMovementEntity = getLoanMovementView(loan);
-        loanMovementController.insertLoanMovement(loanMovementEntity);
+        if (loanMovementController.insertLoanMovement(loanMovementEntity)) {
+            JOptionPane.showMessageDialog(null, "Proposta Efetuada com sucesso!");
+            cleanAll();
+        } else {
+            JOptionPane.showMessageDialog(null, "Falha ao efetivar a Proposta!");
+        }
     }
 
     public UserEntity insertUser() {
@@ -478,6 +487,7 @@ public final class MainScreenView extends javax.swing.JDialog {
      * ############################## CLEAN
      */
     public void cleanAll() {
+        openNew();
         cleanUser();
         cleanAddress();
         cleanLoan();
@@ -595,17 +605,29 @@ public final class MainScreenView extends javax.swing.JDialog {
     }
 
     public boolean fieldValidation() {
-        boolean validation = false;
-        if (!campo_numeroContrato.getText().equals("")
-                || !campo_nome.getText().equals("")
-                || combo_bancoOrigem.getSelectedItem() != null
-                || combo_convenio.getSelectedItem() != null
-                || combo_banco_beneficiario.getSelectedItem() != null
-                || !campo_digitador.getText().equals("")) {
-            validation = true;
+        String bancoOrigem = (String) combo_bancoOrigem.getSelectedItem();
+        String convenio = (String) combo_convenio.getSelectedItem();
+        String bancoBene = (String) combo_banco_beneficiario.getSelectedItem();
+        if(campo_numeroContrato.getText().equals("")){
+            return false;
+        }
+        if(campo_nome.getText().equals("")){
+            return false;
+        }
+        if(bancoOrigem == null){
+            return false;
+        }
+        if(convenio == null){
+            return false;
+        }
+        if(bancoBene == null){
+            return false;
+        }
+        if (campo_digitador.getText().equals("")) {
+            return false;
         }
 
-        return validation;
+        return true;
     }
 
     public void checkCpfDigits() {
@@ -643,20 +665,22 @@ public final class MainScreenView extends javax.swing.JDialog {
         loanController.getListAllLoan().stream().forEach(loan -> {
             List<LoanMovementEntity> listMov = loanMovementController.listLoanMovementByIdLoan(loan.getId());
 
-            if (listMov.get(listMov.size() - 1).getLoanStatutsEnum().name().equals("DIGITADO")) {
-                Object[] dados = {loan.getUsrEntity().getPhysicalPersonRegistration(),
-                    loan.getAccount_number(), loan.getIssueDate(), loan.getChangeDate(),
-                    loan.getInstitutionEntity().getDescription(),
-                    listMov.get(listMov.size() - 1).getOperator(), listMov.get(listMov.size() - 1).getLoanStatutsEnum().name()};
-                dtm.addRow(dados);
+            if (listMov.size() > 0) {
+                if (listMov.get(listMov.size() - 1).getLoanStatutsEnum().name().equals("DIGITADO")) {
+                    Object[] dados = {loan.getUsrEntity().getPhysicalPersonRegistration(),
+                        loan.getAccount_number(), loan.getIssueDate(), loan.getChangeDate(),
+                        loan.getInstitutionEntity().getDescription(),
+                        listMov.get(listMov.size() - 1).getOperator(), listMov.get(listMov.size() - 1).getLoanStatutsEnum().name()};
+                    dtm.addRow(dados);
 
-            } else {
+                } else {
 
-                Object[] dadosCan = {loan.getUsrEntity().getPhysicalPersonRegistration(),
-                    loan.getAccount_number(), loan.getIssueDate(), loan.getChangeDate(),
-                    loan.getInstitutionEntity().getDescription(),
-                    listMov.get(listMov.size() - 1).getOperator(), listMov.get(listMov.size() - 1).getLoanStatutsEnum().name()};
-                dtm2.addRow(dadosCan);
+                    Object[] dadosCan = {loan.getUsrEntity().getPhysicalPersonRegistration(),
+                        loan.getAccount_number(), loan.getIssueDate(), loan.getChangeDate(),
+                        loan.getInstitutionEntity().getDescription(),
+                        listMov.get(listMov.size() - 1).getOperator(), listMov.get(listMov.size() - 1).getLoanStatutsEnum().name()};
+                    dtm2.addRow(dadosCan);
+                }
             }
         });
     }
@@ -664,6 +688,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     public void tableEventLoanTyped() {
         int lin = tabelaLoan.getSelectedRow();
         if (lin != -1) {
+            cleanAll();
             campo_cpf.setText((String) tabelaLoan.getValueAt(lin, 0));
             checkCpfDigits();
             jTabbedPane1.setSelectedIndex(1);
@@ -673,6 +698,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     public void tableEventLoanFinish() {
         int lin = tabelaLoanCanc.getSelectedRow();
         if (lin != -1) {
+            cleanAll();
             campo_cpf.setText((String) tabelaLoanCanc.getValueAt(lin, 0));
             checkCpfDigits();
             jTabbedPane1.setSelectedIndex(1);
@@ -1027,15 +1053,15 @@ public final class MainScreenView extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabelId, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13)
                         .addComponent(campo_rua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(campo_complemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel14)
                         .addComponent(campo_numero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel12)
-                        .addComponent(campo_cep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(campo_cep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1385,11 +1411,12 @@ public final class MainScreenView extends javax.swing.JDialog {
                                         .addComponent(jLabel28)
                                         .addComponent(campo_numeroContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(10, 10, 10)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(campo_dataemissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel35)
-                                    .addComponent(combo_operacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(campo_dataemissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel35)
+                                        .addComponent(combo_operacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(10, 10, 10)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(campo_comissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1664,7 +1691,7 @@ public final class MainScreenView extends javax.swing.JDialog {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1701,7 +1728,7 @@ public final class MainScreenView extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -1951,4 +1978,8 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JTable tabelaLoan;
     private javax.swing.JTable tabelaLoanCanc;
     // End of variables declaration//GEN-END:variables
+
+    private String getSelectedItem() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
