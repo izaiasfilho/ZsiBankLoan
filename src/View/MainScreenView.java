@@ -32,6 +32,7 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -49,13 +50,14 @@ public final class MainScreenView extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         resolucaoTela();
-        cleanAll();
+       // cleanAll();
         setListStateView();
         setListGenreView();
         setListInsitutionView();
         setListPlanView();
         buttonControl();
         botaoNovaProtosta.setVisible(false);
+        fillLoanTable();
     }
 
     public LoanEntity getLoanView(UserEntity userEntity) {
@@ -512,13 +514,8 @@ public final class MainScreenView extends javax.swing.JDialog {
     public void cleanLoan() {
         campo_numeroContrato.setText("");
         campo_dataemissao.setText("");
-        // combo_banco_beneficiario.setSelectedItem(null);
         campo_agencia.setText("");
         campo_conta_ben.setText("");
-
-        //combo_bancoOrigem.setSelectedItem(null);
-        // combo_convenio.setSelectedItem(null);
-        //   combo_operacao.setSelectedItem(null);
         combo_status.setSelectedItem("DIGITADO");
         campo_corretor.setText("");
         campo_comissao.setText("");
@@ -632,6 +629,53 @@ public final class MainScreenView extends javax.swing.JDialog {
         } else {
             getUserByPhysicalPersonRegistration();
             buttonControl();
+        }
+    }
+
+    public void fillLoanTable() {
+        DefaultTableModel dtm = (DefaultTableModel) tabelaLoan.getModel();
+
+        DefaultTableModel dtm2 = (DefaultTableModel) tabelaLoanCanc.getModel();
+
+        LoanController loanController = new LoanController();
+        LoanMovementController loanMovementController = new LoanMovementController();
+
+        loanController.getListAllLoan().stream().forEach(loan -> {
+            List<LoanMovementEntity> listMov = loanMovementController.listLoanMovementByIdLoan(loan.getId());
+
+            if (listMov.get(listMov.size() - 1).getLoanStatutsEnum().name().equals("DIGITADO")) {
+                Object[] dados = {loan.getUsrEntity().getPhysicalPersonRegistration(),
+                    loan.getAccount_number(), loan.getIssueDate(), loan.getChangeDate(),
+                    loan.getInstitutionEntity().getDescription(),
+                    listMov.get(listMov.size() - 1).getOperator(), listMov.get(listMov.size() - 1).getLoanStatutsEnum().name()};
+                dtm.addRow(dados);
+
+            } else {
+
+                Object[] dadosCan = {loan.getUsrEntity().getPhysicalPersonRegistration(),
+                    loan.getAccount_number(), loan.getIssueDate(), loan.getChangeDate(),
+                    loan.getInstitutionEntity().getDescription(),
+                    listMov.get(listMov.size() - 1).getOperator(), listMov.get(listMov.size() - 1).getLoanStatutsEnum().name()};
+                dtm2.addRow(dadosCan);
+            }
+        });
+    }
+
+    public void tableEventLoanTyped() {
+        int lin = tabelaLoan.getSelectedRow();
+        if (lin != -1) {
+            campo_cpf.setText((String) tabelaLoan.getValueAt(lin, 0));
+            checkCpfDigits();
+            jTabbedPane1.setSelectedIndex(1);
+        }
+    }
+
+    public void tableEventLoanFinish() {
+        int lin = tabelaLoanCanc.getSelectedRow();
+        if (lin != -1) {
+            campo_cpf.setText((String) tabelaLoanCanc.getValueAt(lin, 0));
+            checkCpfDigits();
+            jTabbedPane1.setSelectedIndex(1);
         }
     }
 
@@ -750,9 +794,10 @@ public final class MainScreenView extends javax.swing.JDialog {
         botaoNovaProtosta = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelaLoan = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabelaLoanCanc = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -1538,57 +1583,74 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         jTabbedPane1.addTab("Nova Proposta                         ", jPanel3);
 
+        tabelaLoan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "CPF", "Nº Contrato", "Data Solicitação", "Data Alteração", "Instituição", "Operador", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaLoan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaLoanMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tabelaLoan);
+
+        tabelaLoanCanc.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "CPF", "Nº Contrato", "Data Solicitação", "Data Alteração", "Instituição", "Operador", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaLoanCanc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaLoanCancMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tabelaLoanCanc);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1209, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1178, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 595, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Propostas                               ", jPanel4);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1209, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 595, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Relatórios                                ", jPanel6);
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1209, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 595, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Contas a pagar/Receber              ", jPanel7);
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1209, Short.MAX_VALUE)
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 595, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Entradas e Saidas             ", jPanel8);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -1623,17 +1685,48 @@ public final class MainScreenView extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void campo_cidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_cidadeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campo_cidadeActionPerformed
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        insertGenre();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void campo_numeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_numeroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campo_numeroActionPerformed
+    private void botaoNovaProtostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovaProtostaActionPerformed
+        openNew();
+    }//GEN-LAST:event_botaoNovaProtostaActionPerformed
 
-    private void campo_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_nomeActionPerformed
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        getInsertInstitutionView();
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        getInsertPlanEnityView();
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        campo_agencia.setText("");
+        campo_conta_ben.setText("");
+        setListInsitutionView();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void botaoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarActionPerformed
+        UpdateLoan();
+    }//GEN-LAST:event_botaoAlterarActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        cleanAll();
+        buttonControl();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
+        insertLoan();
+    }//GEN-LAST:event_botaoSalvarActionPerformed
+
+    private void campo_codigoespecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_codigoespecieActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campo_nomeActionPerformed
+    }//GEN-LAST:event_campo_codigoespecieActionPerformed
 
     private void campo_ADEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_ADEActionPerformed
         // TODO add your handling code here:
@@ -1643,64 +1736,41 @@ public final class MainScreenView extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_campo_numero_beneficioActionPerformed
 
-    private void campo_codigoespecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_codigoespecieActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campo_codigoespecieActionPerformed
-
-    private void botaoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarActionPerformed
-        UpdateLoan();
-    }//GEN-LAST:event_botaoAlterarActionPerformed
-
-    private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
-        insertLoan();
-    }//GEN-LAST:event_botaoSalvarActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        cleanAll();
-        buttonControl();
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        insertGenre();
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        getInsertInstitutionView();
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        campo_agencia.setText("");
-        campo_conta_ben.setText("");
-        setListInsitutionView();
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        getInsertPlanEnityView();
-    }//GEN-LAST:event_jButton8ActionPerformed
-
     private void campo_dataemissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_dataemissaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campo_dataemissaoActionPerformed
 
-    private void campo_maeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_maeActionPerformed
+    private void campo_cidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_cidadeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_campo_maeActionPerformed
+    }//GEN-LAST:event_campo_cidadeActionPerformed
 
     private void combo_ufActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_ufActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_combo_ufActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void campo_numeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_numeroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campo_numeroActionPerformed
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void campo_maeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_maeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campo_maeActionPerformed
 
-    private void botaoNovaProtostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovaProtostaActionPerformed
-        openNew();
-    }//GEN-LAST:event_botaoNovaProtostaActionPerformed
+    private void campo_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_nomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campo_nomeActionPerformed
 
     private void campo_cpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campo_cpfKeyReleased
         checkCpfDigits();
     }//GEN-LAST:event_campo_cpfKeyReleased
+
+    private void tabelaLoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaLoanMouseClicked
+        tableEventLoanTyped();
+    }//GEN-LAST:event_tabelaLoanMouseClicked
+
+    private void tabelaLoanCancMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaLoanCancMouseClicked
+        tableEventLoanFinish();
+    }//GEN-LAST:event_tabelaLoanCancMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1851,11 +1921,12 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable tabelaLoan;
+    private javax.swing.JTable tabelaLoanCanc;
     // End of variables declaration//GEN-END:variables
 }
