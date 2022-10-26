@@ -26,6 +26,8 @@ import Model.Entities.UserEntity;
 import Model.Enuns.LoanStatusEnum;
 import Model.Enuns.TransactionEnum;
 import Model.Utility.Utilities;
+import static Model.Utility.Utilities.converteDataDate;
+import static Model.Utility.Utilities.converteStringDate;
 import Model.Utility.ValidateCpf;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -58,6 +60,14 @@ public final class MainScreenView extends javax.swing.JDialog {
         buttonControl();
         botaoNovaProtosta.setVisible(false);
         fillLoanTable();
+        setDateCalendar();
+    }
+
+    public void setDateCalendar() {
+        java.util.Date now;
+        now = new java.util.Date();
+        jcalenar_data_nascimento.setDate(now);
+        campo_dataemissao.setDate(now);
     }
 
     public LoanEntity getLoanView(UserEntity userEntity) {
@@ -66,7 +76,9 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         loan.setUsrEntity(userEntity);
         loan.setContactNumber(campo_numeroContrato.getText());
-        loan.setIssueDate(campo_dataemissao.getText());
+        
+        String issueDate = converteDataDate(Utilities.transformaCalendarEmDate(campo_dataemissao));
+        loan.setIssueDate(issueDate);
         loan.setChangeDate(util.getdate());
 
         InstitutionController institutionController = new InstitutionController();
@@ -127,7 +139,10 @@ public final class MainScreenView extends javax.swing.JDialog {
         user.setRegistration(campo_rg.getText().toUpperCase());
         user.setIssuingBody(campo_orgao_emissor.getText().toUpperCase());
         user.setIssuer(campo_emissor.getText().toUpperCase());
-        user.setBirthDate(campo_data_nascimento.getText().toUpperCase());
+
+        String birthDate = converteDataDate(Utilities.transformaCalendarEmDate(jcalenar_data_nascimento));
+
+        user.setBirthDate(birthDate);
         user.setNaturalness(campo_naturalidade.getText().toUpperCase());
         user.setEmail(campo_email.getText().toUpperCase());
         user.setDad(campo_pai.getText().toUpperCase());
@@ -254,7 +269,8 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_rg.setText(user.getRegistration());
         campo_orgao_emissor.setText(user.getIssuingBody());
         campo_emissor.setText(user.getIssuer());
-        campo_data_nascimento.setText(user.getBirthDate());
+
+        jcalenar_data_nascimento.setDate(converteStringDate(user.getBirthDate()));
         campo_naturalidade.setText(user.getNaturalness());
         campo_email.setText(user.getEmail());
         campo_pai.setText(user.getDad());
@@ -329,7 +345,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         List<LoanEntity> listLoan = loanController.getListLoanByUser(userEntity.getId());
         if (listLoan.size() > 0) {
             campo_numeroContrato.setText(listLoan.get(listLoan.size() - 1).getContactNumber());
-            campo_dataemissao.setText(listLoan.get(listLoan.size() - 1).getIssueDate());
+            campo_dataemissao.setDate(converteStringDate(listLoan.get(listLoan.size() - 1).getIssueDate()));
 
             combo_banco_beneficiario.setSelectedItem(listLoan.get(listLoan.size() - 1)
                     .getInstitutionEntity().getDescription());
@@ -395,7 +411,7 @@ public final class MainScreenView extends javax.swing.JDialog {
             if (loan != null) {
                 insertLoanMoviment(loan);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Preencha os Campos obrigatorios!");
         }
     }
@@ -501,13 +517,13 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_rg.setText("");
         campo_orgao_emissor.setText("");
         campo_emissor.setText("");
-        campo_data_nascimento.setText("");
         campo_naturalidade.setText("");
         campo_email.setText("");
         campo_pai.setText("");
         campo_mae.setText("");
         campo_fone1.setText("");
         campo_fone2.setText("");
+        setDateCalendar();
     }
 
     public void cleanAddress() {
@@ -523,7 +539,6 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public void cleanLoan() {
         campo_numeroContrato.setText("");
-        campo_dataemissao.setText("");
         campo_agencia.setText("");
         campo_conta_ben.setText("");
         combo_status.setSelectedItem("DIGITADO");
@@ -541,11 +556,12 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_codigoespecie.setText("");
         setListInsitutionView();
         setListPlanView();
+        setDateCalendar();
     }
 
     public void editableLoan(boolean editable) {
         campo_numeroContrato.setEditable(editable);
-        campo_dataemissao.setEditable(editable);
+        campo_dataemissao.setEnabled(editable);
         combo_banco_beneficiario.setEnabled(editable);
         campo_agencia.setEditable(editable);
         campo_conta_ben.setEditable(editable);
@@ -608,19 +624,19 @@ public final class MainScreenView extends javax.swing.JDialog {
         String bancoOrigem = (String) combo_bancoOrigem.getSelectedItem();
         String convenio = (String) combo_convenio.getSelectedItem();
         String bancoBene = (String) combo_banco_beneficiario.getSelectedItem();
-        if(campo_numeroContrato.getText().equals("")){
+        if (campo_numeroContrato.getText().equals("")) {
             return false;
         }
-        if(campo_nome.getText().equals("")){
+        if (campo_nome.getText().equals("")) {
             return false;
         }
-        if(bancoOrigem == null){
+        if (bancoOrigem == null) {
             return false;
         }
-        if(convenio == null){
+        if (convenio == null) {
             return false;
         }
-        if(bancoBene == null){
+        if (bancoBene == null) {
             return false;
         }
         if (campo_digitador.getText().equals("")) {
@@ -732,7 +748,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel11 = new javax.swing.JLabel();
         campo_emissor = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        campo_data_nascimento = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         campo_naturalidade = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
@@ -785,7 +800,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_corretor = new javax.swing.JTextField();
         combo_bancoOrigem = new javax.swing.JComboBox<>();
         combo_convenio = new javax.swing.JComboBox<>();
-        campo_dataemissao = new javax.swing.JTextField();
         campo_valorliquido = new javax.swing.JTextField();
         campo_qtd_parcelas = new javax.swing.JTextField();
         campo_valorparcela = new javax.swing.JTextField();
@@ -819,6 +833,8 @@ public final class MainScreenView extends javax.swing.JDialog {
         combo_banco_beneficiario = new javax.swing.JComboBox<>();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        campo_dataemissao = new com.toedter.calendar.JDateChooser();
+        jcalenar_data_nascimento = new com.toedter.calendar.JDateChooser();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaLoan = new javax.swing.JTable();
@@ -891,8 +907,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel5.setText("Data Nasc:");
-
-        campo_data_nascimento.setText("2022-01-01");
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -1127,13 +1141,6 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         campo_corretor.setText("corretor");
 
-        campo_dataemissao.setText("2022-01-01");
-        campo_dataemissao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campo_dataemissaoActionPerformed(evt);
-            }
-        });
-
         campo_valorliquido.setText("1800");
 
         campo_qtd_parcelas.setText("10");
@@ -1305,16 +1312,18 @@ public final class MainScreenView extends javax.swing.JDialog {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(campo_corretor, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campo_dataemissao, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(campo_comissao, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(combo_convenio, javax.swing.GroupLayout.Alignment.LEADING, 0, 165, Short.MAX_VALUE)
-                                    .addComponent(combo_bancoOrigem, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(combo_convenio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(combo_bancoOrigem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(jButton9)
+                                    .addComponent(jButton8)))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(campo_dataemissao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(72, 72, 72)))
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(30, 30, 30)
@@ -1371,7 +1380,7 @@ public final class MainScreenView extends javax.swing.JDialog {
                                         .addComponent(jButton1)
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1412,12 +1421,16 @@ public final class MainScreenView extends javax.swing.JDialog {
                                         .addComponent(campo_numeroContrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(10, 10, 10)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(jLabel35)
+                                                .addComponent(combo_operacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(10, 10, 10))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addComponent(campo_dataemissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel35)
-                                        .addComponent(combo_operacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(10, 10, 10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(campo_comissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -1530,8 +1543,8 @@ public final class MainScreenView extends javax.swing.JDialog {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                                .addComponent(campo_data_nascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
+                                                .addComponent(jcalenar_data_nascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(campo_naturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1591,15 +1604,18 @@ public final class MainScreenView extends javax.swing.JDialog {
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(campo_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(campo_data_nascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(campo_naturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campo_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(campo_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(campo_naturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(campo_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jcalenar_data_nascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(9, 9, 9)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1785,10 +1801,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_campo_numero_beneficioActionPerformed
 
-    private void campo_dataemissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_dataemissaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campo_dataemissaoActionPerformed
-
     private void campo_cidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_cidadeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campo_cidadeActionPerformed
@@ -1883,8 +1895,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JTextField campo_conta_ben;
     private javax.swing.JTextField campo_corretor;
     private javax.swing.JTextField campo_cpf;
-    private javax.swing.JTextField campo_data_nascimento;
-    private javax.swing.JTextField campo_dataemissao;
+    private com.toedter.calendar.JDateChooser campo_dataemissao;
     private javax.swing.JTextField campo_digitador;
     private javax.swing.JTextField campo_email;
     private javax.swing.JTextField campo_emissor;
@@ -1975,6 +1986,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private com.toedter.calendar.JDateChooser jcalenar_data_nascimento;
     private javax.swing.JTable tabelaLoan;
     private javax.swing.JTable tabelaLoanCanc;
     // End of variables declaration//GEN-END:variables
