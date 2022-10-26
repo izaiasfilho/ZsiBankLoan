@@ -58,6 +58,14 @@ public class UserImplemetation implements UserInterface {
 
     @Override
     public UserEntity getUser(UserEntity userEntity) {
+        UserEntity user = UserPersistence.getUserPersistence(userEntity);
+        if(user != null){
+            return user;
+        }else{
+            String physicalPersonRegistration = userEntity.getPhysicalPersonRegistration().replace(".", "");
+            physicalPersonRegistration = physicalPersonRegistration.replace("-", "");
+            userEntity.setPhysicalPersonRegistration(physicalPersonRegistration);
+        }
         return UserPersistence.getUserPersistence(userEntity);
     }
 

@@ -26,6 +26,7 @@ import Model.Entities.UserEntity;
 import Model.Enuns.LoanStatusEnum;
 import Model.Enuns.TransactionEnum;
 import Model.Utility.Utilities;
+import Model.Utility.ValidateCpf;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -48,11 +49,13 @@ public final class MainScreenView extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         resolucaoTela();
+        cleanAll();
         setListStateView();
         setListGenreView();
         setListInsitutionView();
         setListPlanView();
         buttonControl();
+        botaoNovaProtosta.setVisible(false);
     }
 
     public LoanEntity getLoanView(UserEntity userEntity) {
@@ -321,16 +324,18 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public void setLaonView(UserEntity userEntity) {
         LoanController loanController = new LoanController();
-        LoanEntity loanEntity = loanController.getLoanByUser(userEntity.getId());
-        campo_numeroContrato.setText(loanEntity.getContactNumber());
-        campo_dataemissao.setText(loanEntity.getIssueDate());
+        List<LoanEntity> listLoan = loanController.getListLoanByUser(userEntity.getId());
+        if (listLoan.size() > 0) {
+            campo_numeroContrato.setText(listLoan.get(listLoan.size() - 1).getContactNumber());
+            campo_dataemissao.setText(listLoan.get(listLoan.size() - 1).getIssueDate());
 
-        combo_banco_beneficiario.setSelectedItem(loanEntity.getInstitutionEntity().getDescription());
-        campo_agencia.setText(loanEntity.getAgency());
-        campo_conta_ben.setText(loanEntity.getAccount_number());
+            combo_banco_beneficiario.setSelectedItem(listLoan.get(listLoan.size() - 1)
+                    .getInstitutionEntity().getDescription());
+            campo_agencia.setText(listLoan.get(listLoan.size() - 1).getAgency());
+            campo_conta_ben.setText(listLoan.get(listLoan.size() - 1).getAccount_number());
 
-        setLoanMovementeView(loanEntity);
-
+            setLoanMovementeView(listLoan.get(listLoan.size() - 1));
+        }
     }
 
     public void setLoanMovementeView(LoanEntity loanEntity) {
@@ -354,6 +359,16 @@ public final class MainScreenView extends javax.swing.JDialog {
             campo_ADE.setText(ListLoanMov.get(ListLoanMov.size() - 1).getNumberADE());
             campo_numero_beneficio.setText(ListLoanMov.get(ListLoanMov.size() - 1).getBenefitNumber());
             campo_codigoespecie.setText(ListLoanMov.get(ListLoanMov.size() - 1).getSpeciesCode());
+            controllValues(ListLoanMov.get(ListLoanMov.size() - 1));
+        }
+    }
+
+    public void controllValues(LoanMovementEntity loanMovementEntity) {
+        if (!loanMovementEntity.getLoanStatutsEnum().equals(LoanStatusEnum.DIGITADO)) {
+            editableLoan(false);
+            botaoNovaProtosta.setVisible(true);
+        } else {
+            botaoNovaProtosta.setVisible(false);
         }
     }
 
@@ -370,15 +385,17 @@ public final class MainScreenView extends javax.swing.JDialog {
     }
 
     public void insertLoan() {
-        LoanController loanController = new LoanController();
+        if (fieldValidation()) {
+            LoanController loanController = new LoanController();
 
-        loanController.insertLoan(getLoanView(insertUser()));
-        LoanEntity loan = loanController.getLoanByContactNumber(campo_numeroContrato.getText());
-        insertLoanMoviment(loan);
+            loanController.insertLoan(getLoanView(insertUser()));
+            LoanEntity loan = loanController.getLoanByContactNumber(campo_numeroContrato.getText());
+            insertLoanMoviment(loan);
+        }
     }
 
     public void UpdateLoan() {
-        
+
         LoanController loanController = new LoanController();
 
         loanController.updateLoan(getLoanView(updateUser()));
@@ -396,13 +413,11 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public UserEntity insertUser() {
         UserController userController = new UserController();
-        if (userController.insertUserController(getUserView())) {
-            UserEntity user = userController.getUserController(getUserView());
+        userController.insertUserController(getUserView());
+        UserEntity user = userController.getUserController(getUserView());
 
-            insertPhone(getListPhoneView(user));
-            return user;
-        }
-        return null;
+        insertPhone(getListPhoneView(user));
+        return user;
     }
 
     public void insertPhone(List<PhoneEntity> listPhone) {
@@ -497,14 +512,14 @@ public final class MainScreenView extends javax.swing.JDialog {
     public void cleanLoan() {
         campo_numeroContrato.setText("");
         campo_dataemissao.setText("");
-        combo_banco_beneficiario.setSelectedItem(null);
+        // combo_banco_beneficiario.setSelectedItem(null);
         campo_agencia.setText("");
         campo_conta_ben.setText("");
 
-        combo_bancoOrigem.setSelectedItem(null);
-        combo_convenio.setSelectedItem(null);
-        combo_operacao.setSelectedItem(null);
-        combo_status.setSelectedItem(null);
+        //combo_bancoOrigem.setSelectedItem(null);
+        // combo_convenio.setSelectedItem(null);
+        //   combo_operacao.setSelectedItem(null);
+        combo_status.setSelectedItem("DIGITADO");
         campo_corretor.setText("");
         campo_comissao.setText("");
         campo_valorbruto.setText("");
@@ -517,6 +532,33 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_ADE.setText("");
         campo_numero_beneficio.setText("");
         campo_codigoespecie.setText("");
+        setListInsitutionView();
+        setListPlanView();
+    }
+
+    public void editableLoan(boolean editable) {
+        campo_numeroContrato.setEditable(editable);
+        campo_dataemissao.setEditable(editable);
+        combo_banco_beneficiario.setEnabled(editable);
+        campo_agencia.setEditable(editable);
+        campo_conta_ben.setEditable(editable);
+
+        combo_bancoOrigem.setEnabled(editable);
+        combo_convenio.setEnabled(editable);
+        combo_operacao.setEnabled(editable);;
+        combo_status.setEnabled(editable);
+        campo_corretor.setEditable(editable);
+        campo_comissao.setEditable(editable);
+        campo_valorbruto.setEditable(editable);
+        campo_valorliquido.setEditable(editable);
+        campo_qtd_parcelas.setEditable(editable);
+        campo_valorparcela.setEditable(editable);
+        campo_digitador.setEditable(editable);
+        campo_obs.setEditable(editable);
+        campo_caminho_file.setEditable(editable);
+        campo_ADE.setEditable(editable);
+        campo_numero_beneficio.setEditable(editable);
+        campo_codigoespecie.setEditable(editable);
     }
 
     /**
@@ -545,6 +587,51 @@ public final class MainScreenView extends javax.swing.JDialog {
         } else {
             botaoAlterar.setEnabled(true);
             botaoSalvar.setEnabled(false);
+        }
+    }
+
+    public void openNew() {
+        editableLoan(true);
+        cleanLoan();
+        botaoAlterar.setEnabled(false);
+        botaoSalvar.setEnabled(true);
+    }
+
+    public boolean fieldValidation() {
+        boolean validation = false;
+        if (!campo_numeroContrato.getText().equals("")
+                || !campo_nome.getText().equals("")
+                || combo_bancoOrigem.getSelectedItem() != null
+                || combo_convenio.getSelectedItem() != null
+                || combo_banco_beneficiario.getSelectedItem() != null
+                || !campo_digitador.getText().equals("")) {
+            validation = true;
+        }
+
+        return validation;
+    }
+
+    public void checkCpfDigits() {
+        if (campo_cpf.getText().length() > 3) {
+            if (campo_cpf.getText().contains(".")) {
+                if (campo_cpf.getText().length() == 14) {
+                    isCpf();
+                }
+            } else {
+                if (campo_cpf.getText().length() == 11) {
+                    isCpf();
+                }
+            }
+        }
+    }
+
+    public void isCpf() {
+        if (ValidateCpf.isCPF(campo_cpf.getText()) == false) {
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
+            campo_cpf.setText("");
+        } else {
+            getUserByPhysicalPersonRegistration();
+            buttonControl();
         }
     }
 
@@ -660,7 +747,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel22 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         combo_status = new javax.swing.JComboBox<>();
-        jButton5 = new javax.swing.JButton();
+        botaoNovaProtosta = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -695,6 +782,11 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel3.setText("RG:");
 
         campo_cpf.setText("101");
+        campo_cpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campo_cpfKeyReleased(evt);
+            }
+        });
 
         campo_nome.setText("nome1");
         campo_nome.addActionListener(new java.awt.event.ActionListener() {
@@ -732,13 +824,13 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel9.setText("Cônjuge:");
+        jLabel9.setText("Orgão Emis:");
 
         campo_conjugue.setText("conjuge");
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel10.setText("Orgão Emissor:");
+        jLabel10.setText("Cônjuge:");
 
         campo_orgao_emissor.setText("orgao emisso");
 
@@ -1273,7 +1365,12 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         combo_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DIGITADO", "FINALIZADO", "CANCELADO" }));
 
-        jButton5.setText("Mudar Status");
+        botaoNovaProtosta.setText("Nova Proposta");
+        botaoNovaProtosta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoNovaProtostaActionPerformed(evt);
+            }
+        });
 
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1296,13 +1393,10 @@ public final class MainScreenView extends javax.swing.JDialog {
                                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(campo_conjugue)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(campo_orgao_emissor, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel11)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(campo_emissor, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(campo_conjugue)))
+                                        .addComponent(campo_orgao_emissor, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1312,19 +1406,24 @@ public final class MainScreenView extends javax.swing.JDialog {
                                         .addComponent(campo_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabelIdUser, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addComponent(campo_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(combobox_sexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(campo_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                            .addComponent(jLabel11)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(campo_emissor, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel3Layout.createSequentialGroup()
+                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                                    .addComponent(campo_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(combobox_sexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(campo_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel5)
@@ -1365,7 +1464,7 @@ public final class MainScreenView extends javax.swing.JDialog {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(combo_status, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)))))
+                                    .addComponent(botaoNovaProtosta, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1410,26 +1509,26 @@ public final class MainScreenView extends javax.swing.JDialog {
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campo_conjugue)
+                    .addComponent(campo_orgao_emissor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel19)
                         .addComponent(campo_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel20)
                         .addComponent(campo_fone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(combo_tipo_fone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton5))
+                        .addComponent(botaoNovaProtosta)
+                        .addComponent(campo_emissor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(campo_orgao_emissor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campo_fone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21)
-                    .addComponent(jLabel11)
-                    .addComponent(campo_emissor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(combo_tipo_fone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(combo_tipo_fone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campo_conjugue))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
@@ -1592,9 +1691,16 @@ public final class MainScreenView extends javax.swing.JDialog {
     }//GEN-LAST:event_combo_ufActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        getUserByPhysicalPersonRegistration();
-        buttonControl();
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void botaoNovaProtostaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovaProtostaActionPerformed
+        openNew();
+    }//GEN-LAST:event_botaoNovaProtostaActionPerformed
+
+    private void campo_cpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campo_cpfKeyReleased
+        checkCpfDigits();
+    }//GEN-LAST:event_campo_cpfKeyReleased
 
     /**
      * @param args the command line arguments
@@ -1643,6 +1749,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoAlterar;
+    private javax.swing.JButton botaoNovaProtosta;
     private javax.swing.JButton botaoSalvar;
     private javax.swing.JTextField campo_ADE;
     private javax.swing.JTextField campo_agencia;
@@ -1690,7 +1797,6 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> combobox_sexo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;

@@ -27,11 +27,12 @@ public class LoanPersistence {
 
     public static LoanEntity getLoanByIdPersistence(int idUser) {
         String query = "SELECT lo.id, lo.id_user, lo.contactNumber, lo.issueDate, lo.changeDate, ins.description,\n"
-                + "               lo.agency, lo.account_number\n"
-                + "               FROM tb_loan lo, tb_institution ins, tb_user u\n"
-                + "               where lo.id_inst_user = ins.id\n"
-                + "               and lo.id_user = u.id\n"
-                + "               and lo.id_user = ?";
+                + "          lo.agency, lo.account_number\n"
+                + "          FROM tb_loan lo, tb_institution ins, tb_user u\n"
+                + "          where lo.id_inst_user = ins.id\n"
+                + "          and lo.id_user = u.id\n"
+                + "          and lo.id_user = ?\n"
+                + "          order by lo.id";
         PreparedStatement preparedStatement = null;
         if (Checks()) {
             closeConect();
@@ -66,7 +67,15 @@ public class LoanPersistence {
     }
 
     public static LoanEntity getLoanByContactNumberPersistence(String contactNumber) {
-        String query = "SELECT * FROM tb_loan where contactNumber =?;";
+        
+        String query = "SELECT lo.id, lo.id_user, lo.contactNumber, lo.issueDate, lo.changeDate, ins.description,\n"
+                + "          lo.agency, lo.account_number\n"
+                + "          FROM tb_loan lo, tb_institution ins, tb_user u\n"
+                + "          where lo.id_inst_user = ins.id\n"
+                + "          and lo.id_user = u.id\n"
+                + "          and lo.contactNumber = ?\n"
+                + "          order by lo.id";
+
         PreparedStatement preparedStatement = null;
         if (Checks()) {
             closeConect();
@@ -85,6 +94,13 @@ public class LoanPersistence {
                 loan.setContactNumber(rs.getString("contactNumber"));
                 loan.setIssueDate(rs.getString("issueDate"));
                 loan.setChangeDate(rs.getString("changeDate"));
+
+                InstitutionEntity institutionEntity = new InstitutionEntity();
+                institutionEntity.setDescription(rs.getString("description"));
+                loan.setInstitutionEntity(institutionEntity);
+
+                loan.setAgency(rs.getString("agency"));
+                loan.setAccount_number(rs.getString("account_number"));
                 return loan;
             }
         } catch (SQLException ex) {
@@ -94,7 +110,12 @@ public class LoanPersistence {
     }
 
     public static List<LoanEntity> getListLoanPersistence() {
-        String query = "SELECT * FROM tb_loan;";
+        String query = "SELECT lo.id, lo.id_user, lo.contactNumber, lo.issueDate, lo.changeDate, ins.description,\n"
+                + "          lo.agency, lo.account_number\n"
+                + "          FROM tb_loan lo, tb_institution ins, tb_user u\n"
+                + "          where lo.id_inst_user = ins.id\n"
+                + "          and lo.id_user = u.id\n"
+                + "          order by lo.id";
         PreparedStatement preparedStatement = null;
         if (Checks()) {
             closeConect();
@@ -113,6 +134,13 @@ public class LoanPersistence {
                 loan.setContactNumber(rs.getString("contactNumber"));
                 loan.setIssueDate(rs.getString("issueDate"));
                 loan.setChangeDate(rs.getString("changeDate"));
+
+                InstitutionEntity institutionEntity = new InstitutionEntity();
+                institutionEntity.setDescription(rs.getString("description"));
+                loan.setInstitutionEntity(institutionEntity);
+
+                loan.setAgency(rs.getString("agency"));
+                loan.setAccount_number(rs.getString("account_number"));
                 list.add(loan);
             }
             return list;
@@ -123,7 +151,13 @@ public class LoanPersistence {
     }
 
     public static List<LoanEntity> getListLoanByUserPersistence(int idUser) {
-        String query = "SELECT * FROM tb_loan where id_user =?;";
+        String query = "SELECT lo.id, lo.id_user, lo.contactNumber, lo.issueDate, lo.changeDate, ins.description,\n"
+                + "          lo.agency, lo.account_number\n"
+                + "          FROM tb_loan lo, tb_institution ins, tb_user u\n"
+                + "          where lo.id_inst_user = ins.id\n"
+                + "          and lo.id_user = u.id\n"
+                + "          and lo.id_user = ?\n"
+                + "          order by lo.id";
         PreparedStatement preparedStatement = null;
         if (Checks()) {
             closeConect();
@@ -143,6 +177,13 @@ public class LoanPersistence {
                 loan.setContactNumber(rs.getString("contactNumber"));
                 loan.setIssueDate(rs.getString("issueDate"));
                 loan.setChangeDate(rs.getString("changeDate"));
+
+                InstitutionEntity institutionEntity = new InstitutionEntity();
+                institutionEntity.setDescription(rs.getString("description"));
+                loan.setInstitutionEntity(institutionEntity);
+
+                loan.setAgency(rs.getString("agency"));
+                loan.setAccount_number(rs.getString("account_number"));
                 list.add(loan);
             }
             return list;
