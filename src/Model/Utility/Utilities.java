@@ -5,6 +5,7 @@
  */
 package Model.Utility;
 
+import Model.Entities.LoanEntity;
 import com.toedter.calendar.JDateChooser;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -14,7 +15,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -145,5 +148,14 @@ public class Utilities {
         }
         return null;
     }
+     
+     public static List<LoanEntity> invertListloan(List<LoanEntity> list){
+         int size = list.size();
+         List<LoanEntity> newList = new ArrayList();
+         for(int x = size; x > 0; x--){
+             newList.add(list.get(x-1));
+         }
+       return newList;  
+     }
 
 }

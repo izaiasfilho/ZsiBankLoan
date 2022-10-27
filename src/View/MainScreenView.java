@@ -76,7 +76,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         loan.setUsrEntity(userEntity);
         loan.setContactNumber(campo_numeroContrato.getText());
-        
+
         String issueDate = converteDataDate(Utilities.transformaCalendarEmDate(campo_dataemissao));
         loan.setIssueDate(issueDate);
         loan.setChangeDate(util.getdate());
@@ -399,6 +399,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         if (user != null) {
             setUserView(user);
             setLaonView(user);
+            userLoanTable(user.getId());
         }
     }
 
@@ -684,7 +685,7 @@ public final class MainScreenView extends javax.swing.JDialog {
             if (listMov.size() > 0) {
                 if (listMov.get(listMov.size() - 1).getLoanStatutsEnum().name().equals("DIGITADO")) {
                     Object[] dados = {loan.getUsrEntity().getPhysicalPersonRegistration(),
-                        loan.getAccount_number(), loan.getIssueDate(), loan.getChangeDate(),
+                        loan.getContactNumber(), loan.getIssueDate(), loan.getChangeDate(),
                         loan.getInstitutionEntity().getDescription(),
                         listMov.get(listMov.size() - 1).getOperator(), listMov.get(listMov.size() - 1).getLoanStatutsEnum().name()};
                     dtm.addRow(dados);
@@ -692,11 +693,32 @@ public final class MainScreenView extends javax.swing.JDialog {
                 } else {
 
                     Object[] dadosCan = {loan.getUsrEntity().getPhysicalPersonRegistration(),
-                        loan.getAccount_number(), loan.getIssueDate(), loan.getChangeDate(),
+                        loan.getContactNumber(), loan.getIssueDate(), loan.getChangeDate(),
                         loan.getInstitutionEntity().getDescription(),
                         listMov.get(listMov.size() - 1).getOperator(), listMov.get(listMov.size() - 1).getLoanStatutsEnum().name()};
                     dtm2.addRow(dadosCan);
                 }
+            }
+        });
+    }
+
+    public void userLoanTable(int idUser) {
+        clearHistoryTable();
+        DefaultTableModel dtm = (DefaultTableModel) tabelaHistoricoUsurio.getModel();
+
+        LoanController loanController = new LoanController();
+        LoanMovementController loanMovementController = new LoanMovementController();
+
+        List<LoanEntity> list = Utilities.invertListloan(loanController.getListLoanByUser(idUser));
+        list.stream().forEach(loan -> {
+            List<LoanMovementEntity> listMov = loanMovementController.listLoanMovementByIdLoan(loan.getId());
+
+            if (listMov.size() > 0) {
+                    Object[] dados = {loan.getUsrEntity().getPhysicalPersonRegistration(),
+                        loan.getContactNumber(), loan.getIssueDate(), loan.getChangeDate(),
+                        loan.getInstitutionEntity().getDescription(),
+                        listMov.get(listMov.size() - 1).getOperator(), listMov.get(listMov.size() - 1).getLoanStatutsEnum().name()};
+                    dtm.addRow(dados);
             }
         });
     }
@@ -718,6 +740,13 @@ public final class MainScreenView extends javax.swing.JDialog {
             campo_cpf.setText((String) tabelaLoanCanc.getValueAt(lin, 0));
             checkCpfDigits();
             jTabbedPane1.setSelectedIndex(1);
+        }
+    }
+    
+    public void clearHistoryTable() {
+        DefaultTableModel dfm = (DefaultTableModel) tabelaHistoricoUsurio.getModel();
+        while (dfm.getRowCount() > 0) {//TabelaFormaPagamento
+            dfm.removeRow(0);
         }
     }
 
@@ -784,6 +813,8 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel18 = new javax.swing.JLabel();
         campo_cidade = new javax.swing.JTextField();
         jLabelId = new javax.swing.JLabel();
+        jcalenar_data_nascimento = new com.toedter.calendar.JDateChooser();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -834,7 +865,8 @@ public final class MainScreenView extends javax.swing.JDialog {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         campo_dataemissao = new com.toedter.calendar.JDateChooser();
-        jcalenar_data_nascimento = new com.toedter.calendar.JDateChooser();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabelaHistoricoUsurio = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaLoan = new javax.swing.JTable();
@@ -1046,28 +1078,29 @@ public final class MainScreenView extends javax.swing.JDialog {
                             .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)))
                     .addComponent(campo_bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(campo_cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50)
-                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(combo_uf, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(campo_numero, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(140, 140, 140)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(combo_uf, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campo_complemento, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(campo_complemento, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabelId, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelId, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13)
                         .addComponent(campo_rua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1075,7 +1108,8 @@ public final class MainScreenView extends javax.swing.JDialog {
                         .addComponent(jLabel14)
                         .addComponent(campo_numero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel12)
-                        .addComponent(campo_cep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(campo_cep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1089,7 +1123,7 @@ public final class MainScreenView extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, java.awt.Color.darkGray), "DADOS PARA LIBERAÇÃO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, java.awt.Color.darkGray), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14))); // NOI18N
 
         jLabel23.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -1333,9 +1367,7 @@ public final class MainScreenView extends javax.swing.JDialog {
                                         .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel34, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel35)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel48, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(campo_valorbruto)
@@ -1380,7 +1412,7 @@ public final class MainScreenView extends javax.swing.JDialog {
                                         .addComponent(jButton1)
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1487,6 +1519,38 @@ public final class MainScreenView extends javax.swing.JDialog {
                 .addGap(49, 49, 49))
         );
 
+        jTabbedPane2.addTab("DADOS PARA LIBERAÇÃO", jPanel5);
+
+        tabelaHistoricoUsurio.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "CPF", "Nº Contrato", "Data Solicitação", "Data Alteração", "Instituição", "Operador", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaHistoricoUsurio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaHistoricoUsurioMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tabelaHistoricoUsurio);
+        if (tabelaHistoricoUsurio.getColumnModel().getColumnCount() > 0) {
+            tabelaHistoricoUsurio.getColumnModel().getColumn(0).setHeaderValue("CPF");
+            tabelaHistoricoUsurio.getColumnModel().getColumn(5).setHeaderValue("Operador");
+            tabelaHistoricoUsurio.getColumnModel().getColumn(6).setHeaderValue("Status");
+        }
+
+        jTabbedPane2.addTab("         HISTÓRICO DO USUÁRIO", jScrollPane4);
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -1564,21 +1628,21 @@ public final class MainScreenView extends javax.swing.JDialog {
                                                     .addGroup(jPanel7Layout.createSequentialGroup()
                                                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGap(18, 18, 18)
-                                                        .addComponent(campo_conjugue, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(campo_conjugue))
                                                     .addGroup(jPanel7Layout.createSequentialGroup()
-                                                        .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                         .addComponent(combo_status, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGap(18, 18, 18)
                                                         .addComponent(botaoNovaProtosta, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(50, 50, 50))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton6)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(54, 54, 54))))
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTabbedPane2)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 58, Short.MAX_VALUE))))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1640,7 +1704,7 @@ public final class MainScreenView extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(125, 125, 125))
         );
 
@@ -1668,6 +1732,11 @@ public final class MainScreenView extends javax.swing.JDialog {
             }
         });
         jScrollPane2.setViewportView(tabelaLoan);
+        if (tabelaLoan.getColumnModel().getColumnCount() > 0) {
+            tabelaLoan.getColumnModel().getColumn(0).setHeaderValue("CPF");
+            tabelaLoan.getColumnModel().getColumn(5).setHeaderValue("Operador");
+            tabelaLoan.getColumnModel().getColumn(6).setHeaderValue("Status");
+        }
 
         tabelaLoanCanc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1738,7 +1807,7 @@ public final class MainScreenView extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1832,6 +1901,10 @@ public final class MainScreenView extends javax.swing.JDialog {
     private void tabelaLoanCancMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaLoanCancMouseClicked
         tableEventLoanFinish();
     }//GEN-LAST:event_tabelaLoanCancMouseClicked
+
+    private void tabelaHistoricoUsurioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaHistoricoUsurioMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelaHistoricoUsurioMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1985,8 +2058,11 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private com.toedter.calendar.JDateChooser jcalenar_data_nascimento;
+    private javax.swing.JTable tabelaHistoricoUsurio;
     private javax.swing.JTable tabelaLoan;
     private javax.swing.JTable tabelaLoanCanc;
     // End of variables declaration//GEN-END:variables

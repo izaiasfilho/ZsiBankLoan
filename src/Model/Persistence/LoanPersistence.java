@@ -153,12 +153,12 @@ public class LoanPersistence {
 
     public static List<LoanEntity> getListLoanByUserPersistence(int idUser) {
         String query = "SELECT lo.id, lo.id_user, lo.contactNumber, lo.issueDate, lo.changeDate, ins.description,\n"
-                + "          lo.agency, lo.account_number\n"
+                + "          lo.agency, lo.account_number, u.physicalPersonRegistration\n"
                 + "          FROM tb_loan lo, tb_institution ins, tb_user u\n"
                 + "          where lo.id_inst_user = ins.id\n"
                 + "          and lo.id_user = u.id\n"
                 + "          and lo.id_user = ?\n"
-                + "          order by lo.id";
+                + "          order by lo.id ";
         PreparedStatement preparedStatement = null;
         if (Checks()) {
             closeConect();
@@ -185,6 +185,7 @@ public class LoanPersistence {
 
                 loan.setAgency(rs.getString("agency"));
                 loan.setAccount_number(rs.getString("account_number"));
+                user.setPhysicalPersonRegistration(rs.getString("physicalPersonRegistration"));
                 list.add(loan);
             }
             return list;

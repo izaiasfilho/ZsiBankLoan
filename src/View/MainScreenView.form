@@ -25,7 +25,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -189,10 +189,10 @@
                                                               <Group type="102" attributes="0">
                                                                   <Component id="jLabel10" min="-2" pref="92" max="-2" attributes="0"/>
                                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                                  <Component id="campo_conjugue" min="-2" pref="300" max="-2" attributes="0"/>
+                                                                  <Component id="campo_conjugue" max="32767" attributes="0"/>
                                                               </Group>
                                                               <Group type="102" attributes="0">
-                                                                  <Component id="jLabel40" max="32767" attributes="0"/>
+                                                                  <Component id="jLabel40" pref="100" max="32767" attributes="0"/>
                                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                                   <Component id="combo_status" min="-2" pref="152" max="-2" attributes="0"/>
                                                                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -203,18 +203,18 @@
                                                   </Group>
                                               </Group>
                                           </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="jButton6" min="-2" pref="48" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jTabbedPane2" max="32767" attributes="0"/>
+                                      <Component id="jPanel1" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="58" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -292,7 +292,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTabbedPane2" min="-2" pref="340" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -615,24 +615,23 @@
                                   <Component id="campo_bairro" alignment="0" min="-2" pref="203" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Component id="campo_cidade" min="-2" pref="248" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                                       <Component id="jLabel17" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="combo_uf" min="-2" pref="42" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Component id="campo_numero" min="-2" pref="81" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jLabel15" min="-2" pref="102" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="campo_complemento" min="-2" pref="227" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="combo_uf" min="-2" pref="42" max="-2" attributes="0"/>
-                                  <Component id="campo_complemento" min="-2" pref="215" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -641,8 +640,10 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jLabelId" min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Component id="jLabel15" alignment="1" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="jLabelId" min="-2" pref="20" max="-2" attributes="0"/>
+                                  </Group>
                                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                       <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="campo_rua" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -651,6 +652,7 @@
                                       <Component id="campo_numero" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="campo_cep" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel15" alignment="3" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -763,700 +765,786 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JPanel" name="jPanel5">
-                  <Properties>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="DADOS PARA LIBERA&#xc7;&#xc3;O">
-                          <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                            <EtchetBorder>
-                              <Color PropertyName="highlight" blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
-                              <Color PropertyName="shadow" blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
-                            </EtchetBorder>
-                          </Border>
-                          <Font PropertyName="font" name="Arial" size="14" style="1"/>
-                        </TitledBorder>
-                      </Border>
-                    </Property>
-                  </Properties>
+                <Component class="com.toedter.calendar.JDateChooser" name="jcalenar_data_nascimento">
+                </Component>
+                <Container class="javax.swing.JTabbedPane" name="jTabbedPane2">
 
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="jLabel24" pref="98" max="32767" attributes="0"/>
-                                      <Component id="jLabel26" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="jLabel25" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="jLabel23" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="jLabel27" max="32767" attributes="0"/>
-                                      <Component id="jLabel33" max="32767" attributes="0"/>
-                                      <Component id="jLabel29" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="jLabel30" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
-                                  <Component id="jLabel31" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="campo_corretor" min="-2" pref="207" max="-2" attributes="0"/>
-                                          <Component id="campo_comissao" min="-2" pref="93" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="combo_convenio" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
-                                                  <Component id="combo_bancoOrigem" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="jButton9" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jButton8" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="campo_dataemissao" max="32767" attributes="0"/>
-                                              <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Component id="jLabel28" min="-2" pref="87" max="-2" attributes="0"/>
-                                                      <Component id="jLabel32" min="-2" pref="87" max="-2" attributes="0"/>
-                                                      <Component id="jLabel34" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jLabel48" min="-2" pref="91" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="campo_valorbruto" max="32767" attributes="0"/>
-                                          <Component id="campo_valorliquido" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="campo_qtd_parcelas" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="campo_valorparcela" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jLabel38" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel37" alignment="0" pref="137" max="32767" attributes="0"/>
-                                          <Component id="jLabel45" alignment="1" min="-2" pref="91" max="-2" attributes="0"/>
-                                          <Component id="jLabel39" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="campo_numeroContrato" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="campo_numero_beneficio" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="combo_operacao" alignment="0" pref="194" max="32767" attributes="0"/>
-                                  <Component id="campo_digitador" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="campo_agencia" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="campo_conta_ben" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="campo_ADE" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="campo_codigoespecie" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <Component id="combo_banco_beneficiario" max="32767" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButton7" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="jLabel46" min="-2" pref="91" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="163" max="-2" attributes="0"/>
-                                      <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="jScrollPane1" min="-2" pref="226" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="campo_caminho_file" max="32767" attributes="0"/>
-                                                  <Group type="102" attributes="0">
-                                                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
-                                          <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <EmptySpace pref="81" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="campo_corretor" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="campo_digitador" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel46" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Component id="jLabel23" alignment="1" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" attributes="0">
-                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                          <Group type="103" groupAlignment="3" attributes="0">
-                                                              <Component id="combo_bancoOrigem" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                              <Component id="jButton9" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Component id="jLabel24" max="32767" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                          <Group type="103" groupAlignment="3" attributes="0">
-                                                              <Component id="combo_convenio" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                              <Component id="jLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                              <Component id="campo_numero_beneficio" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                              <Component id="jButton8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Component id="jLabel25" max="32767" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="campo_numeroContrato" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" attributes="0">
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="jLabel26" alignment="0" max="32767" attributes="0"/>
-                                                          <Group type="103" groupAlignment="3" attributes="0">
-                                                              <Component id="jLabel35" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                              <Component id="combo_operacao" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                          </Group>
-                                                      </Group>
-                                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" attributes="0">
-                                                      <Component id="campo_dataemissao" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="32767" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="campo_comissao" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel27" alignment="3" max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" attributes="0">
-                                              <Component id="campo_caminho_file" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel48" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="campo_ADE" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                              <Component id="campo_valorliquido" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="campo_valorbruto" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="campo_qtd_parcelas" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel30" alignment="3" min="-2" pref="18" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="campo_valorparcela" max="32767" attributes="0"/>
-                                          <Component id="jLabel31" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="combo_banco_beneficiario" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jButton7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel38" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel37" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
-                                                  <Component id="campo_agencia" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel39" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                                                  <Component id="campo_conta_ben" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="campo_codigoespecie" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel45" min="-2" pref="17" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Component id="jPanel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel23">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
-                        <Property name="text" type="java.lang.String" value="Corretor:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel24">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
-                        <Property name="text" type="java.lang.String" value="Banco Origem:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel25">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
-                        <Property name="text" type="java.lang.String" value="Conv&#xea;nio:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel26">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
-                        <Property name="text" type="java.lang.String" value="Data Emiss&#xe3;o:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel27">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
-                        <Property name="text" type="java.lang.String" value="Comiss&#xe3;o:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel28">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
-                        <Property name="text" type="java.lang.String" value="N&#xba; Contrato:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel29">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
-                        <Property name="text" type="java.lang.String" value="Valor Liquido:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel30">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
-                        <Property name="text" type="java.lang.String" value="Qtd Parcelas:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel31">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
-                        <Property name="text" type="java.lang.String" value="Valor Parcela:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel32">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
-                        <Property name="text" type="java.lang.String" value="N&#xba; Beneficio:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel33">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
-                        <Property name="text" type="java.lang.String" value="Valor Bruto:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel34">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
-                        <Property name="text" type="java.lang.String" value="Digitador:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="campo_corretor">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="corretor"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JComboBox" name="combo_bancoOrigem">
-                      <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="0"/>
-                        </Property>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JComboBox" name="combo_convenio">
-                      <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="0"/>
-                        </Property>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="campo_valorliquido">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="1800"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="campo_qtd_parcelas">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="10"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="campo_valorparcela">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="200"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="campo_numeroContrato">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="222222"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="campo_numero_beneficio">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="212121"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_numero_beneficioActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel35">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Opera&#xe7;&#xe3;o:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel37">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
-                        <Property name="text" type="java.lang.String" value="Agencia Beneficiado:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel38">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Banco beneficiado:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel39">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
-                        <Property name="text" type="java.lang.String" value="Conta Beneficiado:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel45">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
-                        <Property name="text" type="java.lang.String" value="C&#xf3;digo Especie:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel46">
-                      <Properties>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
-                        <Property name="text" type="java.lang.String" value="Observa&#xe7;&#xe3;o:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel48">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Arial" size="12" style="0"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="11"/>
-                        <Property name="text" type="java.lang.String" value="N&#xba; ADE:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="campo_ADE">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="333221"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_ADEActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="campo_valorbruto">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="2000"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="campo_conta_ben">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="220012"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="campo_codigoespecie">
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_codigoespecieActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JComboBox" name="combo_operacao">
-                      <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="7">
-                            <StringItem index="0" value="PORTABILIDADE"/>
-                            <StringItem index="1" value="REFINANCIAMENTO"/>
-                            <StringItem index="2" value="MARGEM_LIVRE"/>
-                            <StringItem index="3" value="CARTAO_RMC"/>
-                            <StringItem index="4" value="EMPRESTIMO_CARTAO"/>
-                            <StringItem index="5" value="CARTAO_BENEFICIARIO"/>
-                            <StringItem index="6" value="FGTS"/>
-                          </StringArray>
-                        </Property>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="campo_digitador">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="digitador"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="campo_comissao">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="10"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="campo_agencia">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="0000021"/>
-                      </Properties>
-                    </Component>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTextArea" name="campo_obs">
-                          <Properties>
-                            <Property name="columns" type="int" value="20"/>
-                            <Property name="rows" type="int" value="5"/>
-                            <Property name="text" type="java.lang.String" value="obs"/>
-                          </Properties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Container class="javax.swing.JPanel" name="jPanel9">
+                    <Container class="javax.swing.JPanel" name="jPanel5">
                       <Properties>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                            <EtchetBorder/>
+                          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                            <TitledBorder>
+                              <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                                <EtchetBorder>
+                                  <Color PropertyName="highlight" blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
+                                  <Color PropertyName="shadow" blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
+                                </EtchetBorder>
+                              </Border>
+                              <Font PropertyName="font" name="Arial" size="14" style="1"/>
+                            </TitledBorder>
                           </Border>
                         </Property>
                       </Properties>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                          <JTabbedPaneConstraints tabName="DADOS PARA LIBERA&#xc7;&#xc3;O">
+                            <Property name="tabTitle" type="java.lang.String" value="DADOS PARA LIBERA&#xc7;&#xc3;O"/>
+                          </JTabbedPaneConstraints>
+                        </Constraint>
+                      </Constraints>
 
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="botaoSalvar" min="-2" pref="134" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="jLabel24" pref="98" max="32767" attributes="0"/>
+                                          <Component id="jLabel26" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="jLabel25" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="jLabel23" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="jLabel27" max="32767" attributes="0"/>
+                                          <Component id="jLabel33" max="32767" attributes="0"/>
+                                          <Component id="jLabel29" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Component id="jLabel30" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
+                                      <Component id="jLabel31" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="campo_corretor" min="-2" pref="207" max="-2" attributes="0"/>
+                                              <Component id="campo_comissao" min="-2" pref="93" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                      <Component id="combo_convenio" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
+                                                      <Component id="combo_bancoOrigem" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="jButton9" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jButton8" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="campo_dataemissao" max="32767" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Group type="103" groupAlignment="1" attributes="0">
+                                                          <Component id="jLabel28" min="-2" pref="87" max="-2" attributes="0"/>
+                                                          <Component id="jLabel32" min="-2" pref="87" max="-2" attributes="0"/>
+                                                          <Component id="jLabel34" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Component id="jLabel48" alignment="1" min="-2" pref="91" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="campo_valorbruto" max="32767" attributes="0"/>
+                                              <Component id="campo_valorliquido" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="campo_qtd_parcelas" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="campo_valorparcela" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="jLabel38" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel37" alignment="0" pref="137" max="32767" attributes="0"/>
+                                              <Component id="jLabel45" alignment="1" min="-2" pref="91" max="-2" attributes="0"/>
+                                              <Component id="jLabel39" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="campo_numeroContrato" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="campo_numero_beneficio" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="combo_operacao" alignment="0" pref="194" max="32767" attributes="0"/>
+                                      <Component id="campo_digitador" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="campo_agencia" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="campo_conta_ben" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="campo_ADE" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="campo_codigoespecie" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="combo_banco_beneficiario" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jButton7" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="botaoAlterar" min="-2" pref="134" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                  <Component id="jButton3" min="-2" pref="134" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="jLabel46" min="-2" pref="91" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="163" max="-2" attributes="0"/>
+                                          <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jScrollPane1" min="-2" pref="226" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="campo_caminho_file" max="32767" attributes="0"/>
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                              <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace pref="80" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="botaoSalvar" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
-                                      <Component id="botaoAlterar" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
-                                      <Component id="jButton3" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="campo_corretor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="campo_digitador" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel46" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <Component id="jLabel23" alignment="1" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" attributes="0">
+                                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                                  <Component id="combo_bancoOrigem" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jButton9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
+                                                              <Component id="jLabel24" max="32767" attributes="0"/>
+                                                          </Group>
+                                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                                  <Component id="combo_convenio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="campo_numero_beneficio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jButton8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
+                                                              <Component id="jLabel25" max="32767" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="campo_numeroContrato" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" attributes="0">
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Component id="jLabel26" alignment="0" max="32767" attributes="0"/>
+                                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                                  <Component id="jLabel35" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="combo_operacao" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
+                                                          </Group>
+                                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="campo_dataemissao" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace max="32767" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="campo_comissao" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel27" alignment="3" max="32767" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="campo_caminho_file" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel48" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="campo_ADE" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                                  <Component id="campo_valorliquido" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="campo_valorbruto" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="campo_qtd_parcelas" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel30" alignment="3" min="-2" pref="18" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="campo_valorparcela" max="32767" attributes="0"/>
+                                              <Component id="jLabel31" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="combo_banco_beneficiario" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jButton7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel38" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="jLabel37" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                                                      <Component id="campo_agencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="jLabel39" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                                                      <Component id="campo_conta_ben" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="campo_codigoespecie" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel45" min="-2" pref="17" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Component id="jPanel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JButton" name="botaoSalvar">
+                        <Component class="javax.swing.JLabel" name="jLabel23">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Salvar"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="11"/>
+                            <Property name="text" type="java.lang.String" value="Corretor:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel24">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="11"/>
+                            <Property name="text" type="java.lang.String" value="Banco Origem:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel25">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="11"/>
+                            <Property name="text" type="java.lang.String" value="Conv&#xea;nio:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel26">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="11"/>
+                            <Property name="text" type="java.lang.String" value="Data Emiss&#xe3;o:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel27">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="11"/>
+                            <Property name="text" type="java.lang.String" value="Comiss&#xe3;o:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel28">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="11"/>
+                            <Property name="text" type="java.lang.String" value="N&#xba; Contrato:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel29">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="11"/>
+                            <Property name="text" type="java.lang.String" value="Valor Liquido:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel30">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="11"/>
+                            <Property name="text" type="java.lang.String" value="Qtd Parcelas:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel31">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="11"/>
+                            <Property name="text" type="java.lang.String" value="Valor Parcela:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel32">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="11"/>
+                            <Property name="text" type="java.lang.String" value="N&#xba; Beneficio:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel33">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="11"/>
+                            <Property name="text" type="java.lang.String" value="Valor Bruto:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel34">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="11"/>
+                            <Property name="text" type="java.lang.String" value="Digitador:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="campo_corretor">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="corretor"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JComboBox" name="combo_bancoOrigem">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                              <StringArray count="0"/>
+                            </Property>
+                          </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                          </AuxValues>
+                        </Component>
+                        <Component class="javax.swing.JComboBox" name="combo_convenio">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                              <StringArray count="0"/>
+                            </Property>
+                          </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                          </AuxValues>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="campo_valorliquido">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="1800"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="campo_qtd_parcelas">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="10"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="campo_valorparcela">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="200"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="campo_numeroContrato">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="222222"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="campo_numero_beneficio">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="212121"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoSalvarActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_numero_beneficioActionPerformed"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JButton" name="jButton3">
+                        <Component class="javax.swing.JLabel" name="jLabel35">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Limpar"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Opera&#xe7;&#xe3;o:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel37">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="11"/>
+                            <Property name="text" type="java.lang.String" value="Agencia Beneficiado:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel38">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Banco beneficiado:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel39">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="11"/>
+                            <Property name="text" type="java.lang.String" value="Conta Beneficiado:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel45">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="11"/>
+                            <Property name="text" type="java.lang.String" value="C&#xf3;digo Especie:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel46">
+                          <Properties>
+                            <Property name="horizontalAlignment" type="int" value="11"/>
+                            <Property name="text" type="java.lang.String" value="Observa&#xe7;&#xe3;o:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel48">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Arial" size="12" style="0"/>
+                            </Property>
+                            <Property name="horizontalAlignment" type="int" value="11"/>
+                            <Property name="text" type="java.lang.String" value="N&#xba; ADE:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="campo_ADE">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="333221"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_ADEActionPerformed"/>
                           </Events>
                         </Component>
-                        <Component class="javax.swing.JButton" name="botaoAlterar">
+                        <Component class="javax.swing.JTextField" name="campo_valorbruto">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Alterar"/>
+                            <Property name="text" type="java.lang.String" value="2000"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="campo_conta_ben">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="220012"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="campo_codigoespecie">
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="campo_codigoespecieActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JComboBox" name="combo_operacao">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                              <StringArray count="7">
+                                <StringItem index="0" value="PORTABILIDADE"/>
+                                <StringItem index="1" value="REFINANCIAMENTO"/>
+                                <StringItem index="2" value="MARGEM_LIVRE"/>
+                                <StringItem index="3" value="CARTAO_RMC"/>
+                                <StringItem index="4" value="EMPRESTIMO_CARTAO"/>
+                                <StringItem index="5" value="CARTAO_BENEFICIARIO"/>
+                                <StringItem index="6" value="FGTS"/>
+                              </StringArray>
+                            </Property>
+                          </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                          </AuxValues>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="campo_digitador">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="digitador"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="campo_comissao">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="10"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="campo_agencia">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="0000021"/>
+                          </Properties>
+                        </Component>
+                        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+                          <AuxValues>
+                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                          </AuxValues>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JTextArea" name="campo_obs">
+                              <Properties>
+                                <Property name="columns" type="int" value="20"/>
+                                <Property name="rows" type="int" value="5"/>
+                                <Property name="text" type="java.lang.String" value="obs"/>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="jPanel9">
+                          <Properties>
+                            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                                <EtchetBorder/>
+                              </Border>
+                            </Property>
+                          </Properties>
+
+                          <Layout>
+                            <DimensionLayout dim="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="botaoSalvar" min="-2" pref="134" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="botaoAlterar" min="-2" pref="134" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                      <Component id="jButton3" min="-2" pref="134" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                            <DimensionLayout dim="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="botaoSalvar" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
+                                          <Component id="botaoAlterar" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
+                                          <Component id="jButton3" alignment="3" min="-2" pref="65" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                          </Layout>
+                          <SubComponents>
+                            <Component class="javax.swing.JButton" name="botaoSalvar">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Salvar"/>
+                              </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoSalvarActionPerformed"/>
+                              </Events>
+                            </Component>
+                            <Component class="javax.swing.JButton" name="jButton3">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Limpar"/>
+                              </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+                              </Events>
+                            </Component>
+                            <Component class="javax.swing.JButton" name="botaoAlterar">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Alterar"/>
+                              </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoAlterarActionPerformed"/>
+                              </Events>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                        <Component class="javax.swing.JLabel" name="jLabel36">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Caminho Anexo:"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="campo_caminho_file">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="caminho"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="jButton1">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Localizar:"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoAlterarActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="jButton7">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="+"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JComboBox" name="combo_banco_beneficiario">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                              <StringArray count="0"/>
+                            </Property>
+                          </Properties>
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                          </AuxValues>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="jButton8">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="+"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="jButton9">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="+"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton9ActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="com.toedter.calendar.JDateChooser" name="campo_dataemissao">
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                          <JTabbedPaneConstraints tabName="         HIST&#xd3;RICO DO USU&#xc1;RIO">
+                            <Property name="tabTitle" type="java.lang.String" value="         HIST&#xd3;RICO DO USU&#xc1;RIO"/>
+                          </JTabbedPaneConstraints>
+                        </Constraint>
+                      </Constraints>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTable" name="tabelaHistoricoUsurio">
+                          <Properties>
+                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                              <Table columnCount="7" rowCount="0">
+                                <Column editable="false" title="CPF" type="java.lang.Object"/>
+                                <Column editable="false" title="N&#xba; Contrato" type="java.lang.Object"/>
+                                <Column editable="false" title="Data Solicita&#xe7;&#xe3;o" type="java.lang.Object"/>
+                                <Column editable="false" title="Data Altera&#xe7;&#xe3;o" type="java.lang.Object"/>
+                                <Column editable="false" title="Institui&#xe7;&#xe3;o" type="java.lang.Object"/>
+                                <Column editable="false" title="Operador" type="java.lang.Object"/>
+                                <Column editable="false" title="Status" type="java.lang.Object"/>
+                              </Table>
+                            </Property>
+                            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                              <TableColumnModel selectionModel="0">
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title value="CPF"/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title value="Operador"/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title value="Status"/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                              </TableColumnModel>
+                            </Property>
+                            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                            </Property>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabelaHistoricoUsurioMouseClicked"/>
                           </Events>
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JLabel" name="jLabel36">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Caminho Anexo:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="campo_caminho_file">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="caminho"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="jButton1">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Localizar:"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="jButton7">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="+"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JComboBox" name="combo_banco_beneficiario">
-                      <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="0"/>
-                        </Property>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="jButton8">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="+"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="jButton9">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="+"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton9ActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="com.toedter.calendar.JDateChooser" name="campo_dataemissao">
-                    </Component>
                   </SubComponents>
                 </Container>
-                <Component class="com.toedter.calendar.JDateChooser" name="jcalenar_data_nascimento">
-                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel4">
@@ -1517,7 +1605,7 @@
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
+                              <Title value="CPF"/>
                               <Editor/>
                               <Renderer/>
                             </Column>
@@ -1542,12 +1630,12 @@
                               <Renderer/>
                             </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
+                              <Title value="Operador"/>
                               <Editor/>
                               <Renderer/>
                             </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
+                              <Title value="Status"/>
                               <Editor/>
                               <Renderer/>
                             </Column>
