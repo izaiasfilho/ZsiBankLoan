@@ -404,16 +404,21 @@ public final class MainScreenView extends javax.swing.JDialog {
     }
 
     public void insertLoan() {
-        if (fieldValidation()) {
-            LoanController loanController = new LoanController();
-
-            loanController.insertLoan(getLoanView(insertUser()));
-            LoanEntity loan = loanController.getLoanByContactNumber(campo_numeroContrato.getText());
-            if (loan != null) {
-                insertLoanMoviment(loan);
-            }
+        if (ValidateCpf.isCPF(campo_cpf.getText()) == false) {
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
+            campo_cpf.setText("");
         } else {
-            JOptionPane.showMessageDialog(null, "Preencha os Campos obrigatorios!");
+            if (fieldValidation()) {
+                LoanController loanController = new LoanController();
+
+                loanController.insertLoan(getLoanView(insertUser()));
+                LoanEntity loan = loanController.getLoanByContactNumber(campo_numeroContrato.getText());
+                if (loan != null) {
+                    insertLoanMoviment(loan);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Preencha os Campos obrigatorios!");
+            }
         }
     }
 
@@ -643,6 +648,9 @@ public final class MainScreenView extends javax.swing.JDialog {
         if (campo_digitador.getText().equals("")) {
             return false;
         }
+        if(validateVontractNumber()==true){
+            return false;
+        }
 
         return true;
     }
@@ -714,11 +722,11 @@ public final class MainScreenView extends javax.swing.JDialog {
             List<LoanMovementEntity> listMov = loanMovementController.listLoanMovementByIdLoan(loan.getId());
 
             if (listMov.size() > 0) {
-                    Object[] dados = {loan.getUsrEntity().getPhysicalPersonRegistration(),
-                        loan.getContactNumber(), loan.getIssueDate(), loan.getChangeDate(),
-                        loan.getInstitutionEntity().getDescription(),
-                        listMov.get(listMov.size() - 1).getOperator(), listMov.get(listMov.size() - 1).getLoanStatutsEnum().name()};
-                    dtm.addRow(dados);
+                Object[] dados = {loan.getUsrEntity().getPhysicalPersonRegistration(),
+                    loan.getContactNumber(), loan.getIssueDate(), loan.getChangeDate(),
+                    loan.getInstitutionEntity().getDescription(),
+                    listMov.get(listMov.size() - 1).getOperator(), listMov.get(listMov.size() - 1).getLoanStatutsEnum().name()};
+                dtm.addRow(dados);
             }
         });
     }
@@ -742,12 +750,21 @@ public final class MainScreenView extends javax.swing.JDialog {
             jTabbedPane1.setSelectedIndex(1);
         }
     }
-    
+
     public void clearHistoryTable() {
         DefaultTableModel dfm = (DefaultTableModel) tabelaHistoricoUsurio.getModel();
         while (dfm.getRowCount() > 0) {//TabelaFormaPagamento
             dfm.removeRow(0);
         }
+    }
+    
+    public boolean validateVontractNumber(){
+        LoanController loanController = new LoanController();
+        if(loanController.getLoanByContactNumber(campo_numeroContrato.getText())!= null){
+            JOptionPane.showMessageDialog(null, "Numero do contrato já utilizado!");
+            return true;
+        }
+        return  false;
     }
 
     /**
