@@ -7,7 +7,12 @@ package Model.Utility;
 
 import Model.Entities.LoanEntity;
 import com.toedter.calendar.JDateChooser;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
+import java.net.URL;
+import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
@@ -157,5 +162,58 @@ public class Utilities {
          }
        return newList;  
      }
+     
+     public static List<String> locateZipCode(String cep) {
+         //chamar
+         //tratar simbolos
+         //aplicar
+        String[] cepEncontrado = new String[5];
+        List<String> list = new ArrayList();
+
+        cepEncontrado = buscarCep(cep);
+        if (cepEncontrado != null) {
+            list.add(cepEncontrado[0]);
+            list.add(cepEncontrado[1]);
+            list.add(cepEncontrado[2]);
+            list.add(cepEncontrado[3]);
+            list.add(cepEncontrado[4]);
+            return list;
+        }
+          return null;
+    }
+     
+     public static String[] buscarCep(String cep) {
+        String[] cepEncontrado = new String[5];
+        if (cep.length() == 8) {
+            String json;
+
+            try {
+                URL url = new URL("http://viacep.com.br/ws/" + cep + "/json");
+                URLConnection urlConnection = url.openConnection();
+                InputStream is = urlConnection.getInputStream();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                StringBuilder jsonSb = new StringBuilder();
+
+                br.lines().forEach(l -> jsonSb.append(l.trim()));
+                json = jsonSb.toString();
+
+                json = json.replaceAll("[{},:]", "");
+                json = json.replaceAll("\"", "\n");
+                String array[] = new String[30];
+                array = json.split("\n");
+
+                cepEncontrado[0] = cep;
+                cepEncontrado[1] = array[7];
+                cepEncontrado[2] = array[15];
+                cepEncontrado[3] = array[19];
+                cepEncontrado[4] = array[23];
+                return cepEncontrado;
+            } catch (Exception e) {
+            }
+        }
+      return null;
+    }
+
 
 }

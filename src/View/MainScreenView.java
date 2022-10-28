@@ -648,7 +648,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         if (campo_digitador.getText().equals("")) {
             return false;
         }
-        if(validateVontractNumber()==true){
+        if (validateVontractNumber() == true) {
             return false;
         }
 
@@ -757,14 +757,26 @@ public final class MainScreenView extends javax.swing.JDialog {
             dfm.removeRow(0);
         }
     }
-    
-    public boolean validateVontractNumber(){
+
+    public boolean validateVontractNumber() {
         LoanController loanController = new LoanController();
-        if(loanController.getLoanByContactNumber(campo_numeroContrato.getText())!= null){
+        if (loanController.getLoanByContactNumber(campo_numeroContrato.getText()) != null) {
             JOptionPane.showMessageDialog(null, "Numero do contrato já utilizado!");
             return true;
         }
-        return  false;
+        return false;
+    }
+
+    public void getLocateZipCode() {
+        if (campo_cep.getText().length() > 7) {
+            List<String> zipCode = Utilities.locateZipCode(campo_cep.getText());
+            if (zipCode != null) {
+                campo_rua.setText(zipCode.get(1));
+                campo_cidade.setText(zipCode.get(3));
+                campo_bairro.setText(zipCode.get(2));
+                combo_uf.setSelectedItem(zipCode.get(4));
+            }
+        }
     }
 
     /**
@@ -1027,7 +1039,11 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         jLabel12.setText("CEP:");
 
-        campo_cep.setText("58068360");
+        campo_cep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campo_cepKeyReleased(evt);
+            }
+        });
 
         jLabel13.setText("Rua:");
 
@@ -1922,6 +1938,10 @@ public final class MainScreenView extends javax.swing.JDialog {
     private void tabelaHistoricoUsurioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaHistoricoUsurioMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_tabelaHistoricoUsurioMouseClicked
+
+    private void campo_cepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campo_cepKeyReleased
+        getLocateZipCode();
+    }//GEN-LAST:event_campo_cepKeyReleased
 
     /**
      * @param args the command line arguments
