@@ -174,6 +174,51 @@ public class UserPersistence {
         return null;
     }
 
+    public static List<UserEntity> getListBirthdaysOfTheMonth() {
+        String query = "SELECT * FROM `tb_user`\n"
+                + "   WHERE MONTH(`birthDate`) = MONTH(CURRENT_DATE());";
+        PreparedStatement preparedStatement = null;
+        if (Checks()) {
+            closeConect();
+        }
+        try {
+            preparedStatement = conect().prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            List<UserEntity> list = new ArrayList();
+            while (rs.next()) {
+                UserEntity user = new UserEntity();
+                user.setId(rs.getInt(1));
+                user.setPhysicalPersonRegistration(rs.getString(2));
+                user.setRegistration(rs.getString(3));
+                user.setName(rs.getString(4));
+                
+                user.setSpouse(rs.getString(5));
+                user.setIssuingBody(rs.getString(6));
+                user.setIssuer(rs.getString(7));
+                user.setBirthDate(rs.getString(8));
+                user.setNaturalness(rs.getString(9));
+                user.setEmail(rs.getString(10));
+                user.setDad(rs.getString(11));
+                user.setMother(rs.getString(12));
+
+                AddressEntity addressEntity = new AddressEntity();
+                addressEntity.setId(rs.getInt(13));
+
+                user.setAddressEntity(addressEntity);
+
+                GenreEntity genre = new GenreEntity();
+                genre.setId(rs.getInt(14));
+                user.setGenreEntity(genre);
+                list.add(user);
+            }
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserPersistence.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public static boolean updateUserPersistence(UserEntity userEntity) {
         String query = "UPDATE tb_user SET physicalPersonRegistration =? , Registration =? , name =?, "
                 + "spouse =?, issuingBody =?, issuer =?, birthDate =?, naturalness =?, email =?, dad =?, "
@@ -207,7 +252,8 @@ public class UserPersistence {
         }
         return false;
     }
- public static boolean validatePoginAndPasswordPersistence(String login, String password) {
+
+    public static boolean validatePoginAndPasswordPersistence(String login, String password) {
         String query = "select id from tb_user where login =? and passwoad =? ";
         PreparedStatement preparedStatement = null;
         if (Checks()) {
@@ -215,7 +261,7 @@ public class UserPersistence {
         }
         try {
             preparedStatement = conect().prepareStatement(query);
-            preparedStatement.setString(1,login);
+            preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
             ResultSet rs = preparedStatement.executeQuery();
 

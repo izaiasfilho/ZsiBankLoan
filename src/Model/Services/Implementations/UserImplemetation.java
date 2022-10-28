@@ -9,6 +9,7 @@ import Controller.AddressController;
 import Model.Entities.AddressEntity;
 import Model.Entities.UserEntity;
 import Model.Persistence.UserPersistence;
+import static Model.Persistence.UserPersistence.getListBirthdaysOfTheMonth;
 import static Model.Persistence.UserPersistence.getListUserPersistence;
 import Model.Services.Interfaces.UserInterface;
 import java.sql.SQLException;
@@ -77,6 +78,11 @@ public class UserImplemetation implements UserInterface {
     @Override
     public boolean validateLoginAndPassword(String login, String password) {
         return UserPersistence.validatePoginAndPasswordPersistence(login, password);
+    }
+
+    @Override
+    public List<UserEntity> birthdaysOfTheMonth() {
+        return getListBirthdaysOfTheMonth();
     }
 
 }

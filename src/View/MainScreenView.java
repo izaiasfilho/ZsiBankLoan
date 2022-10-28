@@ -61,6 +61,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         botaoNovaProtosta.setVisible(false);
         fillLoanTable();
         setDateCalendar();
+        getListBirthdaysOfTheMonth();
     }
 
     public void setDateCalendar() {
@@ -513,6 +514,10 @@ public final class MainScreenView extends javax.swing.JDialog {
         cleanUser();
         cleanAddress();
         cleanLoan();
+        getListBirthdaysOfTheMonth();
+        clearLoanCancTable();
+        clearLoanTable();
+        fillLoanTable();
     }
 
     public void cleanUser() {
@@ -778,7 +783,47 @@ public final class MainScreenView extends javax.swing.JDialog {
             }
         }
     }
+    public void getListBirthdaysOfTheMonth(){
+        UserController userController = new UserController();
+        clearBirthdaysOfTheMonthTable();
+        DefaultTableModel dtm = (DefaultTableModel) tabelaAniversariantes.getModel();
 
+        userController.birthdaysOfTheMonth().stream().forEach(user -> {
+                Object[] dados = {user.getId(), user.getName(), user.getPhysicalPersonRegistration(), user.getBirthDate()};
+                dtm.addRow(dados);
+        });
+    }
+
+    public void clearBirthdaysOfTheMonthTable() {
+        DefaultTableModel dfm = (DefaultTableModel) tabelaAniversariantes.getModel();
+        while (dfm.getRowCount() > 0) {
+            dfm.removeRow(0);
+        }
+    }
+    
+    public void clearLoanTable() {
+        DefaultTableModel dfm = (DefaultTableModel) tabelaLoan.getModel();
+        while (dfm.getRowCount() > 0) {
+            dfm.removeRow(0);
+        }
+    }
+    
+    public void clearLoanCancTable() {
+        DefaultTableModel dfm = (DefaultTableModel) tabelaLoanCanc.getModel();
+        while (dfm.getRowCount() > 0) {
+            dfm.removeRow(0);
+        }
+    }
+    
+    public void tableEventBirthdaysOfTheMonth() {
+        int lin = tabelaAniversariantes.getSelectedRow();
+        if (lin != -1) {
+            cleanAll();
+            campo_cpf.setText((String) tabelaAniversariantes.getValueAt(lin, 2));
+            checkCpfDigits();
+            jTabbedPane1.setSelectedIndex(1);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -791,6 +836,8 @@ public final class MainScreenView extends javax.swing.JDialog {
         jPanel6 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel8 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tabelaAniversariantes = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         campo_cpf = new javax.swing.JTextField();
@@ -906,15 +953,52 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         jTabbedPane1.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
 
+        tabelaAniversariantes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "id", "Nome", "CPF", "Data de nascimento"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaAniversariantes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaAniversariantesMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(tabelaAniversariantes);
+        if (tabelaAniversariantes.getColumnModel().getColumnCount() > 0) {
+            tabelaAniversariantes.getColumnModel().getColumn(0).setMinWidth(50);
+            tabelaAniversariantes.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tabelaAniversariantes.getColumnModel().getColumn(0).setMaxWidth(50);
+            tabelaAniversariantes.getColumnModel().getColumn(2).setMinWidth(300);
+            tabelaAniversariantes.getColumnModel().getColumn(2).setPreferredWidth(300);
+            tabelaAniversariantes.getColumnModel().getColumn(2).setMaxWidth(300);
+        }
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1318, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 1282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 735, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(144, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Aniversariantes", jPanel8);
@@ -1765,11 +1849,6 @@ public final class MainScreenView extends javax.swing.JDialog {
             }
         });
         jScrollPane2.setViewportView(tabelaLoan);
-        if (tabelaLoan.getColumnModel().getColumnCount() > 0) {
-            tabelaLoan.getColumnModel().getColumn(0).setHeaderValue("CPF");
-            tabelaLoan.getColumnModel().getColumn(5).setHeaderValue("Operador");
-            tabelaLoan.getColumnModel().getColumn(6).setHeaderValue("Status");
-        }
 
         tabelaLoanCanc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1943,6 +2022,10 @@ public final class MainScreenView extends javax.swing.JDialog {
         getLocateZipCode();
     }//GEN-LAST:event_campo_cepKeyReleased
 
+    private void tabelaAniversariantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaAniversariantesMouseClicked
+        tableEventBirthdaysOfTheMonth();
+    }//GEN-LAST:event_tabelaAniversariantesMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -2096,9 +2179,11 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private com.toedter.calendar.JDateChooser jcalenar_data_nascimento;
+    private javax.swing.JTable tabelaAniversariantes;
     private javax.swing.JTable tabelaHistoricoUsurio;
     private javax.swing.JTable tabelaLoan;
     private javax.swing.JTable tabelaLoanCanc;

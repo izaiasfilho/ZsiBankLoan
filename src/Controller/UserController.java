@@ -37,4 +37,8 @@ public class UserController {
     public boolean validateLoginAndPassword(String login, String password){
        return repository.validateLoginAndPassword(login, password);
     }
+    
+    public List<UserEntity> birthdaysOfTheMonth(){
+        return repository.birthdaysOfTheMonth();
+    }
 }

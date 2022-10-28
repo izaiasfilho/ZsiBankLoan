@@ -23,4 +23,6 @@ public interface UserInterface {
     public List<UserEntity> listUser();
     
     public boolean validateLoginAndPassword(String login, String password);
+    
+    public List<UserEntity> birthdaysOfTheMonth();
 }
