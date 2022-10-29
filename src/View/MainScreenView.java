@@ -26,6 +26,7 @@ import Model.Entities.UserEntity;
 import Model.Enuns.LoanStatusEnum;
 import Model.Enuns.TransactionEnum;
 import Model.Utility.Utilities;
+import static Model.Utility.Utilities.converteCodicoCorEmInter;
 import static Model.Utility.Utilities.converteDataDate;
 import static Model.Utility.Utilities.converteStringDate;
 import Model.Utility.ValidateCpf;
@@ -33,6 +34,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -62,6 +64,31 @@ public final class MainScreenView extends javax.swing.JDialog {
         fillLoanTable();
         setDateCalendar();
         getListBirthdaysOfTheMonth();
+        mudarCor();
+    }
+    
+    public void mudarCor() {
+        String cor = "255,255,255";//216,237,243
+        int codigoCor[] = new int[3];
+
+        codigoCor = converteCodicoCorEmInter(cor);
+        ArrayList<JComponent> componentes = new ArrayList();
+
+        componentes.add(jPanel8);
+        componentes.add(jPanel4);
+        componentes.add(jTabbedPane1);
+        componentes.add(jPanel7);
+        componentes.add(jPanel1);
+        componentes.add(jPanel5);
+        componentes.add(jPanel5);
+        componentes.add(jButton1);
+        componentes.add(botaoNovaProtosta);
+        componentes.add(botaoSalvar);
+        componentes.add(botaoAlterar);
+        componentes.add(jButton3);
+        componentes.add(jButton6);
+
+       Utilities.mudarCor(cor, componentes);
     }
 
     public void setDateCalendar() {

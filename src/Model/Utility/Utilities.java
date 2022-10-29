@@ -7,6 +7,7 @@ package Model.Utility;
 
 import Model.Entities.LoanEntity;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,6 +24,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 /**
@@ -215,5 +217,30 @@ public class Utilities {
       return null;
     }
 
+public static int[] converteCodicoCorEmInter(String cor) {
+        int codigoCor[] = new int[3];
+        String corSeparada[] = new String[3];
 
+        corSeparada = cor.split(",");
+
+        int parte1 = Integer.parseInt(corSeparada[0]);
+        int parte2 = Integer.parseInt(corSeparada[1]);
+        int parte3 = Integer.parseInt(corSeparada[2]);
+
+        codigoCor[0] = parte1;
+        codigoCor[1] = parte2;
+        codigoCor[2] = parte3;
+
+        return codigoCor;
+    }
+
+public static void mudarCor(String cor, ArrayList<JComponent> listaComponente) {
+        int codigoCor[] = new int[3];
+
+        codigoCor = converteCodicoCorEmInter(cor);
+
+        for (JComponent j : listaComponente) {
+            j.setBackground(new Color(codigoCor[0], codigoCor[1], codigoCor[2]));
+        }
+    }
 }

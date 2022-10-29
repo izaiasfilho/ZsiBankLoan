@@ -7,6 +7,9 @@ package View;
 
 import Controller.UserController;
 import Model.Utility.Utilities;
+import static Model.Utility.Utilities.converteCodicoCorEmInter;
+import java.util.ArrayList;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,8 +23,26 @@ public class LoginView extends javax.swing.JFrame {
      */
     public LoginView() {
         initComponents();
+        mudarCor();
         this.setLocationRelativeTo(this);
     }
+    
+    public void mudarCor() {
+        String cor = "255,255,255";
+        int codigoCor[] = new int[3];
+
+        codigoCor = converteCodicoCorEmInter(cor);
+        ArrayList<JComponent> componentes = new ArrayList();
+
+        componentes.add(jPanel2);
+        componentes.add(jButton1);
+        componentes.add(jPanel3);
+        componentes.add(jPanel4);
+        componentes.add(jPanel1);
+
+       Utilities.mudarCor(cor, componentes);
+    }
+
     
     public boolean validateLoginAndPassword(){
         UserController userController = new UserController();
