@@ -5,6 +5,7 @@
  */
 package Resources.BD;
 
+import Model.zsiauthorization.Model.CompanySingleton.SingletonCompany;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -23,11 +24,11 @@ public class Conection {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             if (con == null) {
-                String driver = "jdbc:mysql";
-                String port = "://:3306/";
-                String database = "u323187073_zsibl";
+                String driver = "jdbc:mysql://";
+                String port = SingletonCompany.instancia.getUrl()+":3306/";
+                String database = SingletonCompany.instancia.getIdent_database();
                 String ssl = "?autoReconnect=true&useSSL=false";
-                String user = "root";
+                String user = SingletonCompany.instancia.getLogin();
                 String passwd = "mnd0266";
                 
                String caminho = driver+port+database+ssl;
