@@ -8,6 +8,7 @@ package View;
 import Controller.UserController;
 import Model.Utility.Utilities;
 import static Model.Utility.Utilities.converteCodicoCorEmInter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -26,7 +27,7 @@ public class LoginView extends javax.swing.JFrame {
         mudarCor();
         this.setLocationRelativeTo(this);
     }
-    
+
     public void mudarCor() {
         String cor = "255,255,255";
         int codigoCor[] = new int[3];
@@ -40,17 +41,16 @@ public class LoginView extends javax.swing.JFrame {
         componentes.add(jPanel4);
         componentes.add(jPanel1);
 
-       Utilities.mudarCor(cor, componentes);
+        Utilities.mudarCor(cor, componentes);
     }
 
-    
-    public boolean validateLoginAndPassword(){
+    public boolean validateLoginAndPassword() {
         UserController userController = new UserController();
-        
+
         char ConvertPassword[] = jtf_password.getPassword();
 
         String password = new String(ConvertPassword);
-        return userController.validateLoginAndPassword(jtf_login.getText(), 
+        return userController.validateLoginAndPassword(jtf_login.getText(),
                 Utilities.convertPasswordMd5(password));
     }
 
@@ -96,10 +96,21 @@ public class LoginView extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel2.setText("Passowrd:");
 
+        jtf_password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtf_passwordKeyPressed(evt);
+            }
+        });
+
         jButton1.setText("Log in");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
             }
         });
 
@@ -189,13 +200,30 @@ public class LoginView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       if(validateLoginAndPassword()){
-        MainScreenView mainS = new MainScreenView(this, true);
-        mainS.setVisible(true);   
-       }else{
-           JOptionPane.showMessageDialog(null, "Login o senha Inválido");
-       }
+        if (validateLoginAndPassword()) {
+            MainScreenView mainS = new MainScreenView(this, true);
+            mainS.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Login o senha Inválido");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (validateLoginAndPassword()) {
+                MainScreenView mainS = new MainScreenView(this, true);
+                mainS.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Login o senha Inválido");
+            }
+        }
+    }//GEN-LAST:event_jButton1KeyPressed
+
+    private void jtf_passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtf_passwordKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jtf_password.transferFocus();
+        }
+    }//GEN-LAST:event_jtf_passwordKeyPressed
 
     /**
      * @param args the command line arguments
