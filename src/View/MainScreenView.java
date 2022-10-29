@@ -31,7 +31,9 @@ import static Model.Utility.Utilities.converteDataDate;
 import static Model.Utility.Utilities.converteStringDate;
 import Model.Utility.ValidateCpf;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
@@ -65,6 +67,14 @@ public final class MainScreenView extends javax.swing.JDialog {
         setDateCalendar();
         getListBirthdaysOfTheMonth();
         mudarCor();
+        
+        URL caminhoIncone = getClass().getResource("/Resources/Logo/borboleta f.png");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoIncone);
+        this.setIconImage(iconeTitulo);
+
+        //texto
+        setTitle("ZsiMEI- "  + " principal ");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
     
     public void mudarCor() {
@@ -87,6 +97,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         componentes.add(botaoAlterar);
         componentes.add(jButton3);
         componentes.add(jButton6);
+        componentes.add(jPanel6);
 
        Utilities.mudarCor(cor, componentes);
     }

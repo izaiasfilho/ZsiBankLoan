@@ -8,7 +8,10 @@ package View;
 import Controller.UserController;
 import Model.Utility.Utilities;
 import static Model.Utility.Utilities.converteCodicoCorEmInter;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -26,6 +29,15 @@ public class LoginView extends javax.swing.JFrame {
         initComponents();
         mudarCor();
         this.setLocationRelativeTo(this);
+        
+         //icon
+        URL caminhoIncone = getClass().getResource("/Resources/Logo/borboleta f.png");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoIncone);
+        this.setIconImage(iconeTitulo);
+
+        //texto
+        setTitle("ZsiMEI- "  + " Login ");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     public void mudarCor() {
