@@ -31,7 +31,7 @@ public class LoginView extends javax.swing.JFrame {
         this.setLocationRelativeTo(this);
         
          //icon
-        URL caminhoIncone = getClass().getResource("/Resources/Logo/borboleta f.png");
+        URL caminhoIncone = getClass().getResource("/Resources/icons/borboleta f.png");
         Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoIncone);
         this.setIconImage(iconeTitulo);
 
@@ -215,6 +215,8 @@ public class LoginView extends javax.swing.JFrame {
         if (validateLoginAndPassword()) {
             MainScreenView mainS = new MainScreenView(this, true);
             mainS.setVisible(true);
+            this.setVisible(false);
+            
         } else {
             JOptionPane.showMessageDialog(null, "Login o senha Inválido");
         }

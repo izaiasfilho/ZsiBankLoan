@@ -33,10 +33,15 @@ import Model.Utility.ValidateCpf;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -56,7 +61,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         resolucaoTela();
-        // cleanAll();
+        cleanAll();
         setListStateView();
         setListGenreView();
         setListInsitutionView();
@@ -67,16 +72,16 @@ public final class MainScreenView extends javax.swing.JDialog {
         setDateCalendar();
         getListBirthdaysOfTheMonth();
         mudarCor();
-        
-        URL caminhoIncone = getClass().getResource("/Resources/Logo/borboleta f.png");
+
+        URL caminhoIncone = getClass().getResource("/Resources/icons/borboleta f.png");
         Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoIncone);
         this.setIconImage(iconeTitulo);
 
         //texto
-        setTitle("ZsiMEI- "  + " principal ");
+        setTitle("ZsiMEI- " + " principal ");
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
-    
+
     public void mudarCor() {
         String cor = "255,255,255";//216,237,243
         int codigoCor[] = new int[3];
@@ -84,6 +89,9 @@ public final class MainScreenView extends javax.swing.JDialog {
         codigoCor = converteCodicoCorEmInter(cor);
         ArrayList<JComponent> componentes = new ArrayList();
 
+        componentes.add(jButton8);
+        componentes.add(jButton9);
+        componentes.add(jButton7);
         componentes.add(jPanel8);
         componentes.add(jPanel4);
         componentes.add(jTabbedPane1);
@@ -98,8 +106,9 @@ public final class MainScreenView extends javax.swing.JDialog {
         componentes.add(jButton3);
         componentes.add(jButton6);
         componentes.add(jPanel6);
+        componentes.add(botaoAnexos);
 
-       Utilities.mudarCor(cor, componentes);
+        Utilities.mudarCor(cor, componentes);
     }
 
     public void setDateCalendar() {
@@ -821,14 +830,15 @@ public final class MainScreenView extends javax.swing.JDialog {
             }
         }
     }
-    public void getListBirthdaysOfTheMonth(){
+
+    public void getListBirthdaysOfTheMonth() {
         UserController userController = new UserController();
         clearBirthdaysOfTheMonthTable();
         DefaultTableModel dtm = (DefaultTableModel) tabelaAniversariantes.getModel();
 
         userController.birthdaysOfTheMonth().stream().forEach(user -> {
-                Object[] dados = {user.getId(), user.getName(), user.getPhysicalPersonRegistration(), user.getBirthDate()};
-                dtm.addRow(dados);
+            Object[] dados = {user.getId(), user.getName(), user.getPhysicalPersonRegistration(), user.getBirthDate()};
+            dtm.addRow(dados);
         });
     }
 
@@ -838,21 +848,21 @@ public final class MainScreenView extends javax.swing.JDialog {
             dfm.removeRow(0);
         }
     }
-    
+
     public void clearLoanTable() {
         DefaultTableModel dfm = (DefaultTableModel) tabelaLoan.getModel();
         while (dfm.getRowCount() > 0) {
             dfm.removeRow(0);
         }
     }
-    
+
     public void clearLoanCancTable() {
         DefaultTableModel dfm = (DefaultTableModel) tabelaLoanCanc.getModel();
         while (dfm.getRowCount() > 0) {
             dfm.removeRow(0);
         }
     }
-    
+
     public void tableEventBirthdaysOfTheMonth() {
         int lin = tabelaAniversariantes.getSelectedRow();
         if (lin != -1) {
@@ -862,6 +872,47 @@ public final class MainScreenView extends javax.swing.JDialog {
             jTabbedPane1.setSelectedIndex(1);
         }
     }
+
+    public void newFolderUser() {
+        String way = campo_caminho_file.getText()+"\\" + campo_cpf.getText() + "\\";
+        if(!campo_caminho_file.getText().equals("")){
+            way = "C:\\Util\\Usuarios\\" + campo_cpf.getText() + "\\";
+        }
+        File file = new File(way);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+    }
+
+    public void openFolder() {
+        String os = System.getProperty("os.name");
+
+        String way = campo_caminho_file.getText()+"\\" + campo_cpf.getText() + "\\";
+        if(!campo_caminho_file.getText().equals("")){
+            way = "C:\\Util\\Usuarios\\" + campo_cpf.getText() + "\\";
+        }
+        if (os.startsWith("Win")) {
+            try {
+                Runtime.getRuntime().exec("explorer "+way);
+            } catch (IOException ex) {
+                Logger.getLogger(MainScreenView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
+
+    public void selectDestinationFolder() {
+        JFileChooser file = new JFileChooser();
+        file.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int i = file.showSaveDialog(null);
+        if (i == 1) {
+            campo_caminho_file.setText("");
+        } else {
+            File arquivo = file.getSelectedFile();
+            campo_caminho_file.setText(arquivo.getPath());
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -979,6 +1030,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         campo_dataemissao = new com.toedter.calendar.JDateChooser();
+        botaoAnexos = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabelaHistoricoUsurio = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -1063,6 +1115,7 @@ public final class MainScreenView extends javax.swing.JDialog {
             }
         });
 
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/add_16px.png"))); // NOI18N
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -1451,31 +1504,39 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         campo_caminho_file.setText("caminho");
 
-        jButton1.setText("Localizar:");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/search_folder_16px.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton7.setText("+");
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/add_16px.png"))); // NOI18N
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
             }
         });
 
-        jButton8.setText("+");
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/add_16px.png"))); // NOI18N
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
             }
         });
 
-        jButton9.setText("+");
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/add_16px.png"))); // NOI18N
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
+            }
+        });
+
+        botaoAnexos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/attach_32px.png"))); // NOI18N
+        botaoAnexos.setText("Anexos");
+        botaoAnexos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAnexosActionPerformed(evt);
             }
         });
 
@@ -1500,19 +1561,22 @@ public final class MainScreenView extends javax.swing.JDialog {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(campo_corretor, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campo_comissao, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(combo_convenio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(combo_bancoOrigem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton9)
-                                    .addComponent(jButton8)))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(campo_dataemissao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(72, 72, 72)))
+                                .addGap(72, 72, 72))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(campo_corretor, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(campo_comissao, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(combo_convenio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(combo_bancoOrigem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))))
+                                .addGap(13, 13, 13)))
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(30, 30, 30)
@@ -1548,7 +1612,7 @@ public final class MainScreenView extends javax.swing.JDialog {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(combo_banco_beneficiario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton7)))
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -1564,10 +1628,12 @@ public final class MainScreenView extends javax.swing.JDialog {
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(campo_caminho_file)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jButton1)
+                                        .addComponent(botaoAnexos, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))))
-                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(80, Short.MAX_VALUE))
+                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1593,7 +1659,7 @@ public final class MainScreenView extends javax.swing.JDialog {
                                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                 .addComponent(combo_bancoOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jButton9))
+                                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(10, 10, 10)
                                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -1601,7 +1667,7 @@ public final class MainScreenView extends javax.swing.JDialog {
                                                 .addComponent(combo_convenio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(jLabel32)
                                                 .addComponent(campo_numero_beneficio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jButton8))
+                                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel28)
@@ -1621,11 +1687,15 @@ public final class MainScreenView extends javax.swing.JDialog {
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(campo_comissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(campo_caminho_file, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1))))
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(campo_caminho_file, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(botaoAnexos)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel48)
                         .addComponent(campo_ADE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1656,8 +1726,8 @@ public final class MainScreenView extends javax.swing.JDialog {
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(combo_banco_beneficiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton7)
-                                    .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1791,13 +1861,13 @@ public final class MainScreenView extends javax.swing.JDialog {
                                                         .addGap(18, 18, 18)
                                                         .addComponent(botaoNovaProtosta, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton6)
+                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTabbedPane2)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 58, Short.MAX_VALUE))))
+                        .addGap(0, 42, Short.MAX_VALUE))))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1993,6 +2063,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
+        selectDestinationFolder();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void botaoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarActionPerformed
@@ -2064,6 +2135,11 @@ public final class MainScreenView extends javax.swing.JDialog {
         tableEventBirthdaysOfTheMonth();
     }//GEN-LAST:event_tabelaAniversariantesMouseClicked
 
+    private void botaoAnexosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAnexosActionPerformed
+        newFolderUser();
+        openFolder();
+    }//GEN-LAST:event_botaoAnexosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2111,6 +2187,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoAlterar;
+    private javax.swing.JButton botaoAnexos;
     private javax.swing.JButton botaoNovaProtosta;
     private javax.swing.JButton botaoSalvar;
     private javax.swing.JTextField campo_ADE;

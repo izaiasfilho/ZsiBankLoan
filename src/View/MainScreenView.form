@@ -265,7 +265,7 @@
                                               </Group>
                                           </Group>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jButton6" min="-2" pref="27" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -275,7 +275,7 @@
                                       <Component id="jTabbedPane2" max="32767" attributes="0"/>
                                       <Component id="jPanel1" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="58" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="42" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -397,6 +397,11 @@
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton6">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/Resources/icons/add_16px.png"/>
+                    </Property>
+                  </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
                   </Events>
@@ -878,22 +883,27 @@
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="campo_corretor" min="-2" pref="207" max="-2" attributes="0"/>
-                                              <Component id="campo_comissao" min="-2" pref="93" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                      <Component id="combo_convenio" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
-                                                      <Component id="combo_bancoOrigem" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Component id="jButton9" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jButton8" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="campo_dataemissao" max="32767" attributes="0"/>
                                                   <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="campo_corretor" min="-2" pref="207" max="-2" attributes="0"/>
+                                                      <Component id="campo_comissao" min="-2" pref="93" max="-2" attributes="0"/>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                              <Component id="combo_convenio" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
+                                                              <Component id="combo_bancoOrigem" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                              <Component id="jButton9" min="-2" pref="23" max="-2" attributes="0"/>
+                                                              <Component id="jButton8" pref="0" max="32767" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
+                                                  </Group>
+                                                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -940,7 +950,7 @@
                                       <Group type="102" attributes="0">
                                           <Component id="combo_banco_beneficiario" max="32767" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButton7" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jButton7" min="-2" pref="25" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -959,16 +969,18 @@
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="campo_caminho_file" max="32767" attributes="0"/>
                                                       <Group type="102" attributes="0">
-                                                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="botaoAnexos" min="-2" pref="121" max="-2" attributes="0"/>
                                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                               </Group>
                                               <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jButton1" min="-2" pref="33" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="80" max="32767" attributes="0"/>
+                                  <EmptySpace pref="49" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -999,7 +1011,7 @@
                                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                               <Group type="103" groupAlignment="3" attributes="0">
                                                                   <Component id="combo_bancoOrigem" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="jButton9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jButton9" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                                                               </Group>
                                                               <Component id="jLabel24" max="32767" attributes="0"/>
                                                           </Group>
@@ -1009,7 +1021,7 @@
                                                                   <Component id="combo_convenio" alignment="3" min="-2" max="-2" attributes="0"/>
                                                                   <Component id="jLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
                                                                   <Component id="campo_numero_beneficio" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="jButton8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jButton8" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                                                               </Group>
                                                               <Component id="jLabel25" max="32767" attributes="0"/>
                                                           </Group>
@@ -1041,12 +1053,18 @@
                                                       <Component id="jLabel27" alignment="3" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
-                                              <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                                               <Group type="102" attributes="0">
-                                                  <Component id="campo_caminho_file" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+                                                      <Group type="102" attributes="0">
+                                                          <Component id="campo_caminho_file" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                          <Component id="botaoAnexos" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                               </Group>
+                                              <Component id="jButton1" min="-2" pref="20" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
@@ -1088,8 +1106,8 @@
                                               <Group type="102" attributes="0">
                                                   <Group type="103" groupAlignment="3" attributes="0">
                                                       <Component id="combo_banco_beneficiario" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jButton7" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jLabel38" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                                      <Component id="jButton7" alignment="0" pref="0" max="32767" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -1484,7 +1502,9 @@
                         </Component>
                         <Component class="javax.swing.JButton" name="jButton1">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Localizar:"/>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/Resources/icons/search_folder_16px.png"/>
+                            </Property>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
@@ -1492,7 +1512,9 @@
                         </Component>
                         <Component class="javax.swing.JButton" name="jButton7">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="+"/>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/Resources/icons/add_16px.png"/>
+                            </Property>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
@@ -1510,7 +1532,9 @@
                         </Component>
                         <Component class="javax.swing.JButton" name="jButton8">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="+"/>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/Resources/icons/add_16px.png"/>
+                            </Property>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
@@ -1518,13 +1542,26 @@
                         </Component>
                         <Component class="javax.swing.JButton" name="jButton9">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="+"/>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/Resources/icons/add_16px.png"/>
+                            </Property>
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton9ActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="com.toedter.calendar.JDateChooser" name="campo_dataemissao">
+                        </Component>
+                        <Component class="javax.swing.JButton" name="botaoAnexos">
+                          <Properties>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/Resources/icons/attach_32px.png"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Anexos"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoAnexosActionPerformed"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
