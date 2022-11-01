@@ -40,9 +40,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -72,7 +76,9 @@ public final class MainScreenView extends javax.swing.JDialog {
         setDateCalendar();
         getListBirthdaysOfTheMonth();
         mudarCor();
-
+        campo_caminho_file.setEditable(false);
+        tabs();
+        combo_uf.setSelectedItem("PB");
         URL caminhoIncone = getClass().getResource("/Resources/icons/borboleta f.png");
         Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoIncone);
         this.setIconImage(iconeTitulo);
@@ -636,7 +642,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_valorparcela.setEditable(editable);
         campo_digitador.setEditable(editable);
         campo_obs.setEditable(editable);
-        campo_caminho_file.setEditable(editable);
         campo_ADE.setEditable(editable);
         campo_numero_beneficio.setEditable(editable);
         campo_codigoespecie.setEditable(editable);
@@ -873,9 +878,16 @@ public final class MainScreenView extends javax.swing.JDialog {
         }
     }
 
+    public void attachments() {
+        if (!campo_cpf.getText().equals("")) {
+            newFolderUser();
+            openFolder();
+        }
+    }
+
     public void newFolderUser() {
-        String way = campo_caminho_file.getText()+"\\" + campo_cpf.getText() + "\\";
-        if(!campo_caminho_file.getText().equals("")){
+        String way = campo_caminho_file.getText() + "\\" + campo_cpf.getText() + "\\";
+        if (!campo_caminho_file.getText().equals("")) {
             way = "C:\\Util\\Usuarios\\" + campo_cpf.getText() + "\\";
         }
         File file = new File(way);
@@ -887,13 +899,13 @@ public final class MainScreenView extends javax.swing.JDialog {
     public void openFolder() {
         String os = System.getProperty("os.name");
 
-        String way = campo_caminho_file.getText()+"\\" + campo_cpf.getText() + "\\";
-        if(!campo_caminho_file.getText().equals("")){
+        String way = campo_caminho_file.getText() + "\\" + campo_cpf.getText() + "\\";
+        if (!campo_caminho_file.getText().equals("")) {
             way = "C:\\Util\\Usuarios\\" + campo_cpf.getText() + "\\";
         }
         if (os.startsWith("Win")) {
             try {
-                Runtime.getRuntime().exec("explorer "+way);
+                Runtime.getRuntime().exec("explorer " + way);
             } catch (IOException ex) {
                 Logger.getLogger(MainScreenView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -911,6 +923,44 @@ public final class MainScreenView extends javax.swing.JDialog {
             File arquivo = file.getSelectedFile();
             campo_caminho_file.setText(arquivo.getPath());
         }
+    }
+
+    public void tabs(){
+        tabOne();
+        tabTwo();
+        tabThree();
+    }
+    public void tabOne() {
+
+        JLabel lbl = new JLabel("");
+        Icon icon = new ImageIcon(getClass().getResource("/Resources/icons/confetti_16px.png"));
+        lbl.setIcon(icon);
+
+        lbl.setIconTextGap(5);
+        lbl.setHorizontalTextPosition(SwingConstants.RIGHT);
+        jTabbedPane1.setTabComponentAt(0, lbl);
+    }
+
+    public void tabThree() {
+
+        JLabel lbl = new JLabel("");
+        Icon icon = new ImageIcon(getClass().getResource("/Resources/icons/Transaction List_16px.png"));
+        lbl.setIcon(icon);
+
+        lbl.setIconTextGap(5);
+        lbl.setHorizontalTextPosition(SwingConstants.RIGHT);
+        jTabbedPane1.setTabComponentAt(2, lbl);
+    }
+
+    public void tabTwo() {
+
+        JLabel lbl = new JLabel("");
+        Icon icon = new ImageIcon(getClass().getResource("/Resources/icons/cash_in_hand_16px.png"));
+        lbl.setIcon(icon);
+
+        lbl.setIconTextGap(5);
+        lbl.setHorizontalTextPosition(SwingConstants.RIGHT);
+        jTabbedPane1.setTabComponentAt(1, lbl);
     }
 
     /**
@@ -1041,7 +1091,11 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        jTabbedPane1.setToolTipText("");
         jTabbedPane1.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+
+        jPanel8.setToolTipText("ANIVERSARIANTES");
 
         tabelaAniversariantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1081,7 +1135,7 @@ public final class MainScreenView extends javax.swing.JDialog {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 1282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1091,7 +1145,9 @@ public final class MainScreenView extends javax.swing.JDialog {
                 .addContainerGap(144, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Aniversariantes", jPanel8);
+        jTabbedPane1.addTab("", jPanel8);
+
+        jPanel7.setToolTipText("NOVA PROPOSTA");
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -1633,7 +1689,7 @@ public final class MainScreenView extends javax.swing.JDialog {
                             .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1693,9 +1749,9 @@ public final class MainScreenView extends javax.swing.JDialog {
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addComponent(campo_caminho_file, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(botaoAnexos)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(botaoAnexos))
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel48)
                         .addComponent(campo_ADE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1724,10 +1780,11 @@ public final class MainScreenView extends javax.swing.JDialog {
                         .addGap(5, 5, 5)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(combo_banco_beneficiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(combo_banco_beneficiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1820,9 +1877,11 @@ public final class MainScreenView extends javax.swing.JDialog {
                                         .addGap(38, 38, 38)
                                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(campo_emissor, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(40, 40, 40)
-                                        .addComponent(combobox_sexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(campo_emissor, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(combobox_sexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel7Layout.createSequentialGroup()
                                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1860,14 +1919,12 @@ public final class MainScreenView extends javax.swing.JDialog {
                                                         .addComponent(combo_status, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addGap(18, 18, 18)
                                                         .addComponent(botaoNovaProtosta, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 53, Short.MAX_VALUE))))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTabbedPane2)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 42, Short.MAX_VALUE))))
+                        .addGap(0, 60, Short.MAX_VALUE))))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1933,7 +1990,9 @@ public final class MainScreenView extends javax.swing.JDialog {
                 .addGap(125, 125, 125))
         );
 
-        jTabbedPane1.addTab("Nova Proposta   ", jPanel7);
+        jTabbedPane1.addTab("", jPanel7);
+
+        jPanel4.setToolTipText("LISTA PROPOSTAS");
 
         tabelaLoan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1988,7 +2047,7 @@ public final class MainScreenView extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1298, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1282, Short.MAX_VALUE)
                     .addComponent(jScrollPane3))
                 .addContainerGap())
         );
@@ -2002,7 +2061,7 @@ public final class MainScreenView extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Propostas            ", jPanel4);
+        jTabbedPane1.addTab("", jPanel4);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -2011,7 +2070,7 @@ public final class MainScreenView extends javax.swing.JDialog {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                .addGap(0, 0, 0))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2136,8 +2195,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     }//GEN-LAST:event_tabelaAniversariantesMouseClicked
 
     private void botaoAnexosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAnexosActionPerformed
-        newFolderUser();
-        openFolder();
+        attachments();
     }//GEN-LAST:event_botaoAnexosActionPerformed
 
     /**
