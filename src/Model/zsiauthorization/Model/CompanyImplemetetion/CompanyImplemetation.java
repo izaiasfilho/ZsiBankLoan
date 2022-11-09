@@ -35,6 +35,7 @@ public class CompanyImplemetation implements CompanyInterface{
     @Override
     public void validateLicenseImplemetation() {
         suesCompanySingleton();
+        insereUltimoAcesso();
         Utilities data = new Utilities();
         String licenca_gerada = generateLicense(SingletonCompany.instancia.getCnpj(),
                 data.desenverteDateData(SingletonCompany.instancia.getData_vencimento()),
@@ -353,7 +354,8 @@ public class CompanyImplemetation implements CompanyInterface{
         return diasVencimento;
     }
 
-    public static void alterarEmpresaInsereUltimoAcesso() {
+    @Override
+    public void insereUltimoAcesso() {
         String identificacaoMetodo = "PROJETO: ZsiControlerMei%n"
                 + "PACOTE: Controller / CLASSE: ControllerEmpresa%n"
                 + "METODO: alterarEmpresaiInsereUltimoAcesso()%n"
@@ -369,7 +371,7 @@ public class CompanyImplemetation implements CompanyInterface{
             empresa.setUltimoAcesso(data.getdate());
             empresa.setId(SingletonCompany.instancia.getId());
 
-            update.alterarEmpresa_InsereULTIMO_ACESSO(empresa);
+            update.InsereULTIMO_ACESSO(empresa);
         } catch (Exception ex) {
             log(identificacaoMetodo + "Erro: " + ex.getMessage());
         }

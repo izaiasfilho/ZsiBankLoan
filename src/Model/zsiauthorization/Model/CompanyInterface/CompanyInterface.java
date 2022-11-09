@@ -11,5 +11,7 @@ package Model.zsiauthorization.Model.CompanyInterface;
  */
 public interface CompanyInterface {
     
+    public void insereUltimoAcesso();
+    
     public void validateLicenseImplemetation();
 }

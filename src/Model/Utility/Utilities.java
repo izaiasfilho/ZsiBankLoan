@@ -26,15 +26,17 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 /**
  *
  * @author Izaias
  */
 public class Utilities {
-      private String DataHora;
+
+    private String DataHora;
     private String Data;
-    
+
     public String getDataHora() {
         DateFormat formatodata = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
         Date data = new Date();
@@ -42,7 +44,7 @@ public class Utilities {
         this.DataHora = (formatodata.format(data));
         return DataHora;
     }
-    
+
     public String getdate() {
         DateFormat formatodata = new SimpleDateFormat("yyyy-MM-dd");
         Date data = new Date();
@@ -50,8 +52,8 @@ public class Utilities {
         this.Data = (formatodata.format(data));
         return Data;
     }
-    
-     public int verificaDiasVencimento(String dataFinal) {
+
+    public int verificaDiasVencimento(String dataFinal) {
         String dataInvertida[] = new String[3];
 
         dataInvertida = dataFinal.split("-");
@@ -79,7 +81,7 @@ public class Utilities {
         return resultadoFinal;
     }
 
-     public String desenverteDateData(String date) {
+    public String desenverteDateData(String date) {
         String data = "01/01/2000";
         if (date != null) {
             String dataInvertida[] = new String[3];
@@ -96,19 +98,20 @@ public class Utilities {
         }
         return data;
     }
-    
-     public static String convertPasswordMd5(String password){
-            try {
-                MessageDigest md = MessageDigest.getInstance("MD5");
-                BigInteger hash = new BigInteger(1, md.digest(password.getBytes()));
 
-               return  hash.toString(10);
-            } catch (NoSuchAlgorithmException ex) {
-            }
+    public static String convertPasswordMd5(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            BigInteger hash = new BigInteger(1, md.digest(password.getBytes()));
+
+            return hash.toString(10);
+        } catch (NoSuchAlgorithmException ex) {
+        }
         return null;
-     }
+    }
 //########################################     
-     public static String converteDataDate(String data) {
+
+    public static String converteDataDate(String data) {
         String dataInvertida[] = new String[3];
 
         dataInvertida = data.split("/");
@@ -128,8 +131,8 @@ public class Utilities {
 
         return date;
     }
-     
-     public static String transformaCalendarEmDate(JDateChooser choose) {
+
+    public static String transformaCalendarEmDate(JDateChooser choose) {
         DateFormat formatodata = new SimpleDateFormat("dd/MM/yyyy");
 
         Date data = choose.getDate();
@@ -144,7 +147,7 @@ public class Utilities {
         return dataConvertida;//vai retornar vazio
     }
 
-     public static Date converteStringDate(String dataRecebida) {
+    public static Date converteStringDate(String dataRecebida) {
 
         try {
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -155,20 +158,20 @@ public class Utilities {
         }
         return null;
     }
-     
-     public static List<LoanEntity> invertListloan(List<LoanEntity> list){
-         int size = list.size();
-         List<LoanEntity> newList = new ArrayList();
-         for(int x = size; x > 0; x--){
-             newList.add(list.get(x-1));
-         }
-       return newList;  
-     }
-     
-     public static List<String> locateZipCode(String cep) {
-         //chamar
-         //tratar simbolos
-         //aplicar
+
+    public static List<LoanEntity> invertListloan(List<LoanEntity> list) {
+        int size = list.size();
+        List<LoanEntity> newList = new ArrayList();
+        for (int x = size; x > 0; x--) {
+            newList.add(list.get(x - 1));
+        }
+        return newList;
+    }
+
+    public static List<String> locateZipCode(String cep) {
+        //chamar
+        //tratar simbolos
+        //aplicar
         String[] cepEncontrado = new String[5];
         List<String> list = new ArrayList();
 
@@ -181,10 +184,10 @@ public class Utilities {
             list.add(cepEncontrado[4]);
             return list;
         }
-          return null;
+        return null;
     }
-     
-     public static String[] buscarCep(String cep) {
+
+    public static String[] buscarCep(String cep) {
         String[] cepEncontrado = new String[5];
         if (cep.length() == 8) {
             String json;
@@ -214,10 +217,10 @@ public class Utilities {
             } catch (Exception e) {
             }
         }
-      return null;
+        return null;
     }
 
-public static int[] converteCodicoCorEmInter(String cor) {
+    public static int[] converteCodicoCorEmInter(String cor) {
         int codigoCor[] = new int[3];
         String corSeparada[] = new String[3];
 
@@ -234,13 +237,32 @@ public static int[] converteCodicoCorEmInter(String cor) {
         return codigoCor;
     }
 
-public static void mudarCor(String cor, ArrayList<JComponent> listaComponente) {
+    public static void mudarCor(String cor, ArrayList<JComponent> listaComponente) {
         int codigoCor[] = new int[3];
 
         codigoCor = converteCodicoCorEmInter(cor);
 
         for (JComponent j : listaComponente) {
             j.setBackground(new Color(codigoCor[0], codigoCor[1], codigoCor[2]));
+        }
+    }
+    
+        public static String maiusculaConvertido(String textoRecebido) {
+        String textoConvertido = "";
+        if (textoRecebido != null) {
+            if (!textoRecebido.equals("")) {
+                textoConvertido = textoRecebido.toUpperCase();
+            }
+        }
+        return textoConvertido;
+    }
+
+    //-----##############################--- AJUST TEXTS AREA ---##############################-----  
+    public static void ajustartextarea(ArrayList<JTextArea> lista) {
+
+        for (JTextArea textArea : lista) {
+            textArea.setLineWrap(true); //pula linha automatico
+            textArea.setWrapStyleWord(true);//JUNTAR A PALAVRA QUANDO PULA
         }
     }
 }

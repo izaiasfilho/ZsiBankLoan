@@ -142,7 +142,7 @@ public class PersistenceCloud {
 
     private final String SQL_EMPRESA_ALTERAR_INSERE_ULTIMO_ACESSO = "UPDATE empresa set ultimoAcesso=? where id = ?";
 
-    public boolean alterarEmpresa_InsereULTIMO_ACESSO(CompanyEntity empresa) throws SQLException {
+    public boolean InsereULTIMO_ACESSO(CompanyEntity empresa) throws SQLException {
         String identificacaoMetodo = "PROJETO: ZSICONTROLEMEI %n "
                 + "PACOTE: Dao / CLASSE: UpdateDaoEmpresa_PainelControle %n"
                 + "METODO: alterarEmpresa_InsereULTIMO_ACESSO(empresa) %n"

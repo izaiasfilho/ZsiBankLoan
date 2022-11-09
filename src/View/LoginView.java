@@ -38,6 +38,8 @@ public class LoginView extends javax.swing.JFrame {
         //texto
         setTitle("ZsiMEI- "  + " Login ");
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        this.setResizable(false);
+        
     }
 
     public void mudarCor() {
