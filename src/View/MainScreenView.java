@@ -74,6 +74,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         setListInsitutionView();
         setListPlanView();
         buttonControl();
+        buttonControlRegistration();
 
         botaoNovaProtosta.setVisible(false);
         fillLoanTable();
@@ -83,6 +84,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_caminho_file.setEditable(false);
         tabs();
         combo_uf.setSelectedItem("PB");
+        combo_uf2.setSelectedItem("PB");
         ajustartextarea();
 
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -141,6 +143,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         java.util.Date now;
         now = new java.util.Date();
         jcalenar_data_nascimento.setDate(now);
+        jcalenar_data_nascimento1.setDate(now);
         campo_dataemissao.setDate(now);
     }
 
@@ -226,6 +229,31 @@ public final class MainScreenView extends javax.swing.JDialog {
         return user;
     }
 
+    public UserEntity getUserRegistrationView() {
+        UserEntity user = new UserEntity();
+        if (!jLabelIdUser1.getText().toUpperCase().equals("")) {
+            int idUser = Integer.parseInt(jLabelIdUser1.getText().toUpperCase());
+            user.setId(idUser);
+        }
+        user.setPhysicalPersonRegistration(campo_cpf1.getText().toUpperCase());
+        user.setName(campo_nome1.getText().toUpperCase());
+        user.setSpouse(campo_conjugue1.getText().toUpperCase());
+        user.setRegistration(campo_rg1.getText().toUpperCase());
+        user.setIssuingBody(campo_orgao_emissor1.getText().toUpperCase());
+        user.setIssuer(campo_emissor1.getText().toUpperCase());
+
+        String birthDate = converteDataDate(Utilities.transformaCalendarEmDate(jcalenar_data_nascimento1));
+
+        user.setBirthDate(birthDate);
+        user.setNaturalness(campo_naturalidade1.getText().toUpperCase());
+        user.setEmail(campo_email1.getText().toUpperCase());
+        user.setDad(campo_pai1.getText().toUpperCase());
+        user.setMother(campo_mae1.getText().toUpperCase());
+        user.setGenreEntity(getGenreRegistrationView());
+        user.setAddressEntity(getAddressRegistrationView());
+        return user;
+    }
+
     public CityEntity getCityView() {
         StateController stateController = new StateController();
         CityEntity city = new CityEntity();
@@ -233,6 +261,18 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         StateEntity state = new StateEntity();
         state.setUf((String) combo_uf.getSelectedItem());
+        state = stateController.getStateByUf(state);
+        city.setStateEntity(state);
+        return city;
+    }
+    
+    public CityEntity getCityViewRegistration() {
+        StateController stateController = new StateController();
+        CityEntity city = new CityEntity();
+        city.setName(campo_cidade2.getText().toUpperCase());
+
+        StateEntity state = new StateEntity();
+        state.setUf((String) combo_uf2.getSelectedItem());
         state = stateController.getStateByUf(state);
         city.setStateEntity(state);
         return city;
@@ -253,10 +293,34 @@ public final class MainScreenView extends javax.swing.JDialog {
         return address;
     }
 
+    public AddressEntity getAddressRegistrationView() {
+        AddressEntity address = new AddressEntity();
+
+        if (!jLabelId2.getText().toUpperCase().equals("")) {
+            address.setId(Integer.parseInt(jLabelId2.getText().toUpperCase()));
+        }
+        address.setZipCode(campo_cep2.getText().toUpperCase());
+        address.setStreetName(campo_rua2.getText().toUpperCase());
+        address.setNumber(campo_numero2.getText().toUpperCase());
+        address.setDistrict(campo_bairro2.getText().toUpperCase());
+        address.setComplement(campo_complemento2.getText().toUpperCase());
+        address.setCityEntity(getCityViewRegistration());
+        return address;
+    }
+
     public GenreEntity getGenreView() {
         GenreController genreController = new GenreController();
         GenreEntity genreEntity = new GenreEntity();
         String genre = (String) combobox_sexo.getSelectedItem();
+        genreEntity.setDescription(genre);
+        genreEntity = genreController.getGenreController(genreEntity);
+        return genreEntity;
+    }
+
+    public GenreEntity getGenreRegistrationView() {
+        GenreController genreController = new GenreController();
+        GenreEntity genreEntity = new GenreEntity();
+        String genre = (String) combobox_sexo1.getSelectedItem();
         genreEntity.setDescription(genre);
         genreEntity = genreController.getGenreController(genreEntity);
         return genreEntity;
@@ -283,6 +347,28 @@ public final class MainScreenView extends javax.swing.JDialog {
         return listPhone;
     }
 
+    public List<PhoneEntity> getListPhoneViewRegistration(UserEntity userEntity) {
+        List<PhoneEntity> listPhone = new ArrayList();
+
+        if (!campo_fone3.getText().equals("")) {
+            PhoneEntity phone1 = new PhoneEntity();
+            phone1.setUserEntity(userEntity);
+            phone1.setNumber(campo_fone3.getText());
+            phone1.setNumberType((String) combo_tipo_fone3.getSelectedItem());
+            listPhone.add(phone1);
+        }
+
+        if (!campo_fone4.getText().equals("")) {
+            PhoneEntity phone2 = new PhoneEntity();
+            phone2.setUserEntity(userEntity);
+            phone2.setNumber(campo_fone4.getText());
+            phone2.setNumberType((String) combo_tipo_fone4.getSelectedItem());
+            listPhone.add(phone2);
+        }
+        return listPhone;
+    }
+
+    
     public InstitutionEntity getInsertInstitutionView() {
 
         InstitutionController institutionController = new InstitutionController();
@@ -333,6 +419,22 @@ public final class MainScreenView extends javax.swing.JDialog {
         }
     }
 
+    public void setListPhoneViewRegistration(UserEntity user) {
+        PhoneController phoneController = new PhoneController();
+        List<PhoneEntity> list = phoneController.listPhone(user.getId());
+
+        if (list.size() > 0) {
+            campo_fone3.setText(list.get(0).getNumber());
+            combo_tipo_fone3.setSelectedItem(list.get(0).getNumberType());
+        }
+
+        if (list.size() > 1) {
+            campo_fone4.setText(list.get(1).getNumber());
+            combo_tipo_fone4.setSelectedItem(list.get(1).getNumberType());
+        }
+    }
+
+    
     public void setUserView(UserEntity userEntity) {
         UserController userController = new UserController();
         UserEntity user = userController.getUserController(userEntity);
@@ -355,6 +457,28 @@ public final class MainScreenView extends javax.swing.JDialog {
         setListPhoneView(user);
     }
 
+    public void setUserRegistrationView(UserEntity userEntity) {
+        UserController userController = new UserController();
+        UserEntity user = userController.getUserController(userEntity);
+        jLabelIdUser1.setText(String.valueOf(user.getId()));
+        campo_cpf1.setText(user.getPhysicalPersonRegistration());
+        campo_nome1.setText(user.getName());
+        campo_conjugue1.setText(user.getSpouse());
+        campo_rg1.setText(user.getRegistration());
+        campo_orgao_emissor1.setText(user.getIssuingBody());
+        campo_emissor1.setText(user.getIssuer());
+
+        jcalenar_data_nascimento1.setDate(converteStringDate(user.getBirthDate()));
+        campo_naturalidade1.setText(user.getNaturalness());
+        campo_email1.setText(user.getEmail());
+        campo_pai1.setText(user.getDad());
+        campo_mae1.setText(user.getMother());
+
+        setGenreView(userEntity.getGenreEntity());
+        setAddressViewRegistration(user.getAddressEntity());
+        setListPhoneViewRegistration(user);
+    }
+
     public void setAddressView(AddressEntity address) {
         jLabelId.setText(String.valueOf(address.getId()));
         campo_rua.setText(address.getStreetName());
@@ -366,8 +490,20 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_cep.setText(address.getZipCode());
     }
 
+    public void setAddressViewRegistration(AddressEntity address) {
+        jLabelId2.setText(String.valueOf(address.getId()));
+        campo_rua2.setText(address.getStreetName());
+        campo_bairro2.setText(address.getDistrict());
+        campo_numero2.setText(address.getNumber());
+        campo_complemento2.setText(address.getComplement());
+        campo_cidade2.setText(address.getCityEntity().getName());
+        combo_uf2.setSelectedItem(address.getCityEntity().getStateEntity().getUf());
+        campo_cep2.setText(address.getZipCode());
+    }
+
     public void setGenreView(GenreEntity genreEntity) {
         combobox_sexo.setSelectedItem(genreEntity.getDescription());
+        combobox_sexo1.setSelectedItem(genreEntity.getDescription());
     }
 
     public void resolucaoTela() {
@@ -380,6 +516,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         StateController controller = new StateController();
         controller.getListStateController().stream().forEach(uf -> {
             combo_uf.addItem(uf.getUf());
+            combo_uf2.addItem(uf.getUf());
         });
     }
 
@@ -387,6 +524,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         GenreController genreController = new GenreController();
         genreController.listGenre().stream().forEach(genre -> {
             combobox_sexo.addItem(genre.getDescription());
+            combobox_sexo1.addItem(genre.getDescription());
         });
     }
 
@@ -449,7 +587,7 @@ public final class MainScreenView extends javax.swing.JDialog {
             campo_digitador.setText(ListLoanMov.get(ListLoanMov.size() - 1).getOperator());
             campo_obs.setText(ListLoanMov.get(ListLoanMov.size() - 1).getNote());
             String file = ListLoanMov.get(ListLoanMov.size() - 1).getFiles();
-            campo_caminho_file.setText(file.equals("") ? "C:\\Util\\Usuarios" :file );
+            campo_caminho_file.setText(file.equals("") ? "C:\\Util\\Usuarios" : file);
             campo_ADE.setText(ListLoanMov.get(ListLoanMov.size() - 1).getNumberADE());
             campo_numero_beneficio.setText(ListLoanMov.get(ListLoanMov.size() - 1).getBenefitNumber());
             campo_codigoespecie.setText(ListLoanMov.get(ListLoanMov.size() - 1).getSpeciesCode());
@@ -479,6 +617,17 @@ public final class MainScreenView extends javax.swing.JDialog {
         }
     }
 
+    public void getUserRegistrationByPhysicalPersonRegistration() {
+        UserEntity user = new UserEntity();
+        UserController userController = new UserController();
+
+        user.setPhysicalPersonRegistration(campo_cpf1.getText().toUpperCase());
+        user = userController.getUserController(user);
+        if (user != null) {
+            setUserRegistrationView(user);
+        }
+    }
+
     public void insertLoan() {
         if (ValidateCpf.isCPF(campo_cpf.getText()) == false) {
             JOptionPane.showMessageDialog(null, "CPF inválido!");
@@ -498,6 +647,22 @@ public final class MainScreenView extends javax.swing.JDialog {
         }
     }
 
+    public void insertRegistrationUser() {
+        if (ValidateCpf.isCPF(campo_cpf1.getText()) == false) {
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
+            campo_cpf1.setText("");
+        } else {
+            if (fieldValidationRegistration()) {
+                if(insertUserRegistration()!= null){
+                    JOptionPane.showMessageDialog(null, "Usúario cadastrado com sucesso");
+                    cleanAll();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Preencha os Campos obrigatorios!");
+            }
+        }
+    }
+
     public void UpdateLoan() {
 
         LoanController loanController = new LoanController();
@@ -507,6 +672,11 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         insertLoanMoviment(loan);
     }
+
+//    public void UpdateLoanRegistration() {
+//        UserController userController = new UserController();
+//        userController.updateUserController(updateUserRegistration());
+//    }
 
     public void insertLoanMoviment(LoanEntity loan) {
 
@@ -526,6 +696,15 @@ public final class MainScreenView extends javax.swing.JDialog {
         UserEntity user = userController.getUserController(getUserView());
 
         insertPhone(getListPhoneView(user));
+        return user;
+    }
+
+    public UserEntity insertUserRegistration() {
+        UserController userController = new UserController();
+        userController.insertUserController(getUserRegistrationView());
+        UserEntity user = userController.getUserController(getUserRegistrationView());
+
+        insertPhone(getListPhoneViewRegistration(user));
         return user;
     }
 
@@ -551,6 +730,21 @@ public final class MainScreenView extends javax.swing.JDialog {
         return null;
     }
 
+    
+    public UserEntity updateUserRegistration() {
+        UserController userController = new UserController();
+        if (userController.updateUserController(getUserRegistrationView())) {
+
+            UserEntity user = userController.getUserController(getUserRegistrationView());
+            PhoneController phoneController = new PhoneController();
+            phoneController.updateListPhone(getListPhoneViewRegistration(user));
+
+            return userController.getUserController(getUserRegistrationView());
+        }
+        return null;
+    }
+    
+    
     public void insertGenre() {
         GenreController genreController = new GenreController();
         GenreEntity genreEntity = new GenreEntity();
@@ -609,6 +803,20 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_mae.setText("");
         campo_fone1.setText("");
         campo_fone2.setText("");
+
+        jLabelIdUser1.setText("");
+        campo_cpf1.setText("");
+        campo_nome1.setText("");
+        campo_conjugue1.setText("");
+        campo_rg1.setText("");
+        campo_orgao_emissor1.setText("");
+        campo_emissor1.setText("");
+        campo_naturalidade1.setText("");
+        campo_email1.setText("");
+        campo_pai1.setText("");
+        campo_mae1.setText("");
+        campo_fone3.setText("");
+        campo_fone4.setText("");
         setDateCalendar();
     }
 
@@ -621,6 +829,15 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_cidade.setText("");
         combo_uf.setSelectedItem("");
         campo_cep.setText("");
+
+        jLabelId2.setText("");
+        campo_rua2.setText("");
+        campo_bairro2.setText("");
+        campo_numero2.setText("");
+        campo_complemento2.setText("");
+        campo_cidade2.setText("");
+        combo_uf2.setSelectedItem("");
+        campo_cep2.setText("");
     }
 
     public void cleanLoan() {
@@ -678,6 +895,11 @@ public final class MainScreenView extends javax.swing.JDialog {
         activateChangeButton();
     }
 
+    public void buttonControlRegistration() {
+        enableSaveButtonRegistration();
+        activateChangeButtonRegistration();
+    }
+
     public void enableSaveButton() {
         if (jLabelIdUser.getText().equals("")) {
             botaoSalvar.setEnabled(true);
@@ -698,11 +920,32 @@ public final class MainScreenView extends javax.swing.JDialog {
         }
     }
 
+    public void enableSaveButtonRegistration() {
+        if (jLabelIdUser1.getText().equals("")) {
+            botaAdicionar.setEnabled(true);
+            botaoAlterar1.setEnabled(false);
+        } else {
+            botaAdicionar.setEnabled(false);
+            botaoAlterar.setEnabled(true);
+        }
+    }
+
+    public void activateChangeButtonRegistration() {
+        if (jLabelIdUser1.getText().equals("")) {
+            botaoAlterar1.setEnabled(false);
+            botaAdicionar.setEnabled(true);
+        } else {
+            botaoAlterar1.setEnabled(true);
+            botaAdicionar.setEnabled(false);
+        }
+    }
+
     public void openNew() {
         editableLoan(true);
         cleanLoan();
-        botaoAlterar.setEnabled(false);
+        botaoAlterar1.setEnabled(false);
         botaoSalvar.setEnabled(true);
+        botaAdicionar.setEnabled(true);
     }
 
     public boolean fieldValidation() {
@@ -734,6 +977,23 @@ public final class MainScreenView extends javax.swing.JDialog {
         return true;
     }
 
+    
+    public boolean fieldValidationRegistration() {
+        
+        if (campo_nome1.getText().equals("")) {
+            return false;
+        }
+        if(campo_cep2.getText().equals("")){
+            return false;
+        }
+       
+        if (validateVontractNumber() == true) {
+            return false;
+        }
+
+        return true;
+    }
+
     public void checkCpfDigits() {
         if (campo_cpf.getText().length() > 3) {
             if (campo_cpf.getText().contains(".")) {
@@ -748,6 +1008,20 @@ public final class MainScreenView extends javax.swing.JDialog {
         }
     }
 
+    public void checkCpfDigitsRegistration() {
+        if (campo_cpf1.getText().length() > 3) {
+            if (campo_cpf1.getText().contains(".")) {
+                if (campo_cpf1.getText().length() == 14) {
+                    isCpfRegistration();
+                }
+            } else {
+                if (campo_cpf1.getText().length() == 11) {
+                    isCpfRegistration();
+                }
+            }
+        }
+    }
+
     public void isCpf() {
         if (ValidateCpf.isCPF(campo_cpf.getText()) == false) {
             JOptionPane.showMessageDialog(null, "CPF inválido!");
@@ -755,6 +1029,16 @@ public final class MainScreenView extends javax.swing.JDialog {
         } else {
             getUserByPhysicalPersonRegistration();
             buttonControl();
+        }
+    }
+
+    public void isCpfRegistration() {
+        if (ValidateCpf.isCPF(campo_cpf1.getText()) == false) {
+            JOptionPane.showMessageDialog(null, "CPF inválido!");
+            campo_cpf1.setText("");
+        } else {
+            getUserRegistrationByPhysicalPersonRegistration();
+            buttonControlRegistration();
         }
     }
 
@@ -854,6 +1138,18 @@ public final class MainScreenView extends javax.swing.JDialog {
                 campo_cidade.setText(zipCode.get(3));
                 campo_bairro.setText(zipCode.get(2));
                 combo_uf.setSelectedItem(zipCode.get(4));
+            }
+        }
+    }
+
+    public void getLocateZipCodeRegistration() {
+        if (campo_cep2.getText().length() > 7) {
+            List<String> zipCode = Utilities.locateZipCode(campo_cep2.getText());
+            if (zipCode != null) {
+                campo_rua2.setText(zipCode.get(1));
+                campo_cidade2.setText(zipCode.get(3));
+                campo_bairro2.setText(zipCode.get(2));
+                combo_uf2.setSelectedItem(zipCode.get(4));
             }
         }
     }
@@ -966,7 +1262,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         jTabbedPane1.setTabComponentAt(0, lbl);
     }
 
-
     public void tabTwo() {
 
         JLabel lbl = new JLabel("");
@@ -977,8 +1272,8 @@ public final class MainScreenView extends javax.swing.JDialog {
         lbl.setHorizontalTextPosition(SwingConstants.RIGHT);
         jTabbedPane1.setTabComponentAt(1, lbl);
     }
-    
-     public void tabThree() {
+
+    public void tabThree() {
 
         JLabel lbl = new JLabel("");
         Icon icon = new ImageIcon(getClass().getResource("/Resources/icons/To Do_30px.png"));
@@ -988,6 +1283,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         lbl.setHorizontalTextPosition(SwingConstants.RIGHT);
         jTabbedPane1.setTabComponentAt(2, lbl);
     }
+
     public void tabFour() {
 
         JLabel lbl = new JLabel("");
@@ -1180,8 +1476,8 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabelId2 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        botaAdicionar = new javax.swing.JButton();
+        botaoAlterar1 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -2681,11 +2977,26 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         jPanel15.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jButton2.setText("ADICIONAR");
+        botaAdicionar.setText("ADICIONAR");
+        botaAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaAdicionarActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("ALTERAR");
+        botaoAlterar1.setText("ALTERAR");
+        botaoAlterar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAlterar1ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("LIMPAR TELA");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -2693,9 +3004,9 @@ public final class MainScreenView extends javax.swing.JDialog {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botaAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botaoAlterar1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -2705,8 +3016,8 @@ public final class MainScreenView extends javax.swing.JDialog {
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoAlterar1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(49, Short.MAX_VALUE))
         );
@@ -2881,7 +3192,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     }//GEN-LAST:event_botaoAnexosActionPerformed
 
     private void campo_cpf1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campo_cpf1KeyReleased
-        // TODO add your handling code here:
+        checkCpfDigitsRegistration();
     }//GEN-LAST:event_campo_cpf1KeyReleased
 
     private void campo_nome1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_nome1ActionPerformed
@@ -2893,7 +3204,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     }//GEN-LAST:event_campo_mae1ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+        insertGenre();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void campo_pai1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_pai1ActionPerformed
@@ -2905,7 +3216,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     }//GEN-LAST:event_combo_tipo_fone4ActionPerformed
 
     private void campo_cep2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campo_cep2KeyReleased
-        // TODO add your handling code here:
+        getLocateZipCodeRegistration();
     }//GEN-LAST:event_campo_cep2KeyReleased
 
     private void campo_numero2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_numero2ActionPerformed
@@ -2927,6 +3238,21 @@ public final class MainScreenView extends javax.swing.JDialog {
     private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox4ActionPerformed
+
+    private void botaAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaAdicionarActionPerformed
+        insertRegistrationUser();
+    }//GEN-LAST:event_botaAdicionarActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        cleanAll();
+        buttonControlRegistration();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void botaoAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterar1ActionPerformed
+       if(updateUserRegistration()!= null){
+           JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso!");
+       }
+    }//GEN-LAST:event_botaoAlterar1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2974,26 +3300,24 @@ public final class MainScreenView extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaAdicionar;
     private javax.swing.JButton botaoAlterar;
+    private javax.swing.JButton botaoAlterar1;
     private javax.swing.JButton botaoAnexos;
     private javax.swing.JButton botaoNovaProtosta;
     private javax.swing.JButton botaoSalvar;
     private javax.swing.JTextField campo_ADE;
     private javax.swing.JTextField campo_agencia;
     private javax.swing.JTextField campo_bairro;
-    private javax.swing.JTextField campo_bairro1;
     private javax.swing.JTextField campo_bairro2;
     private javax.swing.JTextField campo_caminho_file;
     private javax.swing.JTextField campo_cep;
-    private javax.swing.JTextField campo_cep1;
     private javax.swing.JTextField campo_cep2;
     private javax.swing.JTextField campo_cidade;
-    private javax.swing.JTextField campo_cidade1;
     private javax.swing.JTextField campo_cidade2;
     private javax.swing.JTextField campo_codigoespecie;
     private javax.swing.JTextField campo_comissao;
     private javax.swing.JTextField campo_complemento;
-    private javax.swing.JTextField campo_complemento1;
     private javax.swing.JTextField campo_complemento2;
     private javax.swing.JTextField campo_conjugue;
     private javax.swing.JTextField campo_conjugue1;
@@ -3018,7 +3342,6 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JTextField campo_nome;
     private javax.swing.JTextField campo_nome1;
     private javax.swing.JTextField campo_numero;
-    private javax.swing.JTextField campo_numero1;
     private javax.swing.JTextField campo_numero2;
     private javax.swing.JTextField campo_numeroContrato;
     private javax.swing.JTextField campo_numero_beneficio;
@@ -3031,7 +3354,6 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JTextField campo_rg;
     private javax.swing.JTextField campo_rg1;
     private javax.swing.JTextField campo_rua;
-    private javax.swing.JTextField campo_rua1;
     private javax.swing.JTextField campo_rua2;
     private javax.swing.JTextField campo_valorbruto;
     private javax.swing.JTextField campo_valorliquido;
@@ -3046,15 +3368,12 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> combo_tipo_fone3;
     private javax.swing.JComboBox<String> combo_tipo_fone4;
     private javax.swing.JComboBox<String> combo_uf;
-    private javax.swing.JComboBox<String> combo_uf1;
     private javax.swing.JComboBox<String> combo_uf2;
     private javax.swing.JComboBox<String> combobox_sexo;
     private javax.swing.JComboBox<String> combobox_sexo1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -3114,14 +3433,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
-    private javax.swing.JLabel jLabel55;
-    private javax.swing.JLabel jLabel56;
-    private javax.swing.JLabel jLabel57;
-    private javax.swing.JLabel jLabel58;
-    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel60;
-    private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
@@ -3134,19 +3446,16 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelId;
-    private javax.swing.JLabel jLabelId1;
     private javax.swing.JLabel jLabelId2;
     private javax.swing.JLabel jLabelIdUser;
     private javax.swing.JLabel jLabelIdUser1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;

@@ -2882,9 +2882,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                              <Component id="jButton2" min="-2" pref="187" max="-2" attributes="0"/>
+                              <Component id="botaAdicionar" min="-2" pref="187" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButton4" min="-2" pref="161" max="-2" attributes="0"/>
+                              <Component id="botaoAlterar1" min="-2" pref="161" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="jButton5" min="-2" pref="181" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
@@ -2896,8 +2896,8 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jButton2" alignment="3" min="-2" pref="66" max="-2" attributes="0"/>
-                                  <Component id="jButton4" alignment="3" min="-2" pref="66" max="-2" attributes="0"/>
+                                  <Component id="botaAdicionar" alignment="3" min="-2" pref="66" max="-2" attributes="0"/>
+                                  <Component id="botaoAlterar1" alignment="3" min="-2" pref="66" max="-2" attributes="0"/>
                                   <Component id="jButton5" alignment="3" min="-2" pref="66" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="49" max="32767" attributes="0"/>
@@ -2906,20 +2906,29 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JButton" name="jButton2">
+                    <Component class="javax.swing.JButton" name="botaAdicionar">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="ADICIONAR"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaAdicionarActionPerformed"/>
+                      </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton4">
+                    <Component class="javax.swing.JButton" name="botaoAlterar1">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="ALTERAR"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoAlterar1ActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButton5">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="LIMPAR TELA"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

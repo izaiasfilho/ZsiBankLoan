@@ -48,7 +48,7 @@ public class PhoneImplemetation implements PhoneInterface {
     @Override
     public boolean updateListPhone(List<PhoneEntity> listPhone) {
         boolean localReturn = false;
-        if (listPhone != null) {
+        if (listPhone.size() >0) {
             deletPhone(listPhone.get(0).getUserEntity().getId());
         }
         for (PhoneEntity phoneEntity : listPhone) {
