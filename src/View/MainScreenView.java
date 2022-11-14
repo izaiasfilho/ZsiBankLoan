@@ -70,7 +70,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         resolucaoTela();
-        // cleanAll();
+        cleanAll();
         setListStateView();
         setListGenreView();
         setListInsitutionView();
@@ -130,6 +130,19 @@ public final class MainScreenView extends javax.swing.JDialog {
         componentes.add(jButton6);
         componentes.add(jPanel6);
         componentes.add(botaoAnexos);
+        componentes.add(jPanel10);
+        componentes.add(jPanel11);
+        componentes.add(jPanel14);
+        componentes.add(jPanel15);
+        componentes.add(jPanel2);
+        componentes.add(botaAdicionar);
+        componentes.add(botaoAlterar1);
+        componentes.add(jButton5);
+        componentes.add(jPanel13);
+        componentes.add(jCheckBox1);
+        componentes.add(jCheckBox2);
+        componentes.add(jCheckBox3);
+        componentes.add(jCheckBox4);
 
         Utilities.mudarCor(cor, componentes);
     }
@@ -676,7 +689,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         loanController.updateLoan(getLoanView(updateUser()));
         LoanEntity loan = loanController.getLoanByContactNumber(campo_numeroContrato.getText());
-
+        updateFilePreferences();
         insertLoanMoviment(loan);
     }
 
@@ -686,6 +699,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         LoanMovementEntity loanMovementEntity = getLoanMovementView(loan);
         if (loanMovementController.insertLoanMovement(loanMovementEntity)) {
             JOptionPane.showMessageDialog(null, "Proposta Efetuada com sucesso!");
+            insertFilePreferences();
             cleanAll();
         } else {
             JOptionPane.showMessageDialog(null, "Falha ao efetivar a Proposta!");
@@ -705,6 +719,20 @@ public final class MainScreenView extends javax.swing.JDialog {
         PreferencesController preferencesController = new PreferencesController();
         if (!preferencesController.getPreferencesEntity().getFiles().equals(campo_caminho_file.getText())) {
             preferencesController.updatePreferences(campo_caminho_file.getText());
+        }
+        return false;
+    }
+    
+     public boolean insertFilePreferences() {
+         
+        PreferencesController preferencesController = new PreferencesController();
+        PreferencesEntity preferences = preferencesController.getPreferencesEntity();
+        if(preferences == null){
+            String file = "C:\\Util\\Usuarios\\";
+            if (!campo_caminho_file.getText().equals("")) {
+                file = campo_caminho_file.getText();
+            }
+            preferencesController.insertPreferences(file);
         }
         return false;
     }
@@ -870,8 +898,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_numero_beneficio.setText("");
         campo_codigoespecie.setText("");
         campo_caminho_file.setText("");
-        campo_caminho_file.setText("");
-        // campo_caminho_file.setText(getFilePreferencesEntity() != null ? getFilePreferencesEntity().getFiles() :"");
         setListInsitutionView();
         setListPlanView();
         setDateCalendar();
@@ -1218,8 +1244,16 @@ public final class MainScreenView extends javax.swing.JDialog {
     }
 
     public void newFolderUser() {
+        String files = "C:\\Util\\Usuarios\\";
+        PreferencesController preferencesController = new PreferencesController();
+        PreferencesEntity preferences = preferencesController.getPreferencesEntity();
+        if(preferences != null){
+            if(!preferences.getClass().equals("")){
+                files = preferences.getFiles();
+            }
+        }
         String cpf = campo_cpf.getText().replace(".", "");
-        String way = "C:\\Util\\Usuarios\\" + cpf.replace("-", "");
+        String way = files + cpf.replace("-", "");
         if (!campo_caminho_file.getText().equals("")) {
             cpf = campo_cpf.getText().replace(".", "");
             way = campo_caminho_file.getText();
@@ -1877,6 +1911,11 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         campo_valorliquido.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         campo_valorliquido.setText("1800");
+        campo_valorliquido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campo_valorliquidoActionPerformed(evt);
+            }
+        });
 
         campo_qtd_parcelas.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         campo_qtd_parcelas.setText("10");
@@ -2098,18 +2137,19 @@ public final class MainScreenView extends javax.swing.JDialog {
                                     .addComponent(jLabel35)))
                             .addComponent(jLabel48, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(campo_valorbruto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campo_valorliquido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(campo_qtd_parcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(campo_valorbruto, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(9, 9, 9)
-                                .addComponent(campo_valorparcela, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(campo_valorliquido, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(campo_qtd_parcelas)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(campo_valorparcela, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(59, 59, 59)
@@ -2987,7 +3027,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 153, Short.MAX_VALUE)
+            .addGap(0, 157, Short.MAX_VALUE)
         );
 
         jPanel15.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -3059,13 +3099,10 @@ public final class MainScreenView extends javax.swing.JDialog {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(185, Short.MAX_VALUE))
         );
 
@@ -3268,6 +3305,10 @@ public final class MainScreenView extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso!");
         }
     }//GEN-LAST:event_botaoAlterar1ActionPerformed
+
+    private void campo_valorliquidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campo_valorliquidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campo_valorliquidoActionPerformed
 
     /**
      * @param args the command line arguments

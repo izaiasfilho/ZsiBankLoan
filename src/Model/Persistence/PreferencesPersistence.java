@@ -61,5 +61,26 @@ public class PreferencesPersistence {
         }
         return false;
     }
+       
+        public static boolean insertPreferencesPersistence(String file) throws SQLException {
+        String query = "INSERT INTO tb_preferences (files) VALUES (?)";
+        PreparedStatement preparedStatement = null;
+        if (Checks()) {
+            closeConect();
+        }
+        try {
+            preparedStatement = conect().prepareStatement(query);
+            preparedStatement.setString(1, file);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(CityPersistence.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeConect();
+        }
+        return false;
+    }
+
 
 }

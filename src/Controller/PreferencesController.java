@@ -24,4 +24,9 @@ public class PreferencesController {
     public PreferencesEntity getPreferencesEntity(){
         return repository.getPreferencesEntity();
     }
+    
+    
+    public boolean insertPreferences(String file){
+        return repository.insertPreferences(file);
+    }
 }

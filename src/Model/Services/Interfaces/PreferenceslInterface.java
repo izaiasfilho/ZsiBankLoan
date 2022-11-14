@@ -16,4 +16,6 @@ public interface PreferenceslInterface {
     public boolean updatePreferences(String file);
     
     public PreferencesEntity getPreferencesEntity();
+    
+    public boolean insertPreferences(String file);
 }

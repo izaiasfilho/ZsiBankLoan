@@ -8,6 +8,9 @@ package Model.Services.Implementations;
 import Model.Entities.PreferencesEntity;
 import Model.Persistence.PreferencesPersistence;
 import Model.Services.Interfaces.PreferenceslInterface;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,6 +26,16 @@ public class PreferencesImplemetation implements PreferenceslInterface{
     @Override
     public PreferencesEntity getPreferencesEntity() {
         return PreferencesPersistence.getPreferencesEntityPersistence();
+    }
+
+    @Override
+    public boolean insertPreferences(String file) {
+        try {
+            return PreferencesPersistence.insertPreferencesPersistence(file);
+        } catch (SQLException ex) {
+            Logger.getLogger(PreferencesImplemetation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     
