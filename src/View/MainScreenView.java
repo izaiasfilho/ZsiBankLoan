@@ -11,6 +11,7 @@ import Controller.LoanController;
 import Controller.LoanMovementController;
 import Controller.PhoneController;
 import Controller.PlanController;
+import Controller.PreferencesController;
 import Controller.StateController;
 import Controller.UserController;
 import Model.Entities.AddressEntity;
@@ -21,6 +22,7 @@ import Model.Entities.LoanEntity;
 import Model.Entities.LoanMovementEntity;
 import Model.Entities.PhoneEntity;
 import Model.Entities.PlanEntity;
+import Model.Entities.PreferencesEntity;
 import Model.Entities.StateEntity;
 import Model.Entities.UserEntity;
 import Model.Enuns.LoanStatusEnum;
@@ -68,7 +70,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         resolucaoTela();
-        cleanAll();
+        // cleanAll();
         setListStateView();
         setListGenreView();
         setListInsitutionView();
@@ -196,7 +198,14 @@ public final class MainScreenView extends javax.swing.JDialog {
         loanMovement.setValueInstallments(Double.parseDouble(campo_valorparcela.getText()));
         loanMovement.setOperator(utility.maiusculaConvertido(campo_digitador.getText()));
         loanMovement.setNote(utility.maiusculaConvertido(campo_obs.getText()));
-        loanMovement.setFiles(campo_caminho_file.getText());
+
+        if (campo_caminho_file.getText().equals("")) {
+            String cpf = campo_cpf.getText().replace(".", "");
+            String file = "C:\\Util\\Usuarios\\" + cpf.replace("-", "");
+            loanMovement.setFiles(file);
+        } else {
+            loanMovement.setFiles(campo_caminho_file.getText());
+        }
         loanMovement.setNumberADE(campo_ADE.getText());
         loanMovement.setBenefitNumber(campo_numero_beneficio.getText());
         loanMovement.setSpeciesCode(campo_codigoespecie.getText());
@@ -265,7 +274,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         city.setStateEntity(state);
         return city;
     }
-    
+
     public CityEntity getCityViewRegistration() {
         StateController stateController = new StateController();
         CityEntity city = new CityEntity();
@@ -368,7 +377,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         return listPhone;
     }
 
-    
     public InstitutionEntity getInsertInstitutionView() {
 
         InstitutionController institutionController = new InstitutionController();
@@ -434,7 +442,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         }
     }
 
-    
     public void setUserView(UserEntity userEntity) {
         UserController userController = new UserController();
         UserEntity user = userController.getUserController(userEntity);
@@ -653,7 +660,7 @@ public final class MainScreenView extends javax.swing.JDialog {
             campo_cpf1.setText("");
         } else {
             if (fieldValidationRegistration()) {
-                if(insertUserRegistration()!= null){
+                if (insertUserRegistration() != null) {
                     JOptionPane.showMessageDialog(null, "Usúario cadastrado com sucesso");
                     cleanAll();
                 }
@@ -672,11 +679,6 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         insertLoanMoviment(loan);
     }
-
-//    public void UpdateLoanRegistration() {
-//        UserController userController = new UserController();
-//        userController.updateUserController(updateUserRegistration());
-//    }
 
     public void insertLoanMoviment(LoanEntity loan) {
 
@@ -697,6 +699,19 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         insertPhone(getListPhoneView(user));
         return user;
+    }
+
+    public boolean updateFilePreferences() {
+        PreferencesController preferencesController = new PreferencesController();
+        if (!preferencesController.getPreferencesEntity().getFiles().equals(campo_caminho_file.getText())) {
+            preferencesController.updatePreferences(campo_caminho_file.getText());
+        }
+        return false;
+    }
+
+    public PreferencesEntity getFilePreferencesEntity() {
+        PreferencesController preferencesController = new PreferencesController();
+        return preferencesController.getPreferencesEntity();
     }
 
     public UserEntity insertUserRegistration() {
@@ -730,7 +745,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         return null;
     }
 
-    
     public UserEntity updateUserRegistration() {
         UserController userController = new UserController();
         if (userController.updateUserController(getUserRegistrationView())) {
@@ -743,8 +757,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         }
         return null;
     }
-    
-    
+
     public void insertGenre() {
         GenreController genreController = new GenreController();
         GenreEntity genreEntity = new GenreEntity();
@@ -856,7 +869,9 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_ADE.setText("");
         campo_numero_beneficio.setText("");
         campo_codigoespecie.setText("");
-        campo_caminho_file.setText("C:\\Util\\Usuarios");
+        campo_caminho_file.setText("");
+        campo_caminho_file.setText("");
+        // campo_caminho_file.setText(getFilePreferencesEntity() != null ? getFilePreferencesEntity().getFiles() :"");
         setListInsitutionView();
         setListPlanView();
         setDateCalendar();
@@ -977,16 +992,15 @@ public final class MainScreenView extends javax.swing.JDialog {
         return true;
     }
 
-    
     public boolean fieldValidationRegistration() {
-        
+
         if (campo_nome1.getText().equals("")) {
             return false;
         }
-        if(campo_cep2.getText().equals("")){
+        if (campo_cep2.getText().equals("")) {
             return false;
         }
-       
+
         if (validateVontractNumber() == true) {
             return false;
         }
@@ -1204,10 +1218,11 @@ public final class MainScreenView extends javax.swing.JDialog {
     }
 
     public void newFolderUser() {
-        String way = campo_caminho_file.getText() + "\\" + campo_cpf.getText() + "\\";
+        String cpf = campo_cpf.getText().replace(".", "");
+        String way = "C:\\Util\\Usuarios\\" + cpf.replace("-", "");
         if (!campo_caminho_file.getText().equals("")) {
-            String cpf = campo_cpf.getText().replace(",", "");
-            way = "C:\\Util\\Usuarios\\" + cpf.replace("-", "") + "\\";
+            cpf = campo_cpf.getText().replace(".", "");
+            way = campo_caminho_file.getText();
         }
         File file = new File(way);
         if (!file.exists()) {
@@ -1217,10 +1232,10 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public void openFolder() {
         String os = System.getProperty("os.name");
-
-        String way = campo_caminho_file.getText() + "\\" + campo_cpf.getText() + "\\";
-        if (!campo_caminho_file.getText().equals("")) {
-            way = "C:\\Util\\Usuarios\\" + campo_cpf.getText() + "\\";
+        String cpf = campo_cpf.getText().replace(".", "");
+        String way = campo_caminho_file.getText();
+        if (campo_caminho_file.getText().equals("")) {
+            way = "C:\\Util\\Usuarios\\" + cpf.replace("-", "") + "\\";
         }
         if (os.startsWith("Win")) {
             try {
@@ -3249,9 +3264,9 @@ public final class MainScreenView extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void botaoAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterar1ActionPerformed
-       if(updateUserRegistration()!= null){
-           JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso!");
-       }
+        if (updateUserRegistration() != null) {
+            JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso!");
+        }
     }//GEN-LAST:event_botaoAlterar1ActionPerformed
 
     /**

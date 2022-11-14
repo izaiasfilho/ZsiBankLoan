@@ -358,6 +358,12 @@ public class QuerySequency {
                 + "`naturalness`, `email`, `dad`, `mother`, `id_address`, `id_genre`, `login`, `passwoad`)\n"
                 + " VALUES ('92566369054', '000002', 'USER', 'CONJUGE', 'ORGAO EMISSOR', 'EMISSOR', '2022-01-01', 'NATURALS',\n"
                 + " 'ADMIN@EMAIL.COM', 'DAD', 'MOTHER', 1, 1, 'USER', '192696746890102074315919597072972193604');");
+
+        array.add("CREATE TABLE `tb_preferences` (\n"
+                + "  `id` INT NOT NULL AUTO_INCREMENT,\n"
+                + "  `files` VARCHAR(400) NULL,\n"
+                + "  PRIMARY KEY (`id`));");
+
         return array;
 
     }
