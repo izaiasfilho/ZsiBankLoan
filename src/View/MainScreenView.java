@@ -70,6 +70,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         resolucaoTela();
+        filePreferences();
         cleanAll();
         setListStateView();
         setListGenreView();
@@ -143,6 +144,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         componentes.add(jCheckBox2);
         componentes.add(jCheckBox3);
         componentes.add(jCheckBox4);
+        componentes.add(botaoSetPreferences);
 
         Utilities.mudarCor(cor, componentes);
     }
@@ -212,9 +214,18 @@ public final class MainScreenView extends javax.swing.JDialog {
         loanMovement.setOperator(utility.maiusculaConvertido(campo_digitador.getText()));
         loanMovement.setNote(utility.maiusculaConvertido(campo_obs.getText()));
 
+        PreferencesController preferencesController = new PreferencesController();
+        PreferencesEntity preferencesEntity = preferencesController.getPreferencesEntity();
+        String fileDefault = "C:\\Util\\Usuarios\\";
+        if (preferencesEntity != null) {
+            if (preferencesEntity.getFiles() != null) {
+                fileDefault = preferencesEntity.getFiles();
+            }
+        }
+
         if (campo_caminho_file.getText().equals("")) {
             String cpf = campo_cpf.getText().replace(".", "");
-            String file = "C:\\Util\\Usuarios\\" + cpf.replace("-", "");
+            String file = fileDefault + cpf.replace("-", "");
             loanMovement.setFiles(file);
         } else {
             loanMovement.setFiles(campo_caminho_file.getText());
@@ -591,6 +602,15 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public void setLoanMovementeView(LoanEntity loanEntity) {
         LoanMovementController loanMovementController = new LoanMovementController();
+        PreferencesController preferences = new PreferencesController();
+        PreferencesEntity preferencesEntity = preferences.getPreferencesEntity();
+        String fileDefault = "C:\\Util\\Usuarios";
+
+        if (preferencesEntity != null) {
+            if (preferencesEntity.getFiles() != null) {
+                fileDefault = preferencesEntity.getFiles();
+            }
+        }
         List<LoanMovementEntity> ListLoanMov = loanMovementController.listLoanMovementByIdLoan(loanEntity.getId());
 
         if (ListLoanMov.size() > 0) {
@@ -607,7 +627,8 @@ public final class MainScreenView extends javax.swing.JDialog {
             campo_digitador.setText(ListLoanMov.get(ListLoanMov.size() - 1).getOperator());
             campo_obs.setText(ListLoanMov.get(ListLoanMov.size() - 1).getNote());
             String file = ListLoanMov.get(ListLoanMov.size() - 1).getFiles();
-            campo_caminho_file.setText(file.equals("") ? "C:\\Util\\Usuarios" : file);
+            campo_caminho_file.setText(file.equals("") ? fileDefault : file);
+            botaoSetPreferences.setEnabled(false);
             campo_ADE.setText(ListLoanMov.get(ListLoanMov.size() - 1).getNumberADE());
             campo_numero_beneficio.setText(ListLoanMov.get(ListLoanMov.size() - 1).getBenefitNumber());
             campo_codigoespecie.setText(ListLoanMov.get(ListLoanMov.size() - 1).getSpeciesCode());
@@ -689,7 +710,6 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         loanController.updateLoan(getLoanView(updateUser()));
         LoanEntity loan = loanController.getLoanByContactNumber(campo_numeroContrato.getText());
-        updateFilePreferences();
         insertLoanMoviment(loan);
     }
 
@@ -699,7 +719,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         LoanMovementEntity loanMovementEntity = getLoanMovementView(loan);
         if (loanMovementController.insertLoanMovement(loanMovementEntity)) {
             JOptionPane.showMessageDialog(null, "Proposta Efetuada com sucesso!");
-            insertFilePreferences();
             cleanAll();
         } else {
             JOptionPane.showMessageDialog(null, "Falha ao efetivar a Proposta!");
@@ -715,19 +734,19 @@ public final class MainScreenView extends javax.swing.JDialog {
         return user;
     }
 
-    public boolean updateFilePreferences() {
+    public boolean updateFilePreferences(PreferencesEntity preferencesEntity) {
         PreferencesController preferencesController = new PreferencesController();
-        if (!preferencesController.getPreferencesEntity().getFiles().equals(campo_caminho_file.getText())) {
-            preferencesController.updatePreferences(campo_caminho_file.getText());
+        if (preferencesEntity != null) {
+            if (!preferencesEntity.getFiles().equals(campo_caminho_file.getText())) {
+                preferencesController.updatePreferences(campo_caminho_file.getText());
+            }
         }
         return false;
     }
-    
-     public boolean insertFilePreferences() {
-         
+
+    public boolean insertFilePreferences(PreferencesEntity preferencesEntity) {
         PreferencesController preferencesController = new PreferencesController();
-        PreferencesEntity preferences = preferencesController.getPreferencesEntity();
-        if(preferences == null){
+        if (preferencesEntity == null) {
             String file = "C:\\Util\\Usuarios\\";
             if (!campo_caminho_file.getText().equals("")) {
                 file = campo_caminho_file.getText();
@@ -735,6 +754,16 @@ public final class MainScreenView extends javax.swing.JDialog {
             preferencesController.insertPreferences(file);
         }
         return false;
+    }
+
+    public void filePreferences() {
+        if (!campo_caminho_file.getText().equals("")) {
+            PreferencesController preferencesController = new PreferencesController();
+            PreferencesEntity preferencesEntity = preferencesController.getPreferencesEntity();
+            if (!insertFilePreferences(preferencesEntity)) {
+                updateFilePreferences(preferencesEntity);
+            }
+        }
     }
 
     public PreferencesEntity getFilePreferencesEntity() {
@@ -898,6 +927,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_numero_beneficio.setText("");
         campo_codigoespecie.setText("");
         campo_caminho_file.setText("");
+        botaoSetPreferences.setEnabled(true);
         setListInsitutionView();
         setListPlanView();
         setDateCalendar();
@@ -1247,8 +1277,8 @@ public final class MainScreenView extends javax.swing.JDialog {
         String files = "C:\\Util\\Usuarios\\";
         PreferencesController preferencesController = new PreferencesController();
         PreferencesEntity preferences = preferencesController.getPreferencesEntity();
-        if(preferences != null){
-            if(!preferences.getClass().equals("")){
+        if (preferences != null) {
+            if (!preferences.getClass().equals("")) {
                 files = preferences.getFiles();
             }
         }
@@ -1269,7 +1299,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         String cpf = campo_cpf.getText().replace(".", "");
         String way = campo_caminho_file.getText();
         if (campo_caminho_file.getText().equals("")) {
-            way = "C:\\Util\\Usuarios\\" + cpf.replace("-", "") + "\\";
+            way = "C:\\Util\\Usuarios\\";
         }
         if (os.startsWith("Win")) {
             try {
@@ -1461,6 +1491,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         jButton9 = new javax.swing.JButton();
         campo_dataemissao = new com.toedter.calendar.JDateChooser();
         botaoAnexos = new javax.swing.JButton();
+        botaoSetPreferences = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabelaHistoricoUsurio = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -2089,6 +2120,14 @@ public final class MainScreenView extends javax.swing.JDialog {
             }
         });
 
+        botaoSetPreferences.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        botaoSetPreferences.setText("Definir Pasta");
+        botaoSetPreferences.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoSetPreferencesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -2182,7 +2221,11 @@ public final class MainScreenView extends javax.swing.JDialog {
                         .addComponent(jLabel36))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -2190,10 +2233,8 @@ public final class MainScreenView extends javax.swing.JDialog {
                                     .addComponent(campo_caminho_file)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addComponent(botaoAnexos)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(botaoSetPreferences, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addGap(15, 15, 15))
         );
         jPanel5Layout.setVerticalGroup(
@@ -2248,12 +2289,17 @@ public final class MainScreenView extends javax.swing.JDialog {
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(campo_comissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(campo_caminho_file, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(campo_caminho_file, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(botaoAnexos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(botaoAnexos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(botaoSetPreferences, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(2, 2, 2))))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel48)
                         .addComponent(campo_ADE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -3310,6 +3356,10 @@ public final class MainScreenView extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_campo_valorliquidoActionPerformed
 
+    private void botaoSetPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSetPreferencesActionPerformed
+        filePreferences();
+    }//GEN-LAST:event_botaoSetPreferencesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3362,6 +3412,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JButton botaoAnexos;
     private javax.swing.JButton botaoNovaProtosta;
     private javax.swing.JButton botaoSalvar;
+    private javax.swing.JButton botaoSetPreferences;
     private javax.swing.JTextField campo_ADE;
     private javax.swing.JTextField campo_agencia;
     private javax.swing.JTextField campo_bairro;

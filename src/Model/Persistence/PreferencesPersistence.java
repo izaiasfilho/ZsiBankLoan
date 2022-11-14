@@ -46,7 +46,7 @@ public class PreferencesPersistence {
     
       
        public static boolean updateFilesPreferencesEntityPersistence(String file) {
-        String query = "UPDATE tb_preferences SET files =? where id = 1";
+        String query = "UPDATE tb_preferences SET files =?";
         PreparedStatement preparedStatement = null;
         if (Checks()) {
             closeConect();
