@@ -15,30 +15,30 @@ import java.util.List;
  * @author Izaias
  */
 public class LoanController {
+
     LoanInterface repository = new LoanImplementatio();
-    
-    
-    public boolean insertLoan(LoanEntity loanEntity){
+
+    public boolean insertLoan(LoanEntity loanEntity) {
         return repository.insertLoan(loanEntity);
     }
-    
-    public boolean updateLoan(LoanEntity loanEntity){
+
+    public boolean updateLoan(LoanEntity loanEntity) {
         return repository.updateLoan(loanEntity);
     }
-    
-    public LoanEntity getLoanByUser(int idUser){
+
+    public LoanEntity getLoanByUser(int idUser) {
         return repository.getLoanByUser(idUser);
     }
-    
-    public List<LoanEntity> getListLoanByUser(int idUser){
+
+    public List<LoanEntity> getListLoanByUser(int idUser) {
         return repository.getListLoanByUser(idUser);
     }
-    
-    public List<LoanEntity> getListAllLoan(){
+
+    public List<LoanEntity> getListAllLoan() {
         return repository.getListAllLoan();
     }
-    
-    public LoanEntity getLoanByContactNumber(String contactNumber){
+
+    public LoanEntity getLoanByContactNumber(String contactNumber) {
         return repository.getLoanByContactNumber(contactNumber);
     }
 }

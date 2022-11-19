@@ -78,7 +78,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         setListPlanView();
         buttonControl();
         buttonControlRegistration();
-
         botaoNovaProtosta.setVisible(false);
         fillLoanTable();
         setDateCalendar();
@@ -89,7 +88,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         combo_uf.setSelectedItem("PB");
         combo_uf2.setSelectedItem("PB");
         ajustartextarea();
-
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -102,7 +100,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         this.setIconImage(iconeTitulo);
 
         //texto
-        setTitle("ZsiMEI- " + " principal ");
+        setTitle("ZsiMEI- " + " Principal ");
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
@@ -123,7 +121,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         componentes.add(jPanel1);
         componentes.add(jPanel5);
         componentes.add(jPanel5);
-        componentes.add(jButton1);
+        componentes.add(botaoSetPreferences1);
         componentes.add(botaoNovaProtosta);
         componentes.add(botaoSalvar);
         componentes.add(botaoAlterar);
@@ -144,7 +142,9 @@ public final class MainScreenView extends javax.swing.JDialog {
         componentes.add(jCheckBox2);
         componentes.add(jCheckBox3);
         componentes.add(jCheckBox4);
-        componentes.add(botaoSetPreferences);
+        componentes.add(jButton2);
+        componentes.add(jPanel12);
+        componentes.add(jPanel3);
 
         Utilities.mudarCor(cor, componentes);
     }
@@ -170,16 +170,15 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         loan.setUsrEntity(userEntity);
         loan.setContactNumber(campo_numeroContrato.getText());
-
         String issueDate = converteDataDate(Utilities.transformaCalendarEmDate(campo_dataemissao));
         loan.setIssueDate(issueDate);
         loan.setChangeDate(util.getdate());
 
         InstitutionController institutionController = new InstitutionController();
+
         InstitutionEntity institutionEntity
                 = institutionController.getInstitutionByDescription((String) combo_banco_beneficiario.getSelectedItem());
         institutionEntity.setId(institutionEntity.getId());
-
         loan.setAgency(campo_agencia.getText());
         loan.setAccount_number(campo_conta_ben.getText());
         loan.setInstitutionEntity(institutionEntity);
@@ -194,15 +193,16 @@ public final class MainScreenView extends javax.swing.JDialog {
         loanMovement.setDate(utility.getdate());
 
         InstitutionController institutionController = new InstitutionController();
+
         InstitutionEntity institutionEntity
                 = institutionController.getInstitutionByDescription((String) combo_bancoOrigem.getSelectedItem());
 
         loanMovement.setInstitutionEntity(institutionEntity);
 
         PlanController planController = new PlanController();
+
         PlanEntity planEntity = planController.getinserPlanEntityByDescripition((String) combo_convenio.getSelectedItem());
         loanMovement.setPlanEntity(planEntity);
-
         loanMovement.setTransactionEnum(TransactionEnum.valueOf((String) combo_operacao.getSelectedItem()));
         loanMovement.setLoanStatutsEnum(LoanStatusEnum.valueOf((String) combo_status.getSelectedItem()));
         loanMovement.setBroker(campo_corretor.getText());
@@ -215,9 +215,12 @@ public final class MainScreenView extends javax.swing.JDialog {
         loanMovement.setNote(utility.maiusculaConvertido(campo_obs.getText()));
 
         PreferencesController preferencesController = new PreferencesController();
+
         PreferencesEntity preferencesEntity = preferencesController.getPreferencesEntity();
         String fileDefault = "C:\\Util\\Usuarios\\";
+
         if (preferencesEntity != null) {
+
             if (preferencesEntity.getFiles() != null) {
                 fileDefault = preferencesEntity.getFiles();
             }
@@ -239,6 +242,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public UserEntity getUserView() {
         UserEntity user = new UserEntity();
+
         if (!jLabelIdUser.getText().toUpperCase().equals("")) {
             int idUser = Integer.parseInt(jLabelIdUser.getText().toUpperCase());
             user.setId(idUser);
@@ -264,6 +268,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public UserEntity getUserRegistrationView() {
         UserEntity user = new UserEntity();
+
         if (!jLabelIdUser1.getText().toUpperCase().equals("")) {
             int idUser = Integer.parseInt(jLabelIdUser1.getText().toUpperCase());
             user.setId(idUser);
@@ -274,9 +279,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         user.setRegistration(campo_rg1.getText().toUpperCase());
         user.setIssuingBody(campo_orgao_emissor1.getText().toUpperCase());
         user.setIssuer(campo_emissor1.getText().toUpperCase());
-
         String birthDate = converteDataDate(Utilities.transformaCalendarEmDate(jcalenar_data_nascimento1));
-
         user.setBirthDate(birthDate);
         user.setNaturalness(campo_naturalidade1.getText().toUpperCase());
         user.setEmail(campo_email1.getText().toUpperCase());
@@ -290,9 +293,11 @@ public final class MainScreenView extends javax.swing.JDialog {
     public CityEntity getCityView() {
         StateController stateController = new StateController();
         CityEntity city = new CityEntity();
+
         city.setName(campo_cidade.getText().toUpperCase());
 
         StateEntity state = new StateEntity();
+
         state.setUf((String) combo_uf.getSelectedItem());
         state = stateController.getStateByUf(state);
         city.setStateEntity(state);
@@ -302,9 +307,11 @@ public final class MainScreenView extends javax.swing.JDialog {
     public CityEntity getCityViewRegistration() {
         StateController stateController = new StateController();
         CityEntity city = new CityEntity();
+
         city.setName(campo_cidade2.getText().toUpperCase());
 
         StateEntity state = new StateEntity();
+
         state.setUf((String) combo_uf2.getSelectedItem());
         state = stateController.getStateByUf(state);
         city.setStateEntity(state);
@@ -344,6 +351,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     public GenreEntity getGenreView() {
         GenreController genreController = new GenreController();
         GenreEntity genreEntity = new GenreEntity();
+
         String genre = (String) combobox_sexo.getSelectedItem();
         genreEntity.setDescription(genre);
         genreEntity = genreController.getGenreController(genreEntity);
@@ -353,6 +361,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     public GenreEntity getGenreRegistrationView() {
         GenreController genreController = new GenreController();
         GenreEntity genreEntity = new GenreEntity();
+
         String genre = (String) combobox_sexo1.getSelectedItem();
         genreEntity.setDescription(genre);
         genreEntity = genreController.getGenreController(genreEntity);
@@ -364,6 +373,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         if (!campo_fone1.getText().equals("")) {
             PhoneEntity phone1 = new PhoneEntity();
+
             phone1.setUserEntity(userEntity);
             phone1.setNumber(campo_fone1.getText());
             phone1.setNumberType((String) combo_tipo_fone1.getSelectedItem());
@@ -372,6 +382,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         if (!campo_fone2.getText().equals("")) {
             PhoneEntity phone2 = new PhoneEntity();
+
             phone2.setUserEntity(userEntity);
             phone2.setNumber(campo_fone2.getText());
             phone2.setNumberType((String) combo_tipo_fone2.getSelectedItem());
@@ -385,6 +396,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         if (!campo_fone3.getText().equals("")) {
             PhoneEntity phone1 = new PhoneEntity();
+
             phone1.setUserEntity(userEntity);
             phone1.setNumber(campo_fone3.getText());
             phone1.setNumberType((String) combo_tipo_fone3.getSelectedItem());
@@ -393,6 +405,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         if (!campo_fone4.getText().equals("")) {
             PhoneEntity phone2 = new PhoneEntity();
+
             phone2.setUserEntity(userEntity);
             phone2.setNumber(campo_fone4.getText());
             phone2.setNumberType((String) combo_tipo_fone4.getSelectedItem());
@@ -405,10 +418,12 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         InstitutionController institutionController = new InstitutionController();
         InstitutionEntity institutionEntity = new InstitutionEntity();
+
         String description = JOptionPane.showInputDialog("Infome a Instituição!");
 
         if (description != null) {
             if (!description.equals("")) {
+
                 institutionEntity.setDescription(description.toUpperCase());
                 institutionEntity.setFee(0.0);
                 institutionController.inserInstitution(institutionEntity);
@@ -423,10 +438,12 @@ public final class MainScreenView extends javax.swing.JDialog {
 
         PlanController planController = new PlanController();
         PlanEntity planEntity = new PlanEntity();
-        String description = JOptionPane.showInputDialog("Infome a Instituição!");
+
+        String description = JOptionPane.showInputDialog("Infome o Convênio!");
 
         if (description != null) {
             if (!description.equals("")) {
+
                 planEntity.setDescription(description.toUpperCase());
                 planController.inserPlan(planEntity);
                 cleanPlanList();
@@ -438,6 +455,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public void setListPhoneView(UserEntity user) {
         PhoneController phoneController = new PhoneController();
+
         List<PhoneEntity> list = phoneController.listPhone(user.getId());
 
         if (list.size() > 0) {
@@ -453,6 +471,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public void setListPhoneViewRegistration(UserEntity user) {
         PhoneController phoneController = new PhoneController();
+
         List<PhoneEntity> list = phoneController.listPhone(user.getId());
 
         if (list.size() > 0) {
@@ -468,6 +487,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public void setUserView(UserEntity userEntity) {
         UserController userController = new UserController();
+
         UserEntity user = userController.getUserController(userEntity);
         jLabelIdUser.setText(String.valueOf(user.getId()));
         campo_cpf.setText(user.getPhysicalPersonRegistration());
@@ -476,13 +496,11 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_rg.setText(user.getRegistration());
         campo_orgao_emissor.setText(user.getIssuingBody());
         campo_emissor.setText(user.getIssuer());
-
         jcalenar_data_nascimento.setDate(converteStringDate(user.getBirthDate()));
         campo_naturalidade.setText(user.getNaturalness());
         campo_email.setText(user.getEmail());
         campo_pai.setText(user.getDad());
         campo_mae.setText(user.getMother());
-
         setGenreView(userEntity.getGenreEntity());
         setAddressView(user.getAddressEntity());
         setListPhoneView(user);
@@ -490,6 +508,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public void setUserRegistrationView(UserEntity userEntity) {
         UserController userController = new UserController();
+
         UserEntity user = userController.getUserController(userEntity);
         jLabelIdUser1.setText(String.valueOf(user.getId()));
         campo_cpf1.setText(user.getPhysicalPersonRegistration());
@@ -498,13 +517,11 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_rg1.setText(user.getRegistration());
         campo_orgao_emissor1.setText(user.getIssuingBody());
         campo_emissor1.setText(user.getIssuer());
-
         jcalenar_data_nascimento1.setDate(converteStringDate(user.getBirthDate()));
         campo_naturalidade1.setText(user.getNaturalness());
         campo_email1.setText(user.getEmail());
         campo_pai1.setText(user.getDad());
         campo_mae1.setText(user.getMother());
-
         setGenreView(userEntity.getGenreEntity());
         setAddressViewRegistration(user.getAddressEntity());
         setListPhoneViewRegistration(user);
@@ -545,6 +562,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public void setListStateView() {
         StateController controller = new StateController();
+
         controller.getListStateController().stream().forEach(uf -> {
             combo_uf.addItem(uf.getUf());
             combo_uf2.addItem(uf.getUf());
@@ -553,6 +571,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public void setListGenreView() {
         GenreController genreController = new GenreController();
+
         genreController.listGenre().stream().forEach(genre -> {
             combobox_sexo.addItem(genre.getDescription());
             combobox_sexo1.addItem(genre.getDescription());
@@ -562,7 +581,9 @@ public final class MainScreenView extends javax.swing.JDialog {
     public void setListInsitutionView() {
         cleanInstitutionUser();
         cleanInstitutionist();
+
         InstitutionController institutionController = new InstitutionController();
+
         institutionController.getListInstitution().stream().forEach(inst -> {
             combo_bancoOrigem.addItem(inst.getDescription());
             combo_banco_beneficiario.addItem(inst.getDescription());
@@ -571,6 +592,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public void setListPlanView() {
         PlanController planController = new PlanController();
+
         cleanPlanList();
         planController.getListinserPlan().stream().forEach(inst -> {
             combo_convenio.addItem(inst.getDescription());
@@ -579,6 +601,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public void setListInstitutionView() {
         InstitutionController institutionController = new InstitutionController();
+
         institutionController.getListInstitution().stream().forEach(inst -> {
             combobox_sexo.addItem(inst.getDescription());
         });
@@ -586,16 +609,16 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public void setLaonView(UserEntity userEntity) {
         LoanController loanController = new LoanController();
+
         List<LoanEntity> listLoan = loanController.getListLoanByUser(userEntity.getId());
+
         if (listLoan.size() > 0) {
             campo_numeroContrato.setText(listLoan.get(listLoan.size() - 1).getContactNumber());
             campo_dataemissao.setDate(converteStringDate(listLoan.get(listLoan.size() - 1).getIssueDate()));
-
             combo_banco_beneficiario.setSelectedItem(listLoan.get(listLoan.size() - 1)
                     .getInstitutionEntity().getDescription());
             campo_agencia.setText(listLoan.get(listLoan.size() - 1).getAgency());
             campo_conta_ben.setText(listLoan.get(listLoan.size() - 1).getAccount_number());
-
             setLoanMovementeView(listLoan.get(listLoan.size() - 1));
         }
     }
@@ -603,6 +626,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     public void setLoanMovementeView(LoanEntity loanEntity) {
         LoanMovementController loanMovementController = new LoanMovementController();
         PreferencesController preferences = new PreferencesController();
+
         PreferencesEntity preferencesEntity = preferences.getPreferencesEntity();
         String fileDefault = "C:\\Util\\Usuarios";
 
@@ -628,7 +652,7 @@ public final class MainScreenView extends javax.swing.JDialog {
             campo_obs.setText(ListLoanMov.get(ListLoanMov.size() - 1).getNote());
             String file = ListLoanMov.get(ListLoanMov.size() - 1).getFiles();
             campo_caminho_file.setText(file.equals("") ? fileDefault : file);
-            botaoSetPreferences.setEnabled(false);
+            botaoSetPreferences1.setEnabled(false);
             campo_ADE.setText(ListLoanMov.get(ListLoanMov.size() - 1).getNumberADE());
             campo_numero_beneficio.setText(ListLoanMov.get(ListLoanMov.size() - 1).getBenefitNumber());
             campo_codigoespecie.setText(ListLoanMov.get(ListLoanMov.size() - 1).getSpeciesCode());
@@ -705,7 +729,6 @@ public final class MainScreenView extends javax.swing.JDialog {
     }
 
     public void UpdateLoan() {
-
         LoanController loanController = new LoanController();
 
         loanController.updateLoan(getLoanView(updateUser()));
@@ -714,9 +737,10 @@ public final class MainScreenView extends javax.swing.JDialog {
     }
 
     public void insertLoanMoviment(LoanEntity loan) {
-
         LoanMovementController loanMovementController = new LoanMovementController();
+
         LoanMovementEntity loanMovementEntity = getLoanMovementView(loan);
+
         if (loanMovementController.insertLoanMovement(loanMovementEntity)) {
             JOptionPane.showMessageDialog(null, "Proposta Efetuada com sucesso!");
             cleanAll();
@@ -727,16 +751,18 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public UserEntity insertUser() {
         UserController userController = new UserController();
+
         userController.insertUserController(getUserView());
         UserEntity user = userController.getUserController(getUserView());
-
         insertPhone(getListPhoneView(user));
         return user;
     }
 
     public boolean updateFilePreferences(PreferencesEntity preferencesEntity) {
         PreferencesController preferencesController = new PreferencesController();
+
         if (preferencesEntity != null) {
+
             if (!preferencesEntity.getFiles().equals(campo_caminho_file.getText())) {
                 preferencesController.updatePreferences(campo_caminho_file.getText());
             }
@@ -746,12 +772,14 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public boolean insertFilePreferences(PreferencesEntity preferencesEntity) {
         PreferencesController preferencesController = new PreferencesController();
+
         if (preferencesEntity == null) {
             String file = "C:\\Util\\Usuarios\\";
+
             if (!campo_caminho_file.getText().equals("")) {
                 file = campo_caminho_file.getText();
             }
-            preferencesController.insertPreferences(file);
+            return preferencesController.insertPreferences(file);
         }
         return false;
     }
@@ -760,28 +788,32 @@ public final class MainScreenView extends javax.swing.JDialog {
         if (!campo_caminho_file.getText().equals("")) {
             PreferencesController preferencesController = new PreferencesController();
             PreferencesEntity preferencesEntity = preferencesController.getPreferencesEntity();
+
             if (!insertFilePreferences(preferencesEntity)) {
                 updateFilePreferences(preferencesEntity);
             }
+            campo_caminho_file.setText("");
         }
     }
 
     public PreferencesEntity getFilePreferencesEntity() {
         PreferencesController preferencesController = new PreferencesController();
+
         return preferencesController.getPreferencesEntity();
     }
 
     public UserEntity insertUserRegistration() {
         UserController userController = new UserController();
+
         userController.insertUserController(getUserRegistrationView());
         UserEntity user = userController.getUserController(getUserRegistrationView());
-
         insertPhone(getListPhoneViewRegistration(user));
         return user;
     }
 
     public void insertPhone(List<PhoneEntity> listPhone) {
         PhoneController phoneController = new PhoneController();
+
         if (listPhone.size() > 0) {
             listPhone.stream().forEach(phone -> {
                 phoneController.insertPhone(phone);
@@ -791,12 +823,13 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public UserEntity updateUser() {
         UserController userController = new UserController();
+
         if (userController.updateUserController(getUserView())) {
-
             UserEntity user = userController.getUserController(getUserView());
-            PhoneController phoneController = new PhoneController();
-            phoneController.updateListPhone(getListPhoneView(user));
 
+            PhoneController phoneController = new PhoneController();
+
+            phoneController.updateListPhone(getListPhoneView(user));
             return userController.getUserController(getUserView());
         }
         return null;
@@ -804,6 +837,7 @@ public final class MainScreenView extends javax.swing.JDialog {
 
     public UserEntity updateUserRegistration() {
         UserController userController = new UserController();
+
         if (userController.updateUserController(getUserRegistrationView())) {
 
             UserEntity user = userController.getUserController(getUserRegistrationView());
@@ -916,18 +950,18 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_conta_ben.setText("");
         combo_status.setSelectedItem("DIGITADO");
         campo_corretor.setText("");
-        campo_comissao.setText("");
-        campo_valorbruto.setText("");
-        campo_valorliquido.setText("");
-        campo_qtd_parcelas.setText("");
-        campo_valorparcela.setText("");
+        campo_comissao.setText("0");
+        campo_valorbruto.setText("0");
+        campo_valorliquido.setText("0");
+        campo_qtd_parcelas.setText("0");
+        campo_valorparcela.setText("0");
         campo_digitador.setText("");
         campo_obs.setText("");
         campo_ADE.setText("");
         campo_numero_beneficio.setText("");
         campo_codigoespecie.setText("");
         campo_caminho_file.setText("");
-        botaoSetPreferences.setEnabled(true);
+        botaoSetPreferences1.setEnabled(true);
         setListInsitutionView();
         setListPlanView();
         setDateCalendar();
@@ -1283,15 +1317,17 @@ public final class MainScreenView extends javax.swing.JDialog {
             }
         }
         String cpf = campo_cpf.getText().replace(".", "");
-        String way = files + cpf.replace("-", "");
+        String way = files + "\\"+cpf.replace("-", "");
         if (!campo_caminho_file.getText().equals("")) {
             cpf = campo_cpf.getText().replace(".", "");
             way = campo_caminho_file.getText();
+            
         }
         File file = new File(way);
         if (!file.exists()) {
             file.mkdirs();
         }
+        campo_caminho_file.setText(way);
     }
 
     public void openFolder() {
@@ -1328,6 +1364,7 @@ public final class MainScreenView extends javax.swing.JDialog {
         tabTwo();
         tabThree();
         tabFour();
+        tabFive();
     }
 
     public void tabOne() {
@@ -1372,6 +1409,17 @@ public final class MainScreenView extends javax.swing.JDialog {
         lbl.setIconTextGap(5);
         lbl.setHorizontalTextPosition(SwingConstants.RIGHT);
         jTabbedPane1.setTabComponentAt(3, lbl);
+    }
+    
+    public void tabFive() {
+
+        JLabel lbl = new JLabel("");
+        Icon icon = new ImageIcon(getClass().getResource("/Resources/icons/settings_3_30px.png"));
+        lbl.setIcon(icon);
+
+        lbl.setIconTextGap(5);
+        lbl.setHorizontalTextPosition(SwingConstants.RIGHT);
+        jTabbedPane1.setTabComponentAt(4, lbl);
     }
 
     /**
@@ -1466,7 +1514,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
-        jLabel46 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
         campo_ADE = new javax.swing.JTextField();
         campo_valorbruto = new javax.swing.JTextField();
@@ -1483,15 +1530,12 @@ public final class MainScreenView extends javax.swing.JDialog {
         jButton3 = new javax.swing.JButton();
         botaoAlterar = new javax.swing.JButton();
         jLabel36 = new javax.swing.JLabel();
-        campo_caminho_file = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         combo_banco_beneficiario = new javax.swing.JComboBox<>();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         campo_dataemissao = new com.toedter.calendar.JDateChooser();
         botaoAnexos = new javax.swing.JButton();
-        botaoSetPreferences = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabelaHistoricoUsurio = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -1559,6 +1603,11 @@ public final class MainScreenView extends javax.swing.JDialog {
         botaAdicionar = new javax.swing.JButton();
         botaoAlterar1 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        campo_caminho_file = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        botaoSetPreferences1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -1613,7 +1662,7 @@ public final class MainScreenView extends javax.swing.JDialog {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(207, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("", jPanel8);
@@ -1984,9 +2033,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel45.setText("Código Especie:");
 
-        jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel46.setText("Observação:");
-
         jLabel48.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel48.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel48.setText("Nº ADE:");
@@ -2073,22 +2119,13 @@ public final class MainScreenView extends javax.swing.JDialog {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
 
-        jLabel36.setText("Caminho Anexo:");
-
-        campo_caminho_file.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/search_folder_20px.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jLabel36.setText("Observação:");
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/plus_20px.png"))); // NOI18N
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -2117,14 +2154,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         botaoAnexos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoAnexosActionPerformed(evt);
-            }
-        });
-
-        botaoSetPreferences.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        botaoSetPreferences.setText("Definir Pasta");
-        botaoSetPreferences.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoSetPreferencesActionPerformed(evt);
             }
         });
 
@@ -2213,29 +2242,19 @@ public final class MainScreenView extends javax.swing.JDialog {
                         .addComponent(combo_banco_beneficiario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(163, 163, 163)
-                        .addComponent(jLabel36))
+                        .addComponent(jLabel36)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(campo_caminho_file)
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(botaoAnexos)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(botaoSetPreferences, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
-                .addGap(15, 15, 15))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botaoAnexos, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 54, Short.MAX_VALUE))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2245,15 +2264,19 @@ public final class MainScreenView extends javax.swing.JDialog {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(campo_corretor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel34)
-                                    .addComponent(campo_digitador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel46)
-                                    .addComponent(jLabel36))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(10, 10, 10)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(campo_corretor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel34)
+                                            .addComponent(campo_digitador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(10, 10, 10))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel36)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2289,17 +2312,8 @@ public final class MainScreenView extends javax.swing.JDialog {
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(campo_comissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(campo_caminho_file, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(botaoAnexos, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel5Layout.createSequentialGroup()
-                                        .addComponent(botaoSetPreferences, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(2, 2, 2))))))
+                            .addComponent(jScrollPane1)
+                            .addComponent(botaoAnexos, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel48)
                         .addComponent(campo_ADE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -2324,25 +2338,25 @@ public final class MainScreenView extends javax.swing.JDialog {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(combo_banco_beneficiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campo_agencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(campo_conta_ben, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(campo_codigoespecie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(combo_banco_beneficiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campo_agencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(campo_conta_ben, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(campo_codigoespecie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(49, 49, 49))
         );
 
@@ -2579,7 +2593,7 @@ public final class MainScreenView extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1297, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1282, Short.MAX_VALUE)
                     .addComponent(jScrollPane3))
                 .addContainerGap())
         );
@@ -3149,10 +3163,74 @@ public final class MainScreenView extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addContainerGap(218, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("", jPanel2);
+
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Preferencias"));
+
+        campo_caminho_file.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/search_folder_20px.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        botaoSetPreferences1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        botaoSetPreferences1.setText("Definir Pasta dos Arquivos");
+        botaoSetPreferences1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoSetPreferences1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoSetPreferences1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(campo_caminho_file, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(282, Short.MAX_VALUE))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(campo_caminho_file, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoSetPreferences1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 16, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(495, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(641, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("", jPanel3);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -3210,11 +3288,6 @@ public final class MainScreenView extends javax.swing.JDialog {
         campo_conta_ben.setText("");
         setListInsitutionView();
     }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        selectDestinationFolder();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void botaoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarActionPerformed
         UpdateLoan();
@@ -3356,9 +3429,13 @@ public final class MainScreenView extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_campo_valorliquidoActionPerformed
 
-    private void botaoSetPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSetPreferencesActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       selectDestinationFolder();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void botaoSetPreferences1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSetPreferences1ActionPerformed
         filePreferences();
-    }//GEN-LAST:event_botaoSetPreferencesActionPerformed
+    }//GEN-LAST:event_botaoSetPreferences1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -3412,7 +3489,7 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JButton botaoAnexos;
     private javax.swing.JButton botaoNovaProtosta;
     private javax.swing.JButton botaoSalvar;
-    private javax.swing.JButton botaoSetPreferences;
+    private javax.swing.JButton botaoSetPreferences1;
     private javax.swing.JTextField campo_ADE;
     private javax.swing.JTextField campo_agencia;
     private javax.swing.JTextField campo_bairro;
@@ -3478,8 +3555,8 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> combo_uf2;
     private javax.swing.JComboBox<String> combobox_sexo;
     private javax.swing.JComboBox<String> combobox_sexo1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -3530,7 +3607,6 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
@@ -3559,10 +3635,12 @@ public final class MainScreenView extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;

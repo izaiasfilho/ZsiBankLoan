@@ -29,7 +29,7 @@ public class LoginView extends javax.swing.JFrame {
         initComponents();
         mudarCor();
         this.setLocationRelativeTo(this);
-        
+        jLabel4.setEnabled(false);
          //icon
         URL caminhoIncone = getClass().getResource("/Resources/icons/borboleta f.png");
         Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(caminhoIncone);
@@ -95,6 +95,7 @@ public class LoginView extends javax.swing.JFrame {
         jtf_login = new javax.swing.JTextField();
         jtf_password = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -148,6 +149,8 @@ public class LoginView extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("V 01.02");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -163,6 +166,10 @@ public class LoginView extends javax.swing.JFrame {
                     .addComponent(jtf_login, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jtf_password, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,7 +184,8 @@ public class LoginView extends javax.swing.JFrame {
                     .addComponent(jtf_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addGap(5, 5, 5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4))
         );
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/zseSistemas.jpeg"))); // NOI18N
@@ -291,6 +299,7 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
